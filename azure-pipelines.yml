@@ -4,14 +4,86 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- main
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - Project2
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+- stage: build
+  jobs:
+  - job: build
+    
+    pool:
+      vmImage: 'ubuntu-latest'
 
-variables:
-  buildConfiguration: 'Release'
+    variables:
+      buildConfiguration: Release
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+    steps:
+    #Use .Net 1 For SonarCloud
+    - task: UseDotNet@2
+      displayName: 'Use .NET 2'
+      inputs:
+        version: 2.0.x
+        performMultiLevelLookup: true
+
+    #Prepare SonarCloud Analysis
+    - task: SonarCloudPrepare@1
+      displayName: 'SonarCloud Prepare'
+      inputs:
+        SonarCloud: 'SonarCloud'
+        organization: '2011-nov02-net'
+        scannerMode: 'MSBuild'
+        projectKey: '2011-nov02-net_RHJ-Project2'
+        projectName: 'RHJ-Project2'
+        extraProperties: |
+          sonar.exclusions=**/lib/**
+          sonar.cs.opencover.reportsPaths = $(Agent.TempDirectory)/**/coverage.opencover.xml
+
+    #Use .Net 5
+    - task: UseDotNet@2
+      displayName: 'Use .NET 5'
+      inputs:
+        version: 5.0.x
+        performMultiLevelLookup: true
+
+    #Build
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        workingDirectory: 'Project2'
+
+    #Run Tests
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet test'
+      inputs:
+        command: 'test'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(BuildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover'
+        testRunTitle: 'Test Run'
+        publishTestResults: true
+        workingDirectory: 'Project2'
+
+    #Run SonarCloud Analysis
+    - task: SonarCloudAnalyze@1
+
+    #Publish SonarCloud Results
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
+
+    #Publish
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet publish'
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        arguments: '-o $(build.artifactstagingdirectory)'
+      
+    - publish: $(build.artifactstagingdirectory)
+      artifact: app
