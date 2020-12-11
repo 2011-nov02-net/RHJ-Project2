@@ -5,7 +5,7 @@
 
 trigger:
 - main
-#test edit
+
 pool:
   vmImage: 'ubuntu-latest'
 
