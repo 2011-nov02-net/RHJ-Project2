@@ -44,4 +44,4 @@ To-do list:
 
 ## License
 
-This project uses the following license: [<LICENSE>](<https://github.com/2011-nov02-net/RHJ-Project2/blob/master/LICENSE>).
+This project uses the following license: [LICENSE](https://github.com/2011-nov02-net/RHJ-Project2/blob/master/LICENSE).
