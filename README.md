@@ -38,9 +38,9 @@ To-do list:
 
 ## Contributors
 
-> Ryan Towner
-> Hao Yang
-> Joseph Ellis
+> - Ryan Towner
+> - Hao Yang
+> - Joseph Ellis
 
 ## License
 
