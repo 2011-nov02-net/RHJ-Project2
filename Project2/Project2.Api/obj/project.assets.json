@@ -1492,6 +1492,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore.Analyzers": "5.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.1"
         },
         "compile": {
@@ -5559,6 +5560,7 @@
     "net5.0": [
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.1",
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 5.0.1",
+      "Microsoft.EntityFrameworkCore.Analyzers >= 5.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.1",
       "Project2.DataAccess >= 1.0.0",
@@ -5566,19 +5568,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\haoyang123\\.nuget\\packages\\": {}
+    "C:\\Users\\towne\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\revature\\RHJ-Project2\\Project2\\Project2.Api\\Project2.Api.csproj",
+      "projectUniqueName": "C:\\Users\\towne\\Desktop\\RHJ-Project2\\Project2\\Project2.Api\\Project2.Api.csproj",
       "projectName": "Project2.Api",
-      "projectPath": "C:\\revature\\RHJ-Project2\\Project2\\Project2.Api\\Project2.Api.csproj",
-      "packagesPath": "C:\\Users\\haoyang123\\.nuget\\packages\\",
-      "outputPath": "C:\\revature\\RHJ-Project2\\Project2\\Project2.Api\\obj\\",
+      "projectPath": "C:\\Users\\towne\\Desktop\\RHJ-Project2\\Project2\\Project2.Api\\Project2.Api.csproj",
+      "packagesPath": "C:\\Users\\towne\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\towne\\Desktop\\RHJ-Project2\\Project2\\Project2.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\haoyang123\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\towne\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5592,8 +5594,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj": {
-              "projectPath": "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj"
+            "C:\\Users\\towne\\Desktop\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj": {
+              "projectPath": "C:\\Users\\towne\\Desktop\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj"
             }
           }
         }
@@ -5621,6 +5623,10 @@
             "noWarn": [
               "NU1605"
             ]
+          },
+          "Microsoft.EntityFrameworkCore.Analyzers": {
+            "target": "Package",
+            "version": "[5.0.1, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

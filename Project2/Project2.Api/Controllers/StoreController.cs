@@ -7,9 +7,32 @@ using System.Threading.Tasks;
 
 namespace Project2.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/store")]
     [ApiController]
     public class StoreController : ControllerBase
     {
+        //GET /api/store
+        //Gets all items in store
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok();
+        }
+
+        //GET /api/store?id=1
+        //Gets a store item by id
+        [HttpGet]
+        public IActionResult GetStoreItemById([FromQuery] string id = "")
+        {
+            return Ok();
+        }
+
+        //PUT /api/store?id=1
+        //Update a store item by id
+        [HttpGet]
+        public IActionResult UpdateStoreItemById([FromQuery] string id = "")
+        {
+            return Ok();
+        }
     }
 }

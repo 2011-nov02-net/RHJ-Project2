@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj": {}
+    "C:\\Users\\towne\\Desktop\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj": {}
   },
   "projects": {
-    "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj": {
+    "C:\\Users\\towne\\Desktop\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\towne\\Desktop\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj",
         "projectName": "Project2.DataAccess",
-        "projectPath": "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj",
-        "packagesPath": "C:\\Users\\haoyang123\\.nuget\\packages\\",
-        "outputPath": "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\obj\\",
+        "projectPath": "C:\\Users\\towne\\Desktop\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj",
+        "packagesPath": "C:\\Users\\towne\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\towne\\Desktop\\RHJ-Project2\\Project2\\Project2.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\haoyang123\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\towne\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Analyzers": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
