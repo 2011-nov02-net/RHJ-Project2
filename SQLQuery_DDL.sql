@@ -133,7 +133,9 @@ CREATE TABLE TEAM.TradeDetail(
 )
 
 
-
+drop table TEAM.TradeDetail; drop table TEAM.Trade; drop table TEAM.OrderItem;
+drop table TEAM.Orderr; drop table TEAM.AuctionDetail; drop table TEAM.Auction; drop table TEAM.StoreInventory;
+drop table TEAM.UserCardInventory; drop table TEAM.Card; drop table TEAM.Pack; drop table TEAM.Customer
 
 
 
