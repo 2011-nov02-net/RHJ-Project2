@@ -21,7 +21,7 @@ namespace Project2.Api.Controllers
 
         //GET /api/store?id=1
         //Gets a store item by id
-        [HttpGet]
+        [HttpGet()]
         public IActionResult GetStoreItemById([FromQuery] string id = "")
         {
             return Ok();
@@ -29,7 +29,7 @@ namespace Project2.Api.Controllers
 
         //PUT /api/store?id=1
         //Update a store item by id
-        [HttpGet]
+        [HttpPut()]
         public IActionResult UpdateStoreItemById([FromQuery] string id = "")
         {
             return Ok();

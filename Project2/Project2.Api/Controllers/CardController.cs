@@ -29,7 +29,7 @@ namespace Project2.Api.Controllers
 
         //GET /api/cards?id=1
         //Gets a card by id
-        [HttpGet]
+        [HttpGet()]
         public IActionResult GetCardById([FromQuery] string id = "")
         {
             return Ok();

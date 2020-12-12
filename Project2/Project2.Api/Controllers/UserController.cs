@@ -27,50 +27,50 @@ namespace Project2.Api.Controllers
             return Ok(); //CreatedAtAction();
         }
 
-        //GET /api/users?id=1
+        //GET /api/users/{id}
         //Gets a single user by id
-        [HttpGet()]
-        public IActionResult GetUserById([FromQuery] string id = "")
+        [HttpGet("{id}")]
+        public IActionResult GetUserById(string id)
         {
             return Ok();
         }
 
-        //GET /api/users/cards?userid=1
+        //GET /api/users/{id}/cards
         //Gets a users inventory
-        [HttpGet("/cards")]
-        public IActionResult GetUsersInventoryById([FromQuery] string userid = "")
+        [HttpGet("{id}/cards")]
+        public IActionResult GetUsersInventoryById(string id)
         {
             return Ok();
         }
 
-        //POST /api/users/cards?userid=1
+        //POST /api/users/{id}/cards
         //Creates a card in users inventory
-        [HttpPost("/cards")]
-        public IActionResult AddCardToUserInventory([FromQuery] string userid = "")
+        [HttpPost("{id}/cards")]
+        public IActionResult AddCardToUserInventory(string id)
         {
             return Ok(); //CreatedAtAction();
         }
 
-        //GET /api/users/cards?userid=1&cardid=1
+        //GET /api/users/{id}/cards?cardid=1
         //Gets a single users card by id
-        [HttpGet("/cards")]
-        public IActionResult GetUsersCardById([FromQuery] string userid = "", [FromQuery] string cardid = "")
+        [HttpGet("{id}/cards")]
+        public IActionResult GetUsersCardById(string id, [FromQuery] string cardid = "")
         {
             return Ok();
         }
 
-        //PUT /api/users/cards?userid=1&cardid=1
+        //PUT /api/users/{id}/cards?cardid=1
         //Updates a single users card by id ex. qty user has
-        [HttpPut("/cards")]
-        public IActionResult UpdateUsersCardById([FromQuery] string userid = "", [FromQuery] string cardid = "")
+        [HttpPut("{id}/cards")]
+        public IActionResult UpdateUsersCardById(string id, [FromQuery] string cardid = "")
         {
             return NoContent();
         }
 
-        //DELETE /api/users/cards?userid=1&cardid=1
+        //DELETE /api/users/{id}/cards?cardid=1
         //Deletes a single user card by id
-        [HttpDelete("/cards")]
-        public IActionResult DeleteUsersCardById([FromQuery] string userid = "", [FromQuery] string cardid = "")
+        [HttpDelete("{id}/cards")]
+        public IActionResult DeleteUsersCardById(string id, [FromQuery] string cardid = "")
         {
             return NoContent();
         }

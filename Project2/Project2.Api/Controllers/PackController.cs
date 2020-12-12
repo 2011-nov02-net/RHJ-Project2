@@ -21,10 +21,18 @@ namespace Project2.Api.Controllers
 
         //GET /api/packs?id=1
         //Gets a pack by id
-        [HttpGet]
+        [HttpGet()]
         public IActionResult GetPackById([FromQuery] string id = "")
         {
             return Ok();
+        }
+
+        //PUT /api/packs?id=1
+        //Update a pack by id, maybe to change price or something
+        [HttpPut()]
+        public IActionResult UpdatePackById([FromQuery] string id = "")
+        {
+            return NoContent();
         }
     }
 }
