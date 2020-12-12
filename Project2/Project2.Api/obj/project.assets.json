@@ -5566,19 +5566,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\haoyang123\\.nuget\\packages\\": {}
+    "C:\\Users\\JPX\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\revature\\RHJ-Project2\\Project2\\Project2.Api\\Project2.Api.csproj",
+      "projectUniqueName": "C:\\Revature\\RHJ-Project2\\Project2\\Project2.Api\\Project2.Api.csproj",
       "projectName": "Project2.Api",
-      "projectPath": "C:\\revature\\RHJ-Project2\\Project2\\Project2.Api\\Project2.Api.csproj",
-      "packagesPath": "C:\\Users\\haoyang123\\.nuget\\packages\\",
-      "outputPath": "C:\\revature\\RHJ-Project2\\Project2\\Project2.Api\\obj\\",
+      "projectPath": "C:\\Revature\\RHJ-Project2\\Project2\\Project2.Api\\Project2.Api.csproj",
+      "packagesPath": "C:\\Users\\JPX\\.nuget\\packages\\",
+      "outputPath": "C:\\Revature\\RHJ-Project2\\Project2\\Project2.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\haoyang123\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\JPX\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5592,8 +5592,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj": {
-              "projectPath": "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj"
+            "C:\\Revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj": {
+              "projectPath": "C:\\Revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj"
             }
           }
         }
