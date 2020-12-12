@@ -38,10 +38,10 @@ CREATE TABLE TEAM.UserCardInventory (
   UserId nvarchar(40) not null,
   CardId nvarchar(40) not null,
   Quantity int not null,
-  PrevOwner nvarchar(40) not null,
-  PurchasePrice float not null,
+  PrevOwner nvarchar(40),
+  AuctionedPrice float,
   check(Quantity >= 0),
-  check(PurchasePrice >= 0),
+  check(AuctionedPrice >= 0),
   foreign key(UserId) REFERENCES TEAM.Customer(UserId)
       on delete cascade on update cascade,
   foreign key(CardId) REFERENCES TEAM.Card(CardId)
@@ -78,7 +78,7 @@ CREATE TABLE TEAM.AuctionDetail(
   AuctionId nvarchar(40) primary key not null,
   PriceListed float not null,
   BuyoutPrice float not null,
-  NumberBids Int not null,
+  NumberBids Int,
   SellType nvarchar(40) not null,
   ExpDate Datetime not null default getdate(),
   check(PriceListed > 0),
@@ -88,7 +88,7 @@ CREATE TABLE TEAM.AuctionDetail(
     on delete cascade on update cascade
 )
 
-CREATE TABLE TEAM.Orderr(
+CREATE TABLE TEAM.[Order](
   OrderId nvarchar(40) primary key not null,
   UserId nvarchar(40) not null,
   Date Datetime not null default getdate(),
@@ -103,7 +103,7 @@ CREATE TABLE TEAM.OrderItem(
   PackId nvarchar(40) not null,
   PackQty Int not null,
   check(PackQty > 0),
-  foreign key(OrderId) REFERENCES TEAM.Orderr(OrderId)
+  foreign key(OrderId) REFERENCES TEAM.[Order](OrderId)
     on delete cascade on update cascade,
   foreign key(PackId) REFERENCES TEAM.Pack(PackId)
     on delete cascade on update cascade
@@ -134,9 +134,7 @@ CREATE TABLE TEAM.TradeDetail(
 
 
 drop table TEAM.TradeDetail; drop table TEAM.Trade; drop table TEAM.OrderItem;
-drop table TEAM.Orderr; drop table TEAM.AuctionDetail; drop table TEAM.Auction; drop table TEAM.StoreInventory;
+drop table TEAM.[Order]; drop table TEAM.AuctionDetail; drop table TEAM.Auction; drop table TEAM.StoreInventory;
 drop table TEAM.UserCardInventory; drop table TEAM.Card; drop table TEAM.Pack; drop table TEAM.Customer
-
-
 
 
