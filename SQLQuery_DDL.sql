@@ -23,15 +23,12 @@ CREATE TABLE TEAM.Pack (
 
 CREATE TABLE TEAM.Card (
   CardId nvarchar(40) primary key not null,
-  PackId nvarchar(40) not null,
   Name nvarchar(40) not null,
   Type nvarchar(40) not null,
   Rarity Int not null,
   Value float not null,
   check(Rarity >0),
   check(Value >0),
-  foreign key(PackId) REFERENCES TEAM.Pack(PackId)
-    on delete cascade on update cascade
 )
 
 CREATE TABLE TEAM.UserCardInventory (
@@ -39,6 +36,7 @@ CREATE TABLE TEAM.UserCardInventory (
   CardId nvarchar(40) not null,
   Quantity int not null,
   PrevOwner nvarchar(40),
+  PackId nvarchar(40) not null,
   AuctionedPrice float,
   check(Quantity >= 0),
   check(AuctionedPrice >= 0),
@@ -46,6 +44,8 @@ CREATE TABLE TEAM.UserCardInventory (
       on delete cascade on update cascade,
   foreign key(CardId) REFERENCES TEAM.Card(CardId)
       on delete cascade on update cascade
+  foreign key(PackId) REFERENCES TEAM.Pack(PackId)
+    on delete cascade on update cascade
 )
 
 
