@@ -8,20 +8,8 @@ namespace Project2.DataAccess.Entities.Repo
     // will start mapping later
     public static class DomainDataMapper
     {
-        public static AppCard GetOneCard(Card dbCard)
-        { 
-            var appCard = new AppCard
-            {
-                CardId = dbCard.CardId,
-                Name = dbCard.Name,
-                Type = dbCard.Type,
-                Rarity = dbCard.Rarity,
-                Value = dbCard.Value,
-            };
-            return appCard;
-        }
-
-        public static IEnumerable<AppCard> GetAllCards( IEnumerable<Card> dbCards)
+        // cards
+        public static IEnumerable<AppCard> GetAllCards(IEnumerable<Card> dbCards)
         {
             var appCards = dbCards.Select(x => new AppCard
             {
@@ -34,7 +22,18 @@ namespace Project2.DataAccess.Entities.Repo
             return appCards;
 
         }
-
+        public static AppCard GetOneCard(Card dbCard)
+        {
+            var appCard = new AppCard
+            {
+                CardId = dbCard.CardId,
+                Name = dbCard.Name,
+                Type = dbCard.Type,
+                Rarity = dbCard.Rarity,
+                Value = dbCard.Value,
+            };
+            return appCard;
+        }
         public static Card AddOneCard(AppCard card)
         {
             var newCard = new Card
@@ -47,6 +46,53 @@ namespace Project2.DataAccess.Entities.Repo
             };
             return newCard;
         }
+
+        // users
+        public static IEnumerable<AppUser> GetAllUsers(IEnumerable<Customer> dbUsers)
+        {
+            var appUsers = dbUsers.Select(x => new AppUser
+            {
+                UserId = x.UserId,
+                First = x.First,
+                Last = x.Last,
+                Email = x.Email,
+                UserRole = x.UserRole,
+                NumPacksPurchased = x.NumPacksPurchased,
+                CurrencyAmount = x.CurrencyAmount,
+            });
+        }
+
+        public static AppUser GetOneUser(Customer dbUser)
+        {
+            var appUser = new AppUser
+            {
+                UserId = dbUser.UserId,
+                First = dbUser.First,
+                Last = dbUser.Last,
+                Email = dbUser.Email,
+                UserRole = dbUser.UserRole,
+                NumPacksPurchased = dbUser.NumPacksPurchased,
+                CurrencyAmount = dbUser.CurrencyAmount,
+            };
+            return appUser;
+
+        }
+
+        public static Customer AddOneUser(AppUser user)
+        {
+            var newUser = new Customer
+            {
+                UserId = user.UserId,
+                First = user.First,
+                Last = user.Last,
+                Email = user.Email,
+                UserRole = user.UserRole,
+                NumPacksPurchased = user.NumPacksPurchased,
+                CurrencyAmount = user.CurrencyAmount,
+            };
+            return newUser;
+        }
+
 
     }
 }

@@ -56,6 +56,8 @@ namespace Project2.DataAccess.Entities.Repo
         public async Task AddOneCard(AppCard card)
         {
             using var context = new Project2Context(_contextOptions);
+
+            // can be replaced by mapper
             var newCard = new Card
             {
                 CardId = card.CardId,
@@ -63,13 +65,16 @@ namespace Project2.DataAccess.Entities.Repo
                 Type = card.Type,
                 Rarity = card.Rarity,
                 Value = card.Value,
-
             };
-
             //var newCard = DomainDataMapper.AddOneCard(card);
             await context.Cards.AddAsync(newCard);
             await context.SaveChangesAsync();
         }
+
+
+
+
+
 
 
     }
