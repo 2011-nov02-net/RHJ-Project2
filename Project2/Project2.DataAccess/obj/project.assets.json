@@ -5762,19 +5762,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\haoyang123\\.nuget\\packages\\": {}
+    "C:\\Users\\JPX\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj",
+      "projectUniqueName": "C:\\Revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj",
       "projectName": "Project2.DataAccess",
-      "projectPath": "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj",
-      "packagesPath": "C:\\Users\\haoyang123\\.nuget\\packages\\",
-      "outputPath": "C:\\revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\obj\\",
+      "projectPath": "C:\\Revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\Project2.DataAccess.csproj",
+      "packagesPath": "C:\\Users\\JPX\\.nuget\\packages\\",
+      "outputPath": "C:\\Revature\\RHJ-Project2\\Project2\\Project2.DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\haoyang123\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\JPX\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
