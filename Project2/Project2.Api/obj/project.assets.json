@@ -1492,6 +1492,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore.Analyzers": "5.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.1"
         },
         "compile": {
@@ -5559,6 +5560,7 @@
     "net5.0": [
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.1",
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 5.0.1",
+      "Microsoft.EntityFrameworkCore.Analyzers >= 5.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.1",
       "Project2.DataAccess >= 1.0.0",
@@ -5621,6 +5623,10 @@
             "noWarn": [
               "NU1605"
             ]
+          },
+          "Microsoft.EntityFrameworkCore.Analyzers": {
+            "target": "Package",
+            "version": "[5.0.1, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
