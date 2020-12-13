@@ -47,10 +47,10 @@ namespace Project2.DataAccess.Entities.Repo
         { 
             using var context = new Project2Context(_contextOptions);
             var dbInventories = await context.Customers
-                                        .Include(x => x.UserCardInventories)
+                                        .Include(x => x.UserCardInventory)
                                         .FirstOrDefaultAsync(x => x.UserId == id);
             // if already has the card
-            foreach (var record in dbInventories)
+            foreach (var record in dbInventories.UserCardInventory)
             {
                 if (record.CardId == card.CardId)
                 {
@@ -70,6 +70,14 @@ namespace Project2.DataAccess.Entities.Repo
             await context.SaveChangesAsync();
         }
 
-        
+        public Task<IEnumerable<AppCard>> GetAllCardsOfOneUser(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<AppCard> GetOneCardOfOneUser(string id, string cardId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

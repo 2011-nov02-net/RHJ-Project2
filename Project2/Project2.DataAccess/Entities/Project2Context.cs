@@ -67,24 +67,24 @@ namespace Project2.DataAccess.Entities
                     .WithMany(p => p.AuctionBuyers)
                     .HasForeignKey(d => d.BuyerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Auction__BuyerId__74AE54BC");
+                    .HasConstraintName("FK__Auction__BuyerId__59C55456");
 
                 entity.HasOne(d => d.Card)
                     .WithMany(p => p.Auctions)
                     .HasForeignKey(d => d.CardId)
-                    .HasConstraintName("FK__Auction__CardId__75A278F5");
+                    .HasConstraintName("FK__Auction__CardId__5AB9788F");
 
                 entity.HasOne(d => d.Seller)
                     .WithMany(p => p.AuctionSellers)
                     .HasForeignKey(d => d.SellerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Auction__SellerI__73BA3083");
+                    .HasConstraintName("FK__Auction__SellerI__58D1301D");
             });
 
             modelBuilder.Entity<AuctionDetail>(entity =>
             {
                 entity.HasKey(e => e.AuctionId)
-                    .HasName("PK__AuctionD__51004A4CFA47ADD9");
+                    .HasName("PK__AuctionD__51004A4C522BFA12");
 
                 entity.ToTable("AuctionDetail", "TEAM");
 
@@ -101,7 +101,7 @@ namespace Project2.DataAccess.Entities
                 entity.HasOne(d => d.Auction)
                     .WithOne(p => p.AuctionDetail)
                     .HasForeignKey<AuctionDetail>(d => d.AuctionId)
-                    .HasConstraintName("FK__AuctionDe__Aucti__7C4F7684");
+                    .HasConstraintName("FK__AuctionDe__Aucti__6166761E");
             });
 
             modelBuilder.Entity<Card>(entity =>
@@ -114,28 +114,19 @@ namespace Project2.DataAccess.Entities
                     .IsRequired()
                     .HasMaxLength(40);
 
-                entity.Property(e => e.PackId)
-                    .IsRequired()
-                    .HasMaxLength(40);
-
                 entity.Property(e => e.Type)
                     .IsRequired()
                     .HasMaxLength(40);
-
-                entity.HasOne(d => d.Pack)
-                    .WithMany(p => p.Cards)
-                    .HasForeignKey(d => d.PackId)
-                    .HasConstraintName("FK__Card__PackId__6754599E");
             });
 
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Customer__1788CC4C793D6082");
+                    .HasName("PK__Customer__1788CC4CAEC90832");
 
                 entity.ToTable("Customer", "TEAM");
 
-                entity.HasIndex(e => e.Email, "UQ__Customer__A9D1053432FD80E3")
+                entity.HasIndex(e => e.Email, "UQ__Customer__A9D1053427114548")
                     .IsUnique();
 
                 entity.Property(e => e.UserId).HasMaxLength(40);
@@ -174,7 +165,7 @@ namespace Project2.DataAccess.Entities
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Order__UserId__01142BA1");
+                    .HasConstraintName("FK__Order__UserId__662B2B3B");
             });
 
             modelBuilder.Entity<OrderItem>(entity =>
@@ -194,12 +185,12 @@ namespace Project2.DataAccess.Entities
                 entity.HasOne(d => d.Order)
                     .WithMany()
                     .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__OrderItem__Order__03F0984C");
+                    .HasConstraintName("FK__OrderItem__Order__690797E6");
 
                 entity.HasOne(d => d.Pack)
                     .WithMany()
                     .HasForeignKey(d => d.PackId)
-                    .HasConstraintName("FK__OrderItem__PackI__04E4BC85");
+                    .HasConstraintName("FK__OrderItem__PackI__69FBBC1F");
             });
 
             modelBuilder.Entity<Pack>(entity =>
@@ -230,7 +221,7 @@ namespace Project2.DataAccess.Entities
                 entity.HasOne(d => d.Pack)
                     .WithMany()
                     .HasForeignKey(d => d.PackId)
-                    .HasConstraintName("FK__StoreInve__PackI__6EF57B66");
+                    .HasConstraintName("FK__StoreInve__PackI__540C7B00");
             });
 
             modelBuilder.Entity<Trade>(entity =>
@@ -255,19 +246,19 @@ namespace Project2.DataAccess.Entities
                     .WithMany(p => p.TradeBuyers)
                     .HasForeignKey(d => d.BuyerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Trade__BuyerId__09A971A2");
+                    .HasConstraintName("FK__Trade__BuyerId__6EC0713C");
 
                 entity.HasOne(d => d.Offerer)
                     .WithMany(p => p.TradeOfferers)
                     .HasForeignKey(d => d.OffererId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Trade__OffererId__08B54D69");
+                    .HasConstraintName("FK__Trade__OffererId__6DCC4D03");
             });
 
             modelBuilder.Entity<TradeDetail>(entity =>
             {
                 entity.HasKey(e => e.TradeId)
-                    .HasName("PK__TradeDet__3028BB5BB30E103C");
+                    .HasName("PK__TradeDet__3028BB5B55FF74C7");
 
                 entity.ToTable("TradeDetail", "TEAM");
 
@@ -285,19 +276,19 @@ namespace Project2.DataAccess.Entities
                     .WithMany(p => p.TradeDetailBuyerCards)
                     .HasForeignKey(d => d.BuyerCardId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__TradeDeta__Buyer__0E6E26BF");
+                    .HasConstraintName("FK__TradeDeta__Buyer__73852659");
 
                 entity.HasOne(d => d.OfferCard)
                     .WithMany(p => p.TradeDetailOfferCards)
                     .HasForeignKey(d => d.OfferCardId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__TradeDeta__Offer__0D7A0286");
+                    .HasConstraintName("FK__TradeDeta__Offer__72910220");
 
                 entity.HasOne(d => d.Trade)
                     .WithOne(p => p.TradeDetail)
                     .HasForeignKey<TradeDetail>(d => d.TradeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__TradeDeta__Trade__0C85DE4D");
+                    .HasConstraintName("FK__TradeDeta__Trade__719CDDE7");
             });
 
             modelBuilder.Entity<UserCardInventory>(entity =>
@@ -310,8 +301,6 @@ namespace Project2.DataAccess.Entities
                     .IsRequired()
                     .HasMaxLength(40);
 
-                entity.Property(e => e.PrevOwner).HasMaxLength(40);
-
                 entity.Property(e => e.UserId)
                     .IsRequired()
                     .HasMaxLength(40);
@@ -319,12 +308,12 @@ namespace Project2.DataAccess.Entities
                 entity.HasOne(d => d.Card)
                     .WithMany()
                     .HasForeignKey(d => d.CardId)
-                    .HasConstraintName("FK__UserCardI__CardI__6C190EBB");
+                    .HasConstraintName("FK__UserCardI__CardI__51300E55");
 
                 entity.HasOne(d => d.User)
                     .WithMany()
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__UserCardI__UserI__6B24EA82");
+                    .HasConstraintName("FK__UserCardI__UserI__503BEA1C");
             });
 
             OnModelCreatingPartial(modelBuilder);

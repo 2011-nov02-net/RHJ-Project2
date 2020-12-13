@@ -29,5 +29,6 @@ namespace Project2.DataAccess.Entities
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Trade> TradeBuyers { get; set; }
         public virtual ICollection<Trade> TradeOfferers { get; set; }
+        public virtual ICollection<UserCardInventory> UserCardInventory { get; set; }
     }
 }

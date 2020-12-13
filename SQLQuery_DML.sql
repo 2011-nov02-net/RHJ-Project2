@@ -12,19 +12,19 @@ insert into TEAM.Pack(PackId,Name,Price) values('packC','Bug Out', 12);
 
 -- inesrt card
 -- dummies for testing, will use pokeAPI to get data
-insert into TEAM.Card(CardId,PackId,Name,Type,Rarity,Value) values('card101','packA','Mew','Psychic',5,8);
-insert into TEAM.Card(CardId,PackId,Name,Type,Rarity,Value) values('card102','packB','MewTwo','Psychic',5.5,8);
-insert into TEAM.Card(CardId,PackId,Name,Type,Rarity,Value) values('card103','packC','Pinsir','Bug',4,5);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card101','Mew','Psychic',5,8);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card102','MewTwo','Psychic',5.5,8);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card103','Pinsir','Bug',4,5);
 
 
 -- insert user card inventory
 -- each auctioned one card
-insert into TEAM.UserCardInventory(UserId, CardId, Quantity,PrevOwner, AuctionedPrice) values('cus1','card101',1,'Joseph Ellis', 20);
-insert into TEAM.UserCardInventory(UserId, CardId, Quantity,PrevOwner, AuctionedPrice) values('cus2','card102',1,'Hao Yang', 15);
-insert into TEAM.UserCardInventory(UserId, CardId, Quantity,PrevOwner, AuctionedPrice) values('cus3','card103',1,'Ryan Towner', 10);
+insert into TEAM.UserCardInventory(UserId, CardId, Quantity) values('cus1','card101',1);
+insert into TEAM.UserCardInventory(UserId, CardId, Quantity) values('cus2','card102',1);
+insert into TEAM.UserCardInventory(UserId, CardId, Quantity) values('cus3','card103',1);
 
 -- cards from one order of one pack
-insert into TEAM.UserCardInventory(UserId, CardId, Quantity,PrevOwner, AuctionedPrice) values('cus3','card103',8,null, null);
+insert into TEAM.UserCardInventory(UserId, CardId, Quantity) values('cus3','card103',8);
 
 
 -- insert store inventory
