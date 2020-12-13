@@ -118,7 +118,6 @@ namespace Project2.DataAccess.Entities.Repo
             return card;
         }
         
-        // not mapped
         public async Task<string> DeleteOneCardOfOneUser(string id, string cardId)
         { 
             using var context = new Project2Context(_contextOptions);
