@@ -10,11 +10,12 @@ namespace Project2.DataAccess.Entities.Repo
     {
         Task<IEnumerable<AppUser>> GetAllUsers();
         Task<AppUser> GetOneUser(string id);
-        Task AddOneUser(AppUser user);
+        Task<AppUser> AddOneUser(AppUser user);
         Task<IEnumerable<AppCard>> GetAllCardsOfOneUser(string id);
         Task<AppCard> GetOneCardOfOneUser(string id, string cardId);
 
-        Task AddOneCardToOneUser(string id, AppCard card);
+        Task<AppCard> AddOneCardToOneUser(string id, AppCard card);
+        Task<string> DeleteOneCardOfOneUser(string id, string cardId);
 
 
     }
