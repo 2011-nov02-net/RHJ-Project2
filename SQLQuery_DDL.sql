@@ -28,24 +28,18 @@ CREATE TABLE TEAM.Card (
   Rarity Int not null,
   Value float not null,
   check(Rarity >0),
-  check(Value >0),
+  check(Value >0), 
 )
 
 CREATE TABLE TEAM.UserCardInventory (
   UserId nvarchar(40) not null,
   CardId nvarchar(40) not null,
   Quantity int not null,
-  PrevOwner nvarchar(40),
-  PackId nvarchar(40) not null,
-  AuctionedPrice float,
   check(Quantity >= 0),
-  check(AuctionedPrice >= 0),
   foreign key(UserId) REFERENCES TEAM.Customer(UserId)
       on delete cascade on update cascade,
   foreign key(CardId) REFERENCES TEAM.Card(CardId)
-      on delete cascade on update cascade
-  foreign key(PackId) REFERENCES TEAM.Pack(PackId)
-    on delete cascade on update cascade
+      on delete cascade on update cascade, 
 )
 
 

@@ -51,30 +51,21 @@ namespace Project2.DataAccess.Entities.Repo
         // users
         public static IEnumerable<AppUser> GetAllUsers(IEnumerable<Customer> dbUsers)
         {
-            var appUsers = dbUsers.Select(x => new AppUser
-            {
-                UserId = x.UserId,
-                First = x.First,
-                Last = x.Last,
-                Email = x.Email,
-                UserRole = x.UserRole,
-                NumPacksPurchased = x.NumPacksPurchased,
-                CurrencyAmount = x.CurrencyAmount,
-            });
+            var appUsers = dbUsers.Select(x => new AppUser(x.UserId, x.First, x.Last,
+                                         x.Email, x.UserRole));
+            //NumPacksPurchased = x.NumPacksPurchased,
+            //CurrencyAmount = x.CurrencyAmount,
+            
+            return appUsers;
         }
 
         public static AppUser GetOneUser(Customer dbUser)
         {
-            var appUser = new AppUser
-            {
-                UserId = dbUser.UserId,
-                First = dbUser.First,
-                Last = dbUser.Last,
-                Email = dbUser.Email,
-                UserRole = dbUser.UserRole,
-                NumPacksPurchased = dbUser.NumPacksPurchased,
-                CurrencyAmount = dbUser.CurrencyAmount,
-            };
+            var appUser = new AppUser(dbUser.UserId, dbUser.First, dbUser.Last,
+                                         dbUser.Email, dbUser.UserRole);                     
+            //NumPacksPurchased = dbUser.NumPacksPurchased,
+            //CurrencyAmount = dbUser.CurrencyAmount,
+            
             return appUser;
 
         }

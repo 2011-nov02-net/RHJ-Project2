@@ -29,20 +29,71 @@ namespace Project2.DataAccess.Entities.Repo
         public async Task<AppUser> GetOneUser(string id)
         {
             using var context = new Project2Context(_contextOptions);
-            var dbUser = context.Customers.FirstOrDefault(x => x.UserId == id);
+            var dbUser = await context.Customers.FirstOrDefaultAsync(x => x.UserId == id);
             var appUser = DomainDataMapper.GetOneUser(dbUser);
             return appUser;
         }
 
         public async Task AddOneUser(AppUser user)
         { 
+            // check duplicates outside
             using var context = new Project2Context(_contextOptions);
             var newUser = DomainDataMapper.AddOneUser(user);
             await context.Customers.AddAsync(newUser);
             await context.SaveChangesAsync();
         }
 
-        
+        public IEnumerable<AppCard> GetAllCardsOfOneUser(string id)
+        {
+            using var context = new Project2Context(_contextOptions);
+            var dbCards = context.Customers
+                                    .Include(x => x.UserCardInventories)
+                                    .ThenInclude(x=> x.Cards).FirstOrDefault(x => x.UserId == id);
+            if (dbCards == null) return null;
+
+            //
+            var appCards = dbCards.Select(x => new AppCard
+            {
+                CardId = x.CardId,
+                Name = x.Name,
+                Type = x.Type,
+                Rarity = x.Rarity,
+                Value = x.Value,
+            });
+            return appCards;
+        }
+
+
+        public void AddOneCardToOneUser(string id, AppCard card)
+        { 
+            using var context = new Project2Context(_contextOptions);
+            var dbInventories = context.Customers
+                                        .Include(x => x.UserCardInventories)
+                                        .FirstOrDefault(x => x.UserId == id);
+            // check duplicates outside
+            // consolidate numbers
+            var newBridge = new UserCardInventory
+            {
+                UserId = id,
+                CardId = card.CardId,
+                Quantity = 1,             
+            };
+            context.UserCardInventories.Add(newBridge);
+            context.SaveChanges();
+
+           
+
+
+
+             
+            
+
+
+
+        }
+
+
+
 
 
 
