@@ -46,27 +46,27 @@ namespace Project2.DataAccess.Entities.Repo
         public async Task AddOneCardToOneUser(string id, AppCard card)
         { 
             using var context = new Project2Context(_contextOptions);
-            var dbInventories = await context.Customers
-                                        .Include(x => x.UserCardInventory)
+            var dbUser = await context.Customers
+                                        .Include(x => x.UserCardInventories)
                                         .FirstOrDefaultAsync(x => x.UserId == id);
             // if already has the card
-            foreach (var record in dbInventories.UserCardInventory)
+            foreach (var record in dbUser.UserCardInventories)
             {
                 if (record.CardId == card.CardId)
                 {
-                    record.Quantity = record.Quantity + 1;
+                    record.Quantity += 1;
                     await context.SaveChangesAsync();
                     return;
                 }
             }
             // if not 
-            var newBridge = new UserCardInventory
+            var newRecord = new UserCardInventory
             {
                 UserId = id,
                 CardId = card.CardId,
                 Quantity = 1,             
             };
-            await context.UserCardInventories.AddAsync(newBridge);
+            await context.UserCardInventories.AddAsync(newRecord);
             await context.SaveChangesAsync();
         }
 
