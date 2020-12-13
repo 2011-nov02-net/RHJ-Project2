@@ -19,7 +19,7 @@ namespace Project2.Domain
         public List<AppOrder> OrderHistory { get; set; } = new List<AppOrder>();
         public List<AppTrade> TradeHistory { get; set; } = new List<AppTrade>();
 
-        AppUser(string userId, string firstName, string lastName, string email, string UserRole)
+        public AppUser(string userId, string firstName, string lastName, string email, string UserRole)
         {
             this.UserId = userId;
             this.First = firstName;

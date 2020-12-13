@@ -10,14 +10,14 @@ namespace Project2.Domain
         public AppUser Seller { get; }
         public AppUser Buyer { get;  }
         public AppCard Card { get;  }
-        public double PriceListed { get; }
+        public double PriceListed { get; set; }
         public double BuyoutPrice { get; set; }
-        public double PriceSold { get; }
-        public int? NumberBids { get; }
-        public string SellType { get; }
+        public double PriceSold { get; set; }
+        public int? NumberBids { get; set; }
+        public string SellType { get; set; }
         public DateTime ExpDate { get; set; } 
-        public DateTime SellDate { get; }
-        AppAuction(string Id, AppUser seller, AppUser buyer, AppCard card)
+        public DateTime SellDate { get; set; }
+        public AppAuction(string Id, AppUser seller, AppUser buyer, AppCard card)
         {
             this.AuctionId = Id;
             this.Seller = seller;

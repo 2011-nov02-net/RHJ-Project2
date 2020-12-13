@@ -9,10 +9,10 @@ namespace Project2.Domain
         public string PackId { get; }
         public string Name { get; }
         public double Price { get; set; }
-        public DateTime DateReleased { get; }
+        public DateTime DateReleased { get; set; }
 
         public List<AppCard> PackCards { get; set; } = new List<AppCard>();
-        AppPack(string id, string name)
+        public AppPack(string id, string name)
         {
             this.PackId = id;
             this.Name = name;

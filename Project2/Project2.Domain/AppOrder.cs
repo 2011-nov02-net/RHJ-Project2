@@ -16,7 +16,7 @@ namespace Project2.Domain
         //probably better as a method
         public double Total { get; set; }
 
-        AppOrder(string id, AppUser orderer, AppPack pack, int quantity)
+        public AppOrder(string id, AppUser orderer, AppPack pack, int quantity)
         {
             this.OrderId = id;
             this.Orderer = orderer;

@@ -12,7 +12,7 @@ namespace Project2.Domain
         public DateTime TradeDate { get; set; }
         public AppCard OfferCard { get; }
         public AppCard BuyerCard { get; }
-        AppTrade(string id, AppUser offerer, AppUser buyer, AppCard offerCard, AppCard buyCard)
+        public AppTrade(string id, AppUser offerer, AppUser buyer, AppCard offerCard, AppCard buyCard)
         {
             this.TradeId = id;
             this.Offerer = offerer;
