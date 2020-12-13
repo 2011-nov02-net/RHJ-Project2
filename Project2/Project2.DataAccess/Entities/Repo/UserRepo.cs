@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project2.DataAccess.Entities.Repo
 {
-    public class UserRepo
+    public class UserRepo: IUserRepo
     {
 
         private readonly DbContextOptions<Project2Context> _contextOptions;
@@ -41,64 +41,35 @@ namespace Project2.DataAccess.Entities.Repo
             var newUser = DomainDataMapper.AddOneUser(user);
             await context.Customers.AddAsync(newUser);
             await context.SaveChangesAsync();
-        }
+        }    
 
-        public IEnumerable<AppCard> GetAllCardsOfOneUser(string id)
-        {
-            using var context = new Project2Context(_contextOptions);
-            var dbCards = context.Customers
-                                    .Include(x => x.UserCardInventories)
-                                    .ThenInclude(x=> x.Cards).FirstOrDefault(x => x.UserId == id);
-            if (dbCards == null) return null;
-
-            //
-            var appCards = dbCards.Select(x => new AppCard
-            {
-                CardId = x.CardId,
-                Name = x.Name,
-                Type = x.Type,
-                Rarity = x.Rarity,
-                Value = x.Value,
-            });
-            return appCards;
-        }
-
-
-        public void AddOneCardToOneUser(string id, AppCard card)
+        public async Task AddOneCardToOneUser(string id, AppCard card)
         { 
             using var context = new Project2Context(_contextOptions);
-            var dbInventories = context.Customers
+            var dbInventories = await context.Customers
                                         .Include(x => x.UserCardInventories)
-                                        .FirstOrDefault(x => x.UserId == id);
-            // check duplicates outside
-            // consolidate numbers
+                                        .FirstOrDefaultAsync(x => x.UserId == id);
+            // if already has the card
+            foreach (var record in dbInventories)
+            {
+                if (record.CardId == card.CardId)
+                {
+                    record.Quantity = record.Quantity + 1;
+                    await context.SaveChangesAsync();
+                    return;
+                }
+            }
+            // if not 
             var newBridge = new UserCardInventory
             {
                 UserId = id,
                 CardId = card.CardId,
                 Quantity = 1,             
             };
-            context.UserCardInventories.Add(newBridge);
-            context.SaveChanges();
-
-           
-
-
-
-             
-            
-
-
-
+            await context.UserCardInventories.AddAsync(newBridge);
+            await context.SaveChangesAsync();
         }
 
-
-
-
-
-
-
-
-
+        
     }
 }
