@@ -6,7 +6,7 @@ namespace Project2.Domain
 {
     public class AppAuction
     {
-        public string Id { get; }
+        public string AuctionId { get; }
         public AppUser Seller { get; }
         public AppUser Buyer { get;  }
         public AppCard Card { get;  }
@@ -19,7 +19,7 @@ namespace Project2.Domain
         public DateTime SellDate { get; }
         AppAuction(string Id, AppUser seller, AppUser buyer, AppCard card)
         {
-            this.Id = Id;
+            this.AuctionId = Id;
             this.Seller = seller;
             this.Buyer = buyer;
             this.Card = card;
