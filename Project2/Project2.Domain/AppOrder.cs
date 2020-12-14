@@ -7,10 +7,12 @@ namespace Project2.Domain
     public class AppOrder
     {
         public string OrderId { get; set; }
-        public AppUser Orderer { get; }
+        public string OrdererId { get; set; }
+        public AppUser Orderer { get; set; }
         //may require a list of PackIds to order multiple types of packs
-        public AppPack Pack { get; }
-        public int PackQty { get; }
+        public string PackId { get; set; }
+        public AppPack Pack { get; set; }
+        public int PackQty { get; set; }
 
         public DateTime Date { get; set; }
         //probably better as a method
@@ -23,12 +25,8 @@ namespace Project2.Domain
             this.Pack = pack;
             this.PackQty = quantity;
         }
-        public AppOrder(string id, string ordererId, string packId, int quantity)
+        public AppOrder()
         {
-            this.OrderId = id;
-            this.Orderer.UserId = ordererId;
-            this.Pack.PackId = packId;
-            this.PackQty = quantity;
         }
     }
 }

@@ -7,9 +7,12 @@ namespace Project2.Domain
     public class AppAuction
     {
         public string AuctionId { get; set; }
-        public AppUser Seller { get; }
+        public AppUser Seller { get; set; }
+        public string SellerId { get; set; }
         public AppUser Buyer { get; set; }
-        public AppCard Card { get;  }
+        public string BuyerId { get; set; }
+        public AppCard Card { get; set; }
+        public string CardId { get; set; }
         public double PriceListed { get; set; }
         public double BuyoutPrice { get; set; }
         public double PriceSold { get; set; }
@@ -29,20 +32,12 @@ namespace Project2.Domain
             this.NumberBids = 0;
 
         }
-        public AppAuction(string Id, string sellerId, string cardId)
+        public AppAuction()
         {
-            this.AuctionId = Id;
-            this.Seller.UserId = sellerId;
-            this.Card.CardId = cardId;
-            this.ExpDate = DateTime.Now.AddDays(3);
-            //initialize minimum bid
-            this.PriceListed = this.Card.Value / 4;
-            this.BuyoutPrice = this.Card.Value * 2;
-            this.NumberBids = 0;
 
         }
 
-        // NewBid(), Sold(), Buyout()
+        // NewBid(), Sold(), BuyOut()
         /// <summary>
         /// updates the auction with a new bid
         /// </summary>
@@ -70,6 +65,10 @@ namespace Project2.Domain
             {
                 throw new Exception("some unexpected exception while creating bid.");
             }
+        }
+        public void BuyOut(AppUser buyer)
+        {
+
         }
     }
 }
