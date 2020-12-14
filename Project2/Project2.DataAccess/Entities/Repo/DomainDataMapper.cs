@@ -85,6 +85,17 @@ namespace Project2.DataAccess.Entities.Repo
             return newUser;
         }
 
+        //store packs
+        public static IEnumerable<AppStoreItem> GetAllStorePacks(IEnumerable<StoreInventory> dbPacks)
+        {
+            var appPacks = dbPacks.Select(x => new AppStoreItem(x.PackId, x.PackQty));
+            return appPacks;
+        }
 
+        public static AppStoreItem GetStorePackById(StoreInventory dbPack)
+        {
+            var storePack = new AppStoreItem(dbPack.PackId, dbPack.PackQty);
+            return storePack;
+        }
     }
 }
