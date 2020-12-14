@@ -56,7 +56,7 @@ CREATE TABLE TEAM.Auction(
   SellerId nvarchar(40) not null,
   BuyerId nvarchar(40) not null,
   CardId nvarchar(40) not null,
-  PriceSold float not null,
+  PriceSold float null,
   SellDate Datetime not null default getdate(),
   check(PriceSold > 0),
   foreign key(SellerId) REFERENCES TEAM.Customer(UserId)
@@ -107,6 +107,7 @@ CREATE TABLE TEAM.Trade(
   TradeId nvarchar(40) primary key not null,
   OffererId nvarchar(40) not null,
   BuyerId nvarchar(40) not null,
+  IsClosed bit not null default 0,
   TradeDate Datetime not null default getdate(),
   foreign key(OffererId) REFERENCES TEAM.Customer(UserId)
     on delete no action on update no action,
