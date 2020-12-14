@@ -12,7 +12,7 @@ namespace Project2.Domain
         //may require a list of PackIds to order multiple types of packs
         public string PackId { get; set; }
         public AppPack Pack { get; set; }
-        public int PackQty { get; set; }
+        //public int PackQty { get; set; }
 
         public DateTime Date { get; set; }
         //probably better as a method
@@ -23,7 +23,6 @@ namespace Project2.Domain
             this.OrderId = id;
             this.Orderer = orderer;
             this.Pack = pack;
-            this.PackQty = quantity;
         }
         public AppOrder()
         {

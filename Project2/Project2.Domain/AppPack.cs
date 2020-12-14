@@ -7,6 +7,7 @@ namespace Project2.Domain
     public class AppPack
     {
         public string PackId { get; set; }
+        public int PackQty { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public DateTime DateReleased { get; set; }
