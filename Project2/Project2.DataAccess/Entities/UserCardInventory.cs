@@ -7,6 +7,7 @@ namespace Project2.DataAccess.Entities
 {
     public partial class UserCardInventory
     {
+        public int UserCardInvNum { get; set; }
         public string UserId { get; set; }
         public string CardId { get; set; }
         public int Quantity { get; set; }

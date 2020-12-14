@@ -32,6 +32,7 @@ CREATE TABLE TEAM.Card (
 )
 
 CREATE TABLE TEAM.UserCardInventory (
+  UserCardInvNum int not null PRIMARY KEY IDENTITY,
   UserId nvarchar(40) not null,
   CardId nvarchar(40) not null,
   Quantity int not null,
@@ -44,6 +45,7 @@ CREATE TABLE TEAM.UserCardInventory (
 
 
 CREATE TABLE TEAM.StoreInventory(
+  InvNum int not null PRIMARY KEY IDENTITY,
   PackId nvarchar(40) not null,
   PackQty Int not null,
   check(PackQty >= 0),
@@ -93,6 +95,7 @@ CREATE TABLE TEAM.[Order](
 )
 
 CREATE TABLE TEAM.OrderItem(
+  OrderItemNum int not null PRIMARY KEY IDENTITY,
   OrderId nvarchar(40) not null,
   PackId nvarchar(40) not null,
   PackQty Int not null,

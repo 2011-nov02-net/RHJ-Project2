@@ -14,6 +14,7 @@ namespace Project2.DataAccess.Entities
             Orders = new HashSet<Order>();
             TradeBuyers = new HashSet<Trade>();
             TradeOfferers = new HashSet<Trade>();
+            UserCardInventories = new HashSet<UserCardInventory>();
         }
 
         public string UserId { get; set; }

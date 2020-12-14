@@ -97,5 +97,12 @@ namespace Project2.DataAccess.Entities.Repo
             var storePack = new AppStoreItem(dbPack.PackId, dbPack.PackQty);
             return storePack;
         }
+
+        //auctions
+        /*public static IEnumerable<AppAuction> GetAllAuctions(IEnumerable<Auction> dbAuctions)
+        {
+            var appAuctions = dbAuctions.Select(x => new AppAuction(x.AuctionId, x.Seller, x.Card));
+            return appAuctions;
+        }*/
     }
 }
