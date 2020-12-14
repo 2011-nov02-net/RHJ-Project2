@@ -63,7 +63,6 @@ namespace Project2.DataAccess.Entities.Repo
                     try
                     {
                         pack.PackQty += amount;
-                        context.StoreInventories.Update(pack);
                         await context.SaveChangesAsync();
                     }
                     catch(Exception e)
@@ -75,7 +74,6 @@ namespace Project2.DataAccess.Entities.Repo
                     try
                     {
                         pack.PackQty -= amount;
-                        context.StoreInventories.Update(pack);
                         await context.SaveChangesAsync();
                     }
                     catch (Exception e)
