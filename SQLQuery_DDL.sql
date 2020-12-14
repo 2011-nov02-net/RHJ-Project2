@@ -54,10 +54,10 @@ CREATE TABLE TEAM.StoreInventory(
 CREATE TABLE TEAM.Auction(
   AuctionId nvarchar(40) primary key not null,
   SellerId nvarchar(40) not null,
-  BuyerId nvarchar(40) not null,
+  BuyerId nvarchar(40) null,
   CardId nvarchar(40) not null,
   PriceSold float null,
-  SellDate Datetime not null default getdate(),
+  SellDate Datetime null default getdate(),
   check(PriceSold > 0),
   foreign key(SellerId) REFERENCES TEAM.Customer(UserId)
     on delete no action on update no action,
@@ -73,7 +73,7 @@ CREATE TABLE TEAM.AuctionDetail(
   PriceListed float not null,
   BuyoutPrice float not null,
   NumberBids Int,
-  SellType nvarchar(40) not null,
+  SellType nvarchar(40) null,
   ExpDate Datetime not null default getdate(),
   check(PriceListed > 0),
   check(BuyoutPrice > 0),
@@ -106,7 +106,7 @@ CREATE TABLE TEAM.OrderItem(
 CREATE TABLE TEAM.Trade(
   TradeId nvarchar(40) primary key not null,
   OffererId nvarchar(40) not null,
-  BuyerId nvarchar(40) not null,
+  BuyerId nvarchar(40) null,
   IsClosed bit not null default 0,
   TradeDate Datetime not null default getdate(),
   foreign key(OffererId) REFERENCES TEAM.Customer(UserId)
@@ -118,7 +118,7 @@ CREATE TABLE TEAM.Trade(
 CREATE TABLE TEAM.TradeDetail(
   TradeId nvarchar(40) primary key not null,
   OfferCardId nvarchar(40) not null,
-  BuyerCardId nvarchar(40) not null,
+  BuyerCardId nvarchar(40) null,
   foreign key(TradeId) REFERENCES TEAM.Trade(TradeId)
     on delete no action on update no action,
   foreign key(OfferCardId) REFERENCES TEAM.Card(CardId)
