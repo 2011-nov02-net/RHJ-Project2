@@ -10,6 +10,7 @@ namespace Project2.DataAccess.Entities
         public string TradeId { get; set; }
         public string OffererId { get; set; }
         public string BuyerId { get; set; }
+        public bool IsClosed { get; set; }
         public DateTime TradeDate { get; set; }
 
         public virtual Customer Buyer { get; set; }

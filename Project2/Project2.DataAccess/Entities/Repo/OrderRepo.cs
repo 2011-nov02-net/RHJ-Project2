@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project2.DataAccess.Entities.Repo
 {
-    public class OrderRepo: IOrderRepo
+    public class OrderRepo : IOrderRepo
     {
         private readonly DbContextOptions<Project2Context> _contextOptions;
         public OrderRepo(DbContextOptions<Project2Context> contextOptions)
