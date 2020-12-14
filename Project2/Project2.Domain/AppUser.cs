@@ -6,7 +6,7 @@ namespace Project2.Domain
 {
     public class AppUser
     {
-        public string UserId { get; }
+        public string UserId { get; set; }
         public string First { get; }
         public string Last { get; }
         public string Email { get;}
