@@ -6,7 +6,7 @@ namespace Project2.Domain
 {
     public class AppTrade
     {
-        public string TradeId { get; }
+        public string TradeId { get; set; }
         public AppUser Offerer { get; }
         public AppUser Buyer { get; }
         public DateTime TradeDate { get; set; }
@@ -19,6 +19,14 @@ namespace Project2.Domain
             this.Buyer = buyer;
             this.OfferCard = offerCard;
             this.BuyerCard = buyCard;
+        }
+        public AppTrade(string id, string offererId, string buyerId, string offerCardId, string buyCardId)
+        {
+            this.TradeId = id;
+            this.Offerer.UserId = offererId;
+            this.Buyer.UserId = buyerId;
+            this.OfferCard.CardId = offerCardId;
+            this.BuyerCard.CardId = buyCardId;
         }
     }
 }
