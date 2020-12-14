@@ -7,11 +7,16 @@ namespace Project2.Domain
     public class AppTrade
     {
         public string TradeId { get; set; }
-        public AppUser Offerer { get; }
-        public AppUser Buyer { get; }
+        public AppUser Offerer { get; set; }
+        public string OffererId { get; set; }
+        public AppUser Buyer { get; set; }
+        public string BuyerId { get; set; }
         public DateTime TradeDate { get; set; }
-        public AppCard OfferCard { get; }
-        public AppCard BuyerCard { get; }
+        public AppCard OfferCard { get; set; }
+        public string OfferCardId { get; set; }
+        public AppCard BuyerCard { get; set; }
+        public string BuyerCardId { get; set; }
+        public bool IsClosed { get; set; }
         public AppTrade(string id, AppUser offerer, AppUser buyer, AppCard offerCard, AppCard buyCard)
         {
             this.TradeId = id;
@@ -20,13 +25,8 @@ namespace Project2.Domain
             this.OfferCard = offerCard;
             this.BuyerCard = buyCard;
         }
-        public AppTrade(string id, string offererId, string buyerId, string offerCardId, string buyCardId)
+        public AppTrade()
         {
-            this.TradeId = id;
-            this.Offerer.UserId = offererId;
-            this.Buyer.UserId = buyerId;
-            this.OfferCard.CardId = offerCardId;
-            this.BuyerCard.CardId = buyCardId;
         }
     }
 }
