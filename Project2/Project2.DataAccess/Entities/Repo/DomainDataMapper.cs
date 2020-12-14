@@ -101,8 +101,8 @@ namespace Project2.DataAccess.Entities.Repo
         //auctions
         /*public static IEnumerable<AppAuction> GetAllAuctions(IEnumerable<Auction> dbAuctions)
         {
-            //var appAuctions = dbAuctions.Select(x => new AppAuction(x.AuctionId, x.Seller, x.Card));
-           // return appAuctions;
+            var appAuctions = dbAuctions.Select(x => new AppAuction(x.AuctionId, x.Seller, x.Card));
+            return appAuctions;
         }*/
     }
 }
