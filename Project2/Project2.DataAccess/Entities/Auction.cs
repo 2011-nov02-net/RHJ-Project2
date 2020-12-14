@@ -11,8 +11,8 @@ namespace Project2.DataAccess.Entities
         public string SellerId { get; set; }
         public string BuyerId { get; set; }
         public string CardId { get; set; }
-        public double PriceSold { get; set; }
-        public DateTime SellDate { get; set; }
+        public double? PriceSold { get; set; }
+        public DateTime? SellDate { get; set; }
 
         public virtual Customer Buyer { get; set; }
         public virtual Card Card { get; set; }
