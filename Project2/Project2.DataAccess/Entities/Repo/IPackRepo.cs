@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Project2.DataAccess.Entities.Repo
 {
-    public interface ICardRepo
+    public interface IPackRepo
     {
-        Task<IEnumerable<AppCard>> GetAllCards();
-        Task<AppCard> GetOneCard(string id);
-        Task<AppCard> AddOneCard(AppCard card);
-
+        Task<AppPack> GetAllPacks();
+        Task<AppPack> GetOnePack(string id);
     }
 }
