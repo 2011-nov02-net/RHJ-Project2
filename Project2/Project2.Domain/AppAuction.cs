@@ -66,9 +66,25 @@ namespace Project2.Domain
                 throw new Exception("some unexpected exception while creating bid.");
             }
         }
-        public void BuyOut(AppUser buyer)
+        /// <summary>
+        /// buyer bought out the auction, update buyer and close auction
+        /// </summary>
+        /// <param name="buyer"></param>
+        public void BuyOut(AppUser buyer) //true if successful
         {
-            buyer.CurrencyAmount -= 
+            if (buyer.CurrencyAmount > this.BuyoutPrice)
+            {
+                buyer.CurrencyAmount -= this.BuyoutPrice;
+                //TODO:call buyer.addCardToInventory here
+                this.PriceSold = this.BuyoutPrice;
+                this.SellDate = DateTime.Now;
+                this.SellType = "Buyout"; //this seems odd
+            }
+            else
+            {
+                throw new ArgumentException("buyer does not have sufficient funds.");
+            }
         }
+        //TODO: Auction.Expired()
     }
 }
