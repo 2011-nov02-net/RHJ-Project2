@@ -10,6 +10,10 @@ namespace Project2.DataAccess.Entities.Repo
     {
         Task<IEnumerable<AppOrder>> GetAllOrders();
         Task<AppOrder> GetOneOrder(string id);
-        Task<Order> GetOneOrderDetail(string id);
+        Task<IEnumerable<AppPack>> GetOneOrderDetail(string id);
+
+        Task<AppOrder> AddOneOrder(int quantity, AppOrder appOrder);
+
+       
     }
 }

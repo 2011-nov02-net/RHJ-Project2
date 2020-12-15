@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project2.DataAccess.Entities.Repo
 {
-    public class CardRepo
+    public class CardRepo: ICardRepo
     {
         private readonly DbContextOptions<Project2Context> _contextOptions;
         public CardRepo(DbContextOptions<Project2Context> contextOptions)
@@ -34,9 +34,9 @@ namespace Project2.DataAccess.Entities.Repo
             return appCard;
         }
 
+        // need to handle duplicate outside
         public async Task<AppCard> AddOneCard(AppCard card)
-        {
-            // need to handle duplicate outside
+        {           
             using var context = new Project2Context(_contextOptions);            
             var newCard = DomainDataMapper.AddOneCard(card);
             await context.Cards.AddAsync(newCard);

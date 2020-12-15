@@ -8,7 +8,7 @@ namespace Project2.DataAccess.Entities.Repo
 {
     public interface IPackRepo
     {
-        Task<AppPack> GetAllPacks();
+        Task<IEnumerable<AppPack>> GetAllPacks();
         Task<AppPack> GetOnePack(string id);
     }
 }

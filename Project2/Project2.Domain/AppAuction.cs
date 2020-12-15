@@ -68,7 +68,7 @@ namespace Project2.Domain
         }
         public void BuyOut(AppUser buyer)
         {
-            buyer.CurrencyAmount -= 
+            //buyer.CurrencyAmount -= 
         }
     }
 }
