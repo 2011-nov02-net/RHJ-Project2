@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Project2.DataAccess.Entities.Repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +14,26 @@ namespace Project2.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly ILogger<UserController> _logger;
+        private readonly IUserRepo _storeRepo;
+        private readonly IMapper _mapper;
+
+        public UserController(ILogger<UserController> logger, IUserRepo storeRepo, IMapper mapper)
+        {
+            _logger = logger;
+            _storeRepo = storeRepo;
+            _mapper = mapper;
+        }
+
         //GET /api/users
         //Gets all users
         [HttpGet]
         public IActionResult Get()
+        // automapper
+        // public ActionResult <UserDTO> Get()
         {
+            //                       target <- source
+            // return Ok(_mapper.Map<UserDto>(AppUser));
             return Ok();
         }
 

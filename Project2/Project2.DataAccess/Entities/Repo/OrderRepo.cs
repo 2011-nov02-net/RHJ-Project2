@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project2.DataAccess.Entities.Repo
 {
-    public class OrderRepo// : IOrderRepo
+    public class OrderRepo : IOrderRepo
     {
         private readonly DbContextOptions<Project2Context> _contextOptions;
         public OrderRepo(DbContextOptions<Project2Context> contextOptions)
@@ -17,29 +17,88 @@ namespace Project2.DataAccess.Entities.Repo
         }
 
         // not mapped
-        /*public async Task<IEnumerable<AppOrder>> GetAllOrders()
-        { 
+        public async Task<IEnumerable<AppOrder>> GetAllOrders()
+        {
             using var context = new Project2Context(_contextOptions);
-            var dbOrders = await context.DOrders.ToListAsync();
+            var dbOrders = await context.Orders.ToListAsync();
             if (dbOrders == null) return null;
-            var AppOrders = dbOrders.Select(x => new AppOrder(x.OrderId, x.UserId, x.Date, x.Total));
+            var AppOrders = dbOrders.Select(x => new AppOrder
+            {
+                OrderId = x.OrderId,
+                OrdererId = x.UserId,
+                Date = x.Date,
+                Total = x.Total,
+            });
             return AppOrders;
 
         }
 
         // not mapped
         public async Task<AppOrder> GetOneOrder(string id)
-        { 
-            using var context = new Project2Context(_contextOptions);
-            var dbOrder = await context.DOrders.FirstOrDefaultAsync(x => x.OrderId == id);
-            if (dbOrder == null) return null;
-            var AppOrder = new AppOrder(dbOrder.OrderId, dbOrder.UserId, dbOrder.Date, dbOrder.Total);
-            return AppOrder;
-        }*/
-
-        public Task<Order> GetOneOrderDetail(string id)
         {
-            throw new NotImplementedException();
+            using var context = new Project2Context(_contextOptions);
+            var dbOrder = await context.Orders.FirstOrDefaultAsync(x => x.OrderId == id);
+            if (dbOrder == null) return null;
+            var AppOrder = new AppOrder
+            {
+                OrderId = dbOrder.OrderId,
+                OrdererId = dbOrder.UserId,
+                Date = dbOrder.Date,
+                Total = dbOrder.Total,
+            };
+            return AppOrder;
+        }
+
+        // not mapped
+        public async Task<IEnumerable<AppPack>> GetOneOrderDetail(string id)
+        {
+            using var context = new Project2Context(_contextOptions);
+            var dbOrder = await context.Orders.Include(x => x.OrderItems)
+                                        .ThenInclude(x => x.Pack).FirstOrDefaultAsync(x => x.OrderId == id);
+            if (dbOrder == null) return null;
+
+            var appPacks = dbOrder.OrderItems.Select(x => new AppPack
+            {
+
+                PackId = x.PackId,
+                Name = x.Pack.Name,
+                Price = x.Pack.Price,
+                DateReleased = x.Pack.DateReleased,
+                PackQty = x.PackQty,
+            });
+            return appPacks;
+        }
+
+        // not mapped
+        // handle duplicates outside
+        // simple version that deals with one type of pack only
+        public async Task<AppOrder> AddOneOrder(int quantity, AppOrder order)
+        {
+            // Order table
+            using var context = new Project2Context(_contextOptions);
+            var newOrder = new Order
+            {
+                OrderId = order.OrderId,
+                UserId = order.OrdererId,
+                Date = order.Date,
+                Total = order.Total,
+            };
+            await context.Orders.AddAsync(newOrder);
+            await context.SaveChangesAsync();
+
+            // OrderItem table
+            // order packA quan 2
+            // order packB quan 3
+            // for loop
+            var newOrderItem = new OrderItem
+            {
+                OrderId = order.OrderId,
+                PackId = order.PackId,
+                PackQty = quantity,
+            };
+            await context.OrderItems.AddAsync(newOrderItem);
+            await context.SaveChangesAsync();
+            return order;
         }
     }
 }

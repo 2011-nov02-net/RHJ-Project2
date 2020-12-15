@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Project2.DataAccess.Entities.Repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,17 @@ namespace Project2.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<ICardRepo, CardRepo>();
+            services.AddScoped<IPackRepo, PackRepo>();
+            services.AddScoped<IOrderRepo, OrderRepo>();
+            services.AddScoped<ITradeRepo, TradeRepo>();
+            services.AddScoped<IAuctionRepo, AuctionRepo>();
+            services.AddScoped<IStoreRepo, StoreRepo>();
+
+
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Project2.DataAccess.Entities.Repo
 {
-    public class PackRepo// : IPackRepo
+    public class PackRepo : IPackRepo
     {
 
         private readonly DbContextOptions<Project2Context> _contextOptions;
@@ -18,22 +18,35 @@ namespace Project2.DataAccess.Entities.Repo
         }
 
         // not mapped
-        /*public async Task<AppPack> GetAllPacks()
+        public async Task<IEnumerable<AppPack>> GetAllPacks()
         {
             using var context = new Project2Context(_contextOptions);
             var dbPacks = await context.Packs.ToListAsync();
             if (dbPacks == null) return null;
-            var appPacks = dbPacks.Select(x => new AppPack(x.PackId, x.Name, x.Price, x.DateReleased));
+            var appPacks = dbPacks.Select(x => new AppPack
+            {
+                PackId = x.PackId,
+                Name = x.Name,
+                Price = x.Price,
+                DateReleased = x.DateReleased,
+            });
             return appPacks;    
         }
 
+        // not mapped
         public async Task<AppPack> GetOnePack(string id)
         {
             using var context = new Project2Context(_contextOptions);
             var dbPack = await context.Packs.FirstOrDefaultAsync(x => x.PackId == id);
             if (dbPack == null) return null;
-            var appPack = new AppPack(dbPack.PackId, dbPack.Name, dbPack.Price, dbPack.DateReleased);
+            var appPack = new AppPack
+            {
+                PackId = dbPack.PackId,
+                Name = dbPack.Name,
+                Price = dbPack.Price,
+                DateReleased = dbPack.DateReleased,
+            };
             return appPack;
-        }*/
+        }
     }
 }

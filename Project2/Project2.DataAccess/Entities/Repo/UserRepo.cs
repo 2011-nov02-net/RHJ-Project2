@@ -36,9 +36,9 @@ namespace Project2.DataAccess.Entities.Repo
             return appUser;
         }
 
+        // need to handle duplicate outside
         public async Task<AppUser> AddOneUser(AppUser user)
-        { 
-            // need to handle duplicate outside
+        {           
             using var context = new Project2Context(_contextOptions);
             var newUser = DomainDataMapper.AddOneUser(user);
             await context.Customers.AddAsync(newUser);
