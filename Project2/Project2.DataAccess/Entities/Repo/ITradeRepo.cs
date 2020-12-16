@@ -12,8 +12,5 @@ namespace Project2.DataAccess.Entities.Repo
         Task<AppTrade> GetOneTrade(string id);
         Task<AppTrade> AddOneTrade(AppTrade appTrade);
 
-        void GetOneTradeDetail();
-
-
     }
 }
