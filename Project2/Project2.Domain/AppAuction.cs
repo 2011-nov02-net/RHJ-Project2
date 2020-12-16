@@ -88,7 +88,10 @@ namespace Project2.Domain
                 throw new ArgumentException("buyer does not have sufficient funds.");
             }
         }
-
+        /// <summary>
+        /// Updates the AppAuction if it has expired
+        /// </summary>
+        /// <returns>Called AppAuction object</returns>
         public AppAuction Expired()
         {
             if (NumberBids != null && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)
