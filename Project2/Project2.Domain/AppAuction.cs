@@ -76,7 +76,8 @@ namespace Project2.Domain
             if (buyer.CurrencyAmount > this.BuyoutPrice)
             {
                 Buyer = buyer;
-                //TODO:call Buyer.AddCardToInventory and Seller.RemoveCardFromInventory here
+                Buyer.AddCardToInventory(Card);
+                Seller.RemoveCardFromInventory(Card);
                 Buyer.CurrencyAmount -= this.BuyoutPrice;
                 Seller.CurrencyAmount += BuyoutPrice;
                 this.PriceSold = this.BuyoutPrice;
@@ -96,7 +97,8 @@ namespace Project2.Domain
         {
             if (NumberBids != null && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)
             {
-                //TODO:call Buyer.AddCardToInventory and Seller.RemoveCardFromInventory here
+                Buyer.AddCardToInventory(Card);
+                Seller.RemoveCardFromInventory(Card);
                 Buyer.CurrencyAmount -= this.PriceListed;
                 Seller.CurrencyAmount += PriceListed;
                 this.PriceSold = this.PriceListed;

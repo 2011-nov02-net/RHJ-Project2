@@ -32,5 +32,35 @@ namespace Project2.Domain
         {
 
         }
+        /// <summary>
+        /// adds a card to the users inventory
+        /// </summary>
+        /// <param name="card"></param>
+        public void AddCardToInventory(AppCard card)
+        {
+            if (card != null)
+            {
+                Inventory.Add(card);
+            }
+            else
+            {
+                throw new ArgumentException("attempted to add null card");
+            }
+        }
+        /// <summary>
+        /// removes a card matching the passed card's Id from the user's inventory
+        /// </summary>
+        /// <param name="card"></param>
+        public void RemoveCardFromInventory(AppCard card)
+        {
+            if (card != null && Inventory.Exists(x=> x.CardId == card.CardId))
+            {
+                Inventory.Remove(Inventory.Find(x => x.CardId == card.CardId));
+            }
+            else
+            {
+                throw new ArgumentException("card not in user's inventory");
+            }
+        }
     }
 }

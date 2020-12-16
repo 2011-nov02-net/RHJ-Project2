@@ -28,5 +28,18 @@ namespace Project2.Domain
         public AppTrade()
         {
         }
+
+        /// <summary>
+        /// executes the trade and sets flag to indicate a closed trade, should only be called after buyer confirmation
+        /// </summary>
+        public void MakeTrade()
+        {
+            TradeDate = DateTime.UtcNow;
+            IsClosed = true;
+            Buyer.AddCardToInventory(OfferCard);
+            Offerer.AddCardToInventory(BuyerCard);
+            Buyer.RemoveCardFromInventory(BuyerCard);
+            Offerer.RemoveCardFromInventory(OfferCard);
+        }
     }
 }
