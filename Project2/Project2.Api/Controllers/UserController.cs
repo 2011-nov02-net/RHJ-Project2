@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Project2.Api.DTO;
+using Project2.Domain;
 
 namespace Project2.Api.Controllers
 {
@@ -15,50 +17,80 @@ namespace Project2.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
-        private readonly IUserRepo _storeRepo;
+        private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
 
         public UserController(ILogger<UserController> logger, IUserRepo storeRepo, IMapper mapper)
         {
             _logger = logger;
-            _storeRepo = storeRepo;
+            _userRepo = storeRepo;
             _mapper = mapper;
         }
 
         //GET /api/users
         //Gets all users
-        [HttpGet]
-        public IActionResult Get()
-        // automapper
-        // public ActionResult <UserDTO> Get()
+        [HttpGet]      
+        public ActionResult<IEnumerable<UserReadDTO>> Get()
         {
-            //                       target <- source
-            // return Ok(_mapper.Map<UserDto>(AppUser));
-            return Ok();
+            // auto mapper, target <- source
+            var users = _userRepo.GetAllUsers();
+            if (users != null)
+            {
+                var usersReadDTO = _mapper.Map<IEnumerable<UserReadDTO>>(users);
+                return Ok(usersReadDTO);
+            }
+            return NotFound();           
         }
 
         //POST /api/users
         //Creates a new user
         [HttpPost]
-        public IActionResult Post()
+        public ActionResult<UserReadDTO> Post(UserCreateDTO userCreateDTO  )
         {
-            return Ok(); //CreatedAtAction();
+            var user = _userRepo.GetOneUser(userCreateDTO.UserId);
+            if (user != null)
+            {
+                // aleady exist
+                // not sure about the return type
+                return Conflict();
+            }
+            // 1. map for repo->db
+            var appUser = _mapper.Map<AppUser>(userCreateDTO);
+            _userRepo.AddOneUser(appUser);  
+
+            // 2. map for response
+            var userReadDTO = _mapper.Map<UserReadDTO>(appUser);
+
+            // 3 pieces for POST
+            return CreatedAtAction(nameof(GetUserById), new { id = userReadDTO.UserId}, userReadDTO);
         }
 
         //GET /api/users/{id}
         //Gets a single user by id
         [HttpGet("{id}")]
-        public IActionResult GetUserById(string id)
+        public ActionResult<UserReadDTO> GetUserById(string id)
         {
-            return Ok();
+            var user = _userRepo.GetOneUser(id);
+            if (user != null)
+            {
+                var userReadDTO = _mapper.Map<UserReadDTO>(user);
+                return Ok(userReadDTO);
+            }
+            return NotFound();
         }
 
         //GET /api/users/{id}/cards
         //Gets a users inventory
         [HttpGet("{id}/cards")]
-        public IActionResult GetUsersInventoryById(string id)
+        public ActionResult<IEnumerable<CardReadDTO>> GetUsersInventoryById(string id)
         {
-            return Ok();
+            var userInv = _userRepo.GetAllCardsOfOneUser(id);
+            if (userInv != null)
+            {
+                var cardsReadDTO = _mapper.Map<IEnumerable<CardReadDTO>>(userInv);
+                return Ok(cardsReadDTO);
+            }          
+            return NotFound();
         }
 
         //POST /api/users/{id}/cards
