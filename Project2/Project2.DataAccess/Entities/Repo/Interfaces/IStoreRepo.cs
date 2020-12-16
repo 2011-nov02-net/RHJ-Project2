@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Project2.DataAccess.Entities.Repo
+namespace Project2.DataAccess.Entities.Repo.Interfaces
 {
     public interface IStoreRepo
     {
