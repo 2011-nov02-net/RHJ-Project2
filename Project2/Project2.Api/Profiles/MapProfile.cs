@@ -8,20 +8,28 @@ using System.Threading.Tasks;
 
 namespace Project2.Api.Profiles
 {
-    public class CardProfile: Profile
+    public class MapProfile: Profile
     {
         // each DTO tranformation needs a profile
-        public CardProfile()
-        { 
+        public MapProfile()
+        {
+            // user
             // source -> target
-
-            // CardDTO  <- AppCard <- dbCard
             // Get
-            CreateMap<AppCard,CardDTO>();
-
-            // CardDTO -> AppCard -> dbCard
+            CreateMap<AppUser,UserReadDTO>();
             // Post
-            CreateMap<CardDTO,AppCard>();
+            CreateMap<UserCreateDTO, AppUser>();
+             
+
+            // card
+            CreateMap<AppCard,CardReadDTO>();
+
+
+
+            // pack
+
+
+            //
         }
     }
 }
