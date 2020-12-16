@@ -7,11 +7,11 @@ namespace Project2.Domain
     public class AppUser
     {
         public string UserId { get; set; }
-        public string First { get; }
-        public string Last { get; }
-        public string Email { get;}
-        public bool IsManager { get; }
-        public string UserRole { get; }
+        public string First { get; set; }
+        public string Last { get; set; }
+        public string Email { get; set; }
+        public bool IsManager { get; set; }
+        public string UserRole { get; set; }
         public int NumPacksPurchased { get; set; } = 0;
         public double CurrencyAmount { get; set; }
         public List<AppCard> Inventory { get; set; } = new List<AppCard>();
@@ -26,6 +26,11 @@ namespace Project2.Domain
             this.Last = lastName;
             this.Email = email;
             this.UserRole = UserRole;
+        }
+
+        public AppUser()
+        {
+
         }
     }
 }

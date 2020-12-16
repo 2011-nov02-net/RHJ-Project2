@@ -110,10 +110,49 @@ namespace Project2.DataAccess.Entities.Repo
         }
 
         //auctions
-        /*public static IEnumerable<AppAuction> GetAllAuctions(IEnumerable<Auction> dbAuctions)
+        public static IEnumerable<AppAuction> GetAllAuctions(IEnumerable<Auction> dbAuctions)
         {
-            var appAuctions = dbAuctions.Select(x => new AppAuction(x.AuctionId, x.Seller, x.Card));
+            var appAuctions = dbAuctions.Select(x => new AppAuction
+            {
+                AuctionId = x.AuctionId,
+                SellerId = x.Seller.UserId,
+                BuyerId = x.Buyer.UserId,
+                CardId = x.Card.CardId,
+                PriceSold = (double)x.PriceSold,
+                SellDate = (DateTime)x.SellDate
+            });
+
             return appAuctions;
-        }*/
+        }
+
+        public static AppAuction GetAuction(Auction dbAuction)
+        {
+            var appAuction = new AppAuction()
+            {
+                AuctionId = dbAuction.AuctionId,
+                SellerId = dbAuction.Seller.UserId,
+                BuyerId = dbAuction.Buyer.UserId,
+                CardId = dbAuction.Card.CardId,
+                PriceSold = (double)dbAuction.PriceSold,
+                SellDate = (DateTime)dbAuction.SellDate
+            };
+
+            return appAuction;
+        }
+
+        public static AppAuction GetAuctionDetail(AuctionDetail dbAuction)
+        {
+            var appAuctionDetail = new AppAuction()
+            {
+                AuctionId = dbAuction.AuctionId,
+                PriceListed = dbAuction.PriceListed,
+                BuyoutPrice = dbAuction.BuyoutPrice,
+                NumberBids = dbAuction.NumberBids,
+                SellType = dbAuction.SellType,
+                ExpDate = dbAuction.ExpDate
+            };
+
+            return appAuctionDetail;
+        }
     }
 }
