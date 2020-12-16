@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project2.Api.DTO
 {
-    public class AuctionDTO
+    public class AuctionReadDTO
     {
         public string AuctionId { get; set; }
         public string SellerId { get; set; }

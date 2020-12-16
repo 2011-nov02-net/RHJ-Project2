@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project2.Api.DTO
 {
-    public class PackDTO
+    public class PackCreateDTO
     {
         public string PackId { get; set; }
         public string Name { get; set; }

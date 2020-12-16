@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Project2.Api.DTO
 {
-    public class TradeDTO
+    public class TradeCreateDTO
     {
         public string TradeId { get; set; }
         public string OffererId { get; set; }

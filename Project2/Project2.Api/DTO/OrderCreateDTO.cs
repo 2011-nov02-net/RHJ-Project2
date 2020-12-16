@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project2.Api.DTO
 {
-    public class OrderDTO
+    public class OrderCreateDTO
     {
 
         public string OrderId { get; set; }
