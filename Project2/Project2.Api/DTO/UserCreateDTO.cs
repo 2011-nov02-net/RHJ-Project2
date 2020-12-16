@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project2.Api.DTO
 {
-    public class CustomerDTO
+    public class UserCreateDTO
     {
         // same as a view model, evolve over time
         

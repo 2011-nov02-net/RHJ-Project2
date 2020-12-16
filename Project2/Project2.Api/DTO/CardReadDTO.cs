@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project2.Api.DTO
 {
-    public class CardDTO
+    public class CardReadDTO
     {
 
         public string CardId { get; set; }
