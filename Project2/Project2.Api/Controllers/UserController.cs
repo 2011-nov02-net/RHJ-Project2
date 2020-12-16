@@ -20,7 +20,7 @@ namespace Project2.Api.Controllers
         private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
 
-        public UserController(ILogger<UserController> logger, IUserRepo storeRepo, IMapper mapper)
+        public UserController(IUserRepo storeRepo, ILogger<UserController> logger, IMapper mapper)
         {
             _logger = logger;
             _userRepo = storeRepo;
