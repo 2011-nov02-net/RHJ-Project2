@@ -15,17 +15,17 @@ namespace Project2.Domain
         public string CardId { get; set; }
         public double PriceListed { get; set; }
         public double BuyoutPrice { get; set; }
-        public double PriceSold { get; set; }
+        public double? PriceSold { get; set; }
         public int? NumberBids { get; set; }
         public string SellType { get; set; }
         public DateTime ExpDate { get; set; } 
-        public DateTime SellDate { get; set; }
+        public DateTime? SellDate { get; set; }
         public AppAuction(string Id, AppUser seller, AppCard card)
         {
             this.AuctionId = Id;
             this.Seller = seller;
             this.Card = card;
-            this.ExpDate = DateTime.Now.AddDays(3);
+            this.ExpDate = DateTime.UtcNow.AddDays(3);
             //initialize minimum bid
             this.PriceListed = card.Value / 4;
             this.BuyoutPrice = card.Value * 2;
@@ -52,6 +52,7 @@ namespace Project2.Domain
             {
                 PriceListed = bidAmount;
                 Buyer = bidder;
+                NumberBids = ++NumberBids ?? 1;
             }
             else if (bidDifference <= .50)
             {
@@ -74,10 +75,12 @@ namespace Project2.Domain
         {
             if (buyer.CurrencyAmount > this.BuyoutPrice)
             {
-                buyer.CurrencyAmount -= this.BuyoutPrice;
-                //TODO:call buyer.addCardToInventory here
+                Buyer = buyer;
+                //TODO:call Buyer.AddCardToInventory and Seller.RemoveCardFromInventory here
+                Buyer.CurrencyAmount -= this.BuyoutPrice;
+                Seller.CurrencyAmount += BuyoutPrice;
                 this.PriceSold = this.BuyoutPrice;
-                this.SellDate = DateTime.Now;
+                this.SellDate = DateTime.UtcNow;
                 this.SellType = "Buyout"; //this seems odd
             }
             else
@@ -85,6 +88,29 @@ namespace Project2.Domain
                 throw new ArgumentException("buyer does not have sufficient funds.");
             }
         }
-        //TODO: Auction.Expired()
+
+        public AppAuction Expired()
+        {
+            if (NumberBids != null && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)
+            {
+                //TODO:call Buyer.AddCardToInventory and Seller.RemoveCardFromInventory here
+                Buyer.CurrencyAmount -= this.PriceListed;
+                Seller.CurrencyAmount += PriceListed;
+                this.PriceSold = this.PriceListed;
+                this.SellDate = ExpDate;
+                this.SellType = "Buyout"; //this seems odd
+            }
+            else if (NumberBids == null && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)
+            {
+                this.PriceSold = 0;
+                this.SellDate = ExpDate;
+                this.SellType = "None"; //expired with no bids
+            }
+            else
+            {
+                throw new Exception("Auction not expired");
+            }
+            return this;
+        }
     }
 }
