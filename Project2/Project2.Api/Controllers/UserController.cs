@@ -180,7 +180,7 @@ namespace Project2.Api.Controllers
             };
 
             // what method to return
-            return CreatedAtAction("Add Card to User Inventory", new { id = cardReadDTO.CardId }, cardReadDTO);
+            return CreatedAtAction(nameof(GetUsersCardById), new { id = cardReadDTO.CardId }, cardReadDTO);
         }
 
         //GET /api/users/{id}/cards?cardid=1
@@ -214,23 +214,32 @@ namespace Project2.Api.Controllers
                 return NotFound();
             }
         }
-
-        /*
-        //PUT /api/users/{id}/cards?cardid=1
-        //Updates a single users card by id ex. qty user has
-        [HttpPut("{id}/cards")]
-        public IActionResult UpdateUsersCardById(string id, [FromQuery] string cardid = "")
-        {
-            return NoContent();
-        }
-        */
+       
 
         //DELETE /api/users/{id}/cards?cardid=1
         //Deletes a single user card by id
         [HttpDelete("{id}/cards")]
-        public IActionResult DeleteUsersCardById(string id, [FromQuery] string cardid = "")
+        public async Task<ActionResult> DeleteUsersCardById(string id, [FromQuery] string cardid = "")
         {
-            return NoContent();
+            var user = await _userRepo.GetOneUser(id);
+            if (user != null)
+            {
+                try
+                {
+                    await _userRepo.DeleteOneCardOfOneUser(id, cardid);
+                    return NoContent();
+                }
+                catch (Exception e)
+                {
+                    // log exception
+                    Console.Write(e);
+                    return NotFound();
+                }
+            }
+            else 
+            {
+                return NotFound();
+            }
         }
     }
 }
