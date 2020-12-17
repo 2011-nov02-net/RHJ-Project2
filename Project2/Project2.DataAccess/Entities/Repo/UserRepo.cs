@@ -36,18 +36,15 @@ namespace Project2.DataAccess.Entities.Repo
             var appUser = DomainDataMapper.GetOneUser(dbUser);
             return appUser;
         }
-
-        // need to handle duplicate outside
-        public async Task<AppUser> AddOneUser(AppUser user)
+      
+        public async Task AddOneUser(AppUser user)
         {           
             using var context = new Project2Context(_contextOptions);
             var newUser = DomainDataMapper.AddOneUser(user);
             await context.Customers.AddAsync(newUser);
             await context.SaveChangesAsync();
-            return user;
         }    
-
-        
+       
         // not mapped
         public async Task<IEnumerable<AppCard>> GetAllCardsOfOneUser(string id)
         {
@@ -107,14 +104,10 @@ namespace Project2.DataAccess.Entities.Repo
             }                      
         }
         
-        public async Task<string> DeleteOneCardOfOneUser(string id, string cardId)
+        public async Task DeleteOneCardOfOneUser(string id, string cardId)
         { 
-            using var context = new Project2Context(_contextOptions);
-            var dbUser = await context.Customers
-                                    .Include(x => x.UserCardInventories)
-                                    .ThenInclude(x => x.Card).FirstOrDefaultAsync(x => x.UserId == id);
-            if (dbUser == null) return null;
-            var dbInv = dbUser.UserCardInventories.FirstOrDefault(x => x.CardId == cardId);
+            using var context = new Project2Context(_contextOptions);          
+            var dbInv = await context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == cardId);           
             if (dbInv != null)
             {
                 context.UserCardInventories.Remove(dbInv);
@@ -123,9 +116,9 @@ namespace Project2.DataAccess.Entities.Repo
             else
             {
                 // if card does not exist
-                return null;
+                throw new Exception("You do not even have this card in your inventory");
             }
-            return "Deleted";
+             
         }
     }
 }
