@@ -51,13 +51,11 @@ namespace Project2.DataAccess.Entities.Repo
         // not mapped
         public async Task<IEnumerable<AppCard>> GetAllCardsOfOneUser(string id)
         {
-            using var context = new Project2Context(_contextOptions);
-            var dbUser= await context.Customers
-                                    .Include(x => x.UserCardInventories)
-                                    .ThenInclude(x => x.Card).FirstOrDefaultAsync(x => x.UserId == id);
-            if (dbUser == null) return null;
-            
-            var appCards = dbUser.UserCardInventories.Select(x => new AppCard
+            using var context = new Project2Context(_contextOptions);            
+            var dbInv= await context.UserCardInventories
+                                    .Include(x => x.Card).Where(x => x.UserId == id).ToListAsync();
+            if (dbInv == null) return null;
+            var appCards = dbInv.Select(x => new AppCard
             {
                 CardId = x.CardId,
                 Name = x.Card.Name,
@@ -71,13 +69,8 @@ namespace Project2.DataAccess.Entities.Repo
         // not mapped
         public async Task<AppCard> GetOneCardOfOneUser(string id, string cardId)
         {
-            using var context = new Project2Context(_contextOptions);
-            var dbUser = await context.Customers
-                                    .Include(x => x.UserCardInventories)
-                                    .ThenInclude(x => x.Card).FirstOrDefaultAsync(x => x.UserId == id);
-            if (dbUser == null) return null;
-
-            var dbInv = dbUser.UserCardInventories.FirstOrDefault(x => x.CardId == cardId);
+            using var context = new Project2Context(_contextOptions);           
+            var dbInv = await context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == cardId);
             if (dbInv == null) return null;
             var appCard = new AppCard
             {
@@ -90,14 +83,10 @@ namespace Project2.DataAccess.Entities.Repo
             return appCard;
         }
 
-        public async Task<AppCard> AddOneCardToOneUser(string id, AppCard card)
-        {
-            using var context = new Project2Context(_contextOptions);
-            var dbUser = await context.Customers
-                                        .Include(x => x.UserCardInventories)
-                                        .FirstOrDefaultAsync(x => x.UserId == id);
-            if (dbUser == null) return null;         
-            var dbInv = dbUser.UserCardInventories.FirstOrDefault(x => x.CardId == card.CardId);
+        public async Task AddOneCardToOneUser(string id, AppCard card)
+        {           
+            using var context = new Project2Context(_contextOptions);                       
+            var dbInv = await context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == card.CardId);
             if (dbInv != null)
             {
                 // if already has the card
@@ -115,8 +104,7 @@ namespace Project2.DataAccess.Entities.Repo
                 };
                 await context.UserCardInventories.AddAsync(newRecord);
                 await context.SaveChangesAsync();
-            }
-            return card;
+            }                      
         }
         
         public async Task<string> DeleteOneCardOfOneUser(string id, string cardId)

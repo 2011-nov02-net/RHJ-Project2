@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Project2.Api.DTO;
 using Project2.Domain;
+using Project2.DataAccess.Entities.Repo.Interfaces;
 
 namespace Project2.Api.Controllers
 {
@@ -18,12 +19,14 @@ namespace Project2.Api.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserRepo _userRepo;
+        //private readonly ICardRepo _cardRepo;
         private readonly IMapper _mapper;
 
-        public UserController(IUserRepo storeRepo, ILogger<UserController> logger, IMapper mapper)
-        {
-            _logger = logger;
+        public UserController(IUserRepo storeRepo, /*ICardRepo cardRepo,*/ ILogger<UserController> logger, IMapper mapper)
+        {        
             _userRepo = storeRepo;
+            //_cardRepo = cardRepo;
+            _logger = logger;
             _mapper = mapper;
         }
 
@@ -121,19 +124,24 @@ namespace Project2.Api.Controllers
         [HttpGet("{id}/cards")]
         public async Task<ActionResult<IEnumerable<CardReadDTO>>> GetUsersInventoryById(string id)
         {
-            var userInv = await _userRepo.GetAllCardsOfOneUser(id);
-            if (userInv != null)
+            var user = await _userRepo.GetOneUser(id);
+            if (user != null)
             {
-                //var cardsReadDTO = _mapper.Map<IEnumerable<CardReadDTO>>(userInv);
-                var cardsReadDTO = userInv.Select(x => new CardReadDTO
+                var userInv = await _userRepo.GetAllCardsOfOneUser(id);
+                if (userInv != null)
                 {
-                    CardId = x.CardId,
-                    Name = x.Name,
-                    Type = x.Type,
-                    Rarity = x.Rarity,
-                    Value = x.Value,
-                });
-                return Ok(cardsReadDTO);
+                    //var cardsReadDTO = _mapper.Map<IEnumerable<CardReadDTO>>(userInv);
+                    var cardsReadDTO = userInv.Select(x => new CardReadDTO
+                    {
+                        CardId = x.CardId,
+                        Name = x.Name,
+                        Type = x.Type,
+                        Rarity = x.Rarity,
+                        Value = x.Value,
+                    });
+                    return Ok(cardsReadDTO);
+                }
+                return NotFound();                        
             }          
             return NotFound();
         }
@@ -141,19 +149,73 @@ namespace Project2.Api.Controllers
         //POST /api/users/{id}/cards
         //Creates a card in users inventory
         [HttpPost("{id}/cards")]
-        public IActionResult AddCardToUserInventory(string id)
+        public async Task<ActionResult<CardReadDTO>> AddCardToUserInventory(string id, CardCreateDTO cardCreateDTO)
         {
-            return Ok(); //CreatedAtAction();
+            var user = await _userRepo.GetOneUser(id);
+            AppCard newCard;
+            if (user != null)
+            {               
+                newCard = new AppCard
+                {
+                    CardId = cardCreateDTO.CardId,
+                    Name = cardCreateDTO.Name,
+                    Type = cardCreateDTO.Type,
+                    Rarity = cardCreateDTO.Rarity,
+                    Value = cardCreateDTO.Value,
+                };
+                await _userRepo.AddOneCardToOneUser(id,newCard);            
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            var cardReadDTO = new CardReadDTO
+            {
+                CardId = cardCreateDTO.CardId,
+                Name = cardCreateDTO.Name,
+                Type = cardCreateDTO.Type,
+                Rarity = cardCreateDTO.Rarity,
+                Value = cardCreateDTO.Value,
+            };
+
+            // what method to return
+            return CreatedAtAction(nameof(GetCardById), new { id = cardReadDTO.CardId }, cardReadDTO);
         }
 
         //GET /api/users/{id}/cards?cardid=1
         //Gets a single users card by id
         [HttpGet("{id}/cards")]
-        public IActionResult GetUsersCardById(string id, [FromQuery] string cardid = "")
+        public async Task<ActionResult<CardReadDTO>> GetUsersCardById(string id, [FromQuery] string cardid)
         {
-            return Ok();
+            var user = await _userRepo.GetOneUser(id);
+            if (user != null)
+            {
+                var card = await _userRepo.GetOneCardOfOneUser(id, cardid);
+                if (card != null)
+                {
+                    var cardReadDTO = new CardReadDTO
+                    {
+                        CardId = card.CardId,
+                        Name = card.Name,
+                        Type = card.Type,
+                        Rarity = card.Rarity,
+                        Value = card.Value,
+                    };
+                    return Ok(cardReadDTO);
+                }
+                else 
+                {
+                    return NotFound();
+                }
+            }
+            else 
+            {
+                return NotFound();
+            }
         }
 
+        /*
         //PUT /api/users/{id}/cards?cardid=1
         //Updates a single users card by id ex. qty user has
         [HttpPut("{id}/cards")]
@@ -161,6 +223,7 @@ namespace Project2.Api.Controllers
         {
             return NoContent();
         }
+        */
 
         //DELETE /api/users/{id}/cards?cardid=1
         //Deletes a single user card by id

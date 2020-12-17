@@ -5,6 +5,7 @@ using Moq;
 using Project2.Api.Controllers;
 using Project2.Api.DTO;
 using Project2.DataAccess.Entities.Repo;
+using Project2.DataAccess.Entities.Repo.Interfaces;
 using Project2.Domain;
 using System;
 using System.Collections.Generic;
