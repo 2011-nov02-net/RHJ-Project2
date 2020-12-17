@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+Project2/Project2.DataAccess/obj/Debug/netcoreapp3.1/
+Project2/.vs/Project2/v16/
+
 # User-specific files
 *.rsuser
 *.suo
