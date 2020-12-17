@@ -15,5 +15,12 @@ namespace Project2.Api.DTO
         [Range(0,1000)]
         public double PriceSold { get; set; }
         public DateTime SellDate { get; set; }
+
+        //auction details
+        public double PriceListed { get; set; }
+        public double BuyoutPrice { get; set; }
+        public int NumberBids { get; set; }
+        public string SellType { get; set; }
+        public DateTime ExpDate { get; set; }
     }
 }
