@@ -51,40 +51,23 @@ namespace Project2.DataAccess.Entities.Repo
         //Update pack by id
         //add if manager adds more stock
         //sub if user purchases a pack to decrease stock
-        public async Task<bool> UpdateStoreItemById(string id, string option, int amount)
+        public async Task<bool> UpdateStoreItemById(string id, int amount)
         {
             using var context = new Project2Context(_contextOptions);
             var pack = await context.StoreInventories.Where(x => x.PackId == id).FirstAsync();
             if (pack == null)
                 return false;
 
-            switch(option)
+            try
             {
-                case "add":
-                    try
-                    {
-                        pack.PackQty += amount;
-                        await context.SaveChangesAsync();
-                    }
-                    catch(Exception e)
-                    {
-                        Debug.WriteLine("Try to Add to Store Qty Exception: " + e);
-                    }
-                    break;
-                case "sub":
-                    try
-                    {
-                        pack.PackQty -= amount;
-                        await context.SaveChangesAsync();
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("Try to Subtract to Store Qty Exception: " + e);
-                    }
-                    break;
-                default:
-                    Debug.WriteLine("Update Store Qty Error");
-                    break;
+                pack.PackQty = amount;
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Try to Update Store Qty Exception: " + e);
             }
 
             return false;
