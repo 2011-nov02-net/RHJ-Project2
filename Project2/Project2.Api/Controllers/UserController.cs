@@ -180,7 +180,7 @@ namespace Project2.Api.Controllers
             };
 
             // what method to return
-            return CreatedAtAction(nameof(GetCardById), new { id = cardReadDTO.CardId }, cardReadDTO);
+            return CreatedAtAction("Add Card to User Inventory", new { id = cardReadDTO.CardId }, cardReadDTO);
         }
 
         //GET /api/users/{id}/cards?cardid=1
