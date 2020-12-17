@@ -9,7 +9,6 @@ using Project2.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -17,86 +16,88 @@ namespace Project2.UnitTest
 {
     public class UserControllerUnitTests
     {
+        private List<AppUser> GetTestSessions()
+        {
+            var sessions = new List<AppUser>();
+            sessions.Add(new AppUser
+            {
+                UserId = "cus1",
+                First = "Kyle",
+                Last = "Crane",
+                Email = "KC@gmail.com",
+                UserRole = "User",
+                NumPacksPurchased = 1,
+                CurrencyAmount = 10,
+            });
+            sessions.Add(new AppUser
+            {
+                UserId = "cus2",
+                First = "NaN",
+                Last = "Man",
+                Email = "NN@gmail.com",
+                UserRole = "User",
+                NumPacksPurchased = 2,
+                CurrencyAmount = 20,
+            });
+            return sessions;
+        }
+
         [Fact]
-        public void UserController_GetAllUsers()
+        public async Task UserController_GetAllUsers()
         {
             // arrange
             var _mockRepo = new Mock<IUserRepo>();
             var _mapper = new Mock<IMapper>();
             var _logger = new NullLogger<UserController>();
             var userController = new UserController(_mockRepo.Object, _logger, _mapper.Object);
-            _mockRepo.Setup(x => x.GetAllUsers()).ReturnsAsync
-                (
-                    new List<AppUser>
-                    {
-                        new AppUser
-                        {
-                        UserId = "cus1", First = "Kyle", Last = "Crane", Email = "KC@gmail.com",
-                        UserRole = "User", NumPacksPurchased = 1, CurrencyAmount = 10,
-                        },
-                        new AppUser
-                        {
-                        UserId = "cus2", First = "NaN", Last = "Man", Email = "NN@gmail.com",
-                        UserRole = "User", NumPacksPurchased = 2, CurrencyAmount = 20,
-                        },
-                    }
-                );
-
+            _mockRepo.Setup(x => x.GetAllUsers()).ReturnsAsync(GetTestSessions());
+               
             // act
-            var actionResult = userController.Get();
+            var actionResult = await userController.Get();
 
-            //asert
+            //asert           
             var DTOs = Assert.IsAssignableFrom<ActionResult<IEnumerable<UserReadDTO>>>(actionResult);
-            var objects = Assert.IsAssignableFrom<OkObjectResult>(actionResult.Result);
-            Assert.Equal(200, objects.StatusCode);
-            //var users = DTOs.Value;            
-            //Assert.Equal(2, users.Count);
-            //Assert.Equal("cus1", users[0].UserId);
-            //Assert.Equal("Kyle", users[0].First);
-            //Assert.Equal("Crane", users[0].Last);         
+            var okObjects = Assert.IsAssignableFrom<OkObjectResult>(actionResult.Result);
+            Assert.Equal(200, okObjects.StatusCode);
+          
+            //var first = actionResult.Value.First();            
+            //Assert.Equal("cus1", first.UserId);
+            //Assert.Equal("Kyle", first.First);
+            //Assert.Equal("Crane", first.Last);         
         }
 
         string fake = "fakeID";
         [Fact]
-        public void UserController_GetOneUser()
+        public async Task UserController_GetOneUser()
         {
             // arrange
             var _mockRepo = new Mock<IUserRepo>();
             var _mapper = new Mock<IMapper>();
             var _logger = new NullLogger<UserController>();
             var userController = new UserController(_mockRepo.Object, _logger, _mapper.Object);
-            _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync
-                (                   
-                    new AppUser
-                    {
-                    UserId = "cus1", First = "Kyle", Last = "Crane", Email = "KC@gmail.com",
-                    UserRole = "User", NumPacksPurchased = 1, CurrencyAmount = 10,
-                    }                                        
-                );
-
+            _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(GetTestSessions()[0]);
+                
             // act
-            var actionResult = userController.GetUserById(fake);
+            var actionResult = await userController.GetUserById(fake);
 
             //asert
             var DTOs = Assert.IsAssignableFrom<ActionResult<UserReadDTO>>(actionResult);
-            var objects = Assert.IsAssignableFrom<OkObjectResult>(actionResult.Result);
-            Assert.Equal(200, objects.StatusCode);
-
+            var okObjects = Assert.IsAssignableFrom<OkObjectResult>(actionResult.Result);
+            Assert.Equal(200, okObjects.StatusCode);
         }
 
         
         [Fact]
-        public void UserController_AddOneUser()
+        public async Task UserController_AddOneUser()
         {
             // arrange
             var _mockRepo = new Mock<IUserRepo>();
             var _mapper = new Mock<IMapper>();
             var _logger = new NullLogger<UserController>();
-            AppUser appUser;
+            AppUser appUser= null;
             var userController = new UserController(_mockRepo.Object, _logger, _mapper.Object);
             _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync((AppUser)null);
-            // no duplicate exist
-
+          
             _mockRepo.Setup(x => x.AddOneUser(It.IsAny<AppUser>())).Callback<AppUser>((x) =>
             {
                appUser = x;
@@ -113,14 +114,14 @@ namespace Project2.UnitTest
             };
 
             // assert
-            var actionResult = userController.Post(newUser);
+            var actionResult = await userController.Post(newUser);
 
             // getting opposite result         
             _mockRepo.Verify(x => x.AddOneUser(It.IsAny<AppUser>()), Times.Once);           
             var DTOs = Assert.IsAssignableFrom<ActionResult<UserReadDTO>>(actionResult);
-            var objects = Assert.IsAssignableFrom<CreatedAtActionResult>(actionResult.Result);
-            Assert.Equal(201, objects.StatusCode);
-            //Assert.Equal(appUser.UserId, 
+            var okObjects = Assert.IsAssignableFrom<CreatedAtActionResult>(actionResult.Result);
+            Assert.Equal(201, okObjects.StatusCode);
+            //Assert.Equal(appUser.UserId,);
         }
     }
 }

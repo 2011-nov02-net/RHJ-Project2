@@ -14,6 +14,7 @@ namespace Project2.Api.DTO
         public string First { get; set; }
         public string Last { get; set; }
         public string Email { get; set; }
+        public string UserRole { get; set; }
         public int NumPacksPurchased { get; set; }
         [Range(0,10000)]
         public double CurrencyAmount { get; set; }
