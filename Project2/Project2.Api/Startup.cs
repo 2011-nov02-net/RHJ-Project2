@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Project2.DataAccess.Entities.Repo;
+using Project2.DataAccess.Entities.Repo.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
