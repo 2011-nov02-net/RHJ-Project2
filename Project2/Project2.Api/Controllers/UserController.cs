@@ -57,7 +57,7 @@ namespace Project2.Api.Controllers
         //POST /api/users
         //Creates a new user
         [HttpPost]
-        public async Task<ActionResult<UserReadDTO>> Post(UserCreateDTO userCreateDTO  )
+        public async Task<ActionResult<UserReadDTO>> Post(UserCreateDTO userCreateDTO)
         {
             var user = await _userRepo.GetOneUser(userCreateDTO.UserId);
             if (user != null)
