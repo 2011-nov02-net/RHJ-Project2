@@ -15,13 +15,11 @@ namespace Project2.Api.Controllers
     [ApiController]
     public class AuctionController : ControllerBase
     {
-        private readonly ILogger<AuctionController> _logger;
         private readonly IAuctionRepo _auctRepo;
 
-        public AuctionController(IAuctionRepo auctRepo, ILogger<AuctionController> logger)
+        public AuctionController(IAuctionRepo auctRepo)
         {
             _auctRepo = auctRepo;
-            _logger = logger;
         }
 
         //GET /api/auctions
