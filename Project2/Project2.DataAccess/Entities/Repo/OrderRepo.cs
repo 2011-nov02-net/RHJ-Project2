@@ -116,7 +116,7 @@ namespace Project2.DataAccess.Entities.Repo
 
             var returnCard = new AppCard
             {
-                CardId = cardId,
+                CardId = card.Card.Id,
                 Name = card.Card.Name,
                 Type = card.Card.Types.First(),
                 Rarity = rarity,
