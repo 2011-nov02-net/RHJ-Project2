@@ -237,5 +237,37 @@ namespace Project2.Api.Controllers
                 return NotFound();
             }
         }
+
+        //PUT /api/users/{id}
+        //updates a user 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserCreateDTO>> UpdateUserById(string id, UserCreateDTO userCreateDTO)
+        {
+            var checkUser = await _userRepo.GetOneUser(id);
+            if(checkUser != null)
+            {
+                AppUser updatedUser = new AppUser()
+                {
+                    UserId = userCreateDTO.UserId,
+                    UserRole = userCreateDTO.UserRole,
+                    First = userCreateDTO.First,
+                    Last = userCreateDTO.Last,
+                    Email = userCreateDTO.Email,
+                    NumPacksPurchased = userCreateDTO.NumPacksPurchased,
+                    CurrencyAmount = userCreateDTO.CurrencyAmount
+                };
+
+                bool result = await _userRepo.UpdateUserById(id, updatedUser);
+                if (result)
+                {
+                    return NoContent(); //update successfull
+                }
+                else
+                {
+                    return BadRequest(); //something wrong with update
+                }
+            }
+            return NotFound(); //Return 404 if no auction details found
+        }
     }
 }
