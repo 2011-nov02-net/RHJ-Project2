@@ -12,5 +12,6 @@ namespace Project2.DataAccess.Entities.Repo.Interfaces
         Task<AppTrade> GetOneTrade(string id);
         Task<AppTrade> AddOneTrade(AppTrade appTrade);
 
+        Task<bool> UpdateTradeById(string id, AppTrade updateTrade);
     }
 }

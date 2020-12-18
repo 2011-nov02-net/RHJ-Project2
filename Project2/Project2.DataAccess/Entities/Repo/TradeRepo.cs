@@ -90,5 +90,32 @@ namespace Project2.DataAccess.Entities.Repo
 
             return appTrade;
         }
+        /// <summary>
+        /// updates the db with passed AppTrade
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updateTrade"></param>
+        /// <returns>True on success, false otherwise</returns>
+        public async Task<bool> UpdateTradeById(string id, AppTrade updateTrade)
+        {
+            var dbTrade = await _context.Trades.FirstOrDefaultAsync(x => x.TradeId == id);
+            var dbTradeDetail = await _context.TradeDetails.FirstOrDefaultAsync(x => x.TradeId == id);
+            if (dbTrade == null)
+                return false;
+            else if (dbTradeDetail == null)
+                return false;
+            else
+            {
+                dbTrade.TradeId = updateTrade.TradeId;
+                dbTrade.BuyerId = updateTrade.BuyerId;
+                dbTrade.OffererId = updateTrade.OffererId;
+                dbTrade.IsClosed = updateTrade.IsClosed;
+                dbTrade.TradeDate = updateTrade.TradeDate;
+                //tradedetail
+                dbTradeDetail.OfferCardId = updateTrade.OfferCard.CardId;
+                dbTradeDetail.BuyerCardId = updateTrade.BuyerCard.CardId;
+                return true;
+            }
+        }
     }
 }
