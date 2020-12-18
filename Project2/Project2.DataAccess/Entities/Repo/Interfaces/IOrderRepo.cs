@@ -14,6 +14,7 @@ namespace Project2.DataAccess.Entities.Repo.Interfaces
 
         Task<AppOrder> AddOneOrder(int quantity, AppOrder appOrder);
 
-       
+        Task<AppCard> GetCardFromApi(string cardId, string baseset);
+        int GetRarity(string apiRarity);
     }
 }

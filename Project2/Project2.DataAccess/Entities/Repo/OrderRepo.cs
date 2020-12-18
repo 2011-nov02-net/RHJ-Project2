@@ -6,13 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project2.DataAccess.Entities.Repo.Interfaces;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using PokemonTcgSdk;
 
 namespace Project2.DataAccess.Entities.Repo
 {
     public class OrderRepo : IOrderRepo
     {
         private readonly Project2Context _context;
-        public OrderRepo( Project2Context context )
+        public OrderRepo(Project2Context context)
         {
             _context  = context;
         }
@@ -100,6 +104,42 @@ namespace Project2.DataAccess.Entities.Repo
             await _context.OrderItems.AddAsync(newOrderItem);
             await _context.SaveChangesAsync();
             return order;
+        }
+
+        //Get card info from pokemon api
+        public async Task<AppCard> GetCardFromApi(string cardId, string baseset)
+        {
+            var card = await PokemonTcgSdk.Card.FindAsync<Pokemon>("base" + baseset + "-" + cardId);
+
+            int rarity = GetRarity(card.Card.Rarity);
+
+
+            var returnCard = new AppCard
+            {
+                CardId = card.Card.Id,
+                Name = card.Card.Name,
+                Type = card.Card.Types.First(),
+                Rarity = rarity,
+                Value = 0
+            };
+
+            return returnCard;
+        }
+
+        //convert rarity string to int
+        public int GetRarity(string apiRarity)
+        {
+            switch(apiRarity)
+            {
+                case "Common":
+                    return 1;
+                case "Uncommon":
+                    return 2;
+                case "Rare":
+                    return 3;
+                default:
+                    return 1;
+            }
         }
     }
 }
