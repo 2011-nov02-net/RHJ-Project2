@@ -182,10 +182,10 @@ namespace Project2.Api.Controllers
             return CreatedAtAction(nameof(GetUsersCardById), new { id = cardReadDTO.CardId }, cardReadDTO);
         }
 
-        //GET /api/users/{id}/cards?cardid=1
+        //GET /api/users/{id}/cards/1
         //Gets a single users card by id
-        [HttpGet("{id}/cards")]
-        public async Task<ActionResult<CardReadDTO>> GetUsersCardById(string id, [FromQuery] string cardid)
+        [HttpGet("{id}/cards/{cardid}")]
+        public async Task<ActionResult<CardReadDTO>> GetUsersCardById(string id, string cardid)
         {
             var user = await _userRepo.GetOneUser(id);
             if (user != null)
