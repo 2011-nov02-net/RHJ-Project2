@@ -17,41 +17,18 @@ namespace Project2.UnitTest
 {
     public class UserControllerUnitTests
     {
-        private List<AppUser> GetTestSessions()
-        {
-            var sessions = new List<AppUser>();
-            sessions.Add(new AppUser
-            {
-                UserId = "cus1",
-                First = "Kyle",
-                Last = "Crane",
-                Email = "KC@gmail.com",
-                UserRole = "User",
-                NumPacksPurchased = 1,
-                CurrencyAmount = 10,
-            });
-            sessions.Add(new AppUser
-            {
-                UserId = "cus2",
-                First = "NaN",
-                Last = "Man",
-                Email = "NN@gmail.com",
-                UserRole = "User",
-                NumPacksPurchased = 2,
-                CurrencyAmount = 20,
-            });
-            return sessions;
-        }
-
+        string fake = "fakeID";
+        string fake2 = "fakeDI";
+        // success scenarios
         [Fact]
-        public async Task UserController_GetAllUsers()
+        public async Task UserController_GetAllUsersSuccess()
         {
             // arrange
             var _mockRepo = new Mock<IUserRepo>();
             var _mapper = new Mock<IMapper>();
             var _logger = new NullLogger<UserController>();
             var userController = new UserController(_mockRepo.Object, _logger, _mapper.Object);
-            _mockRepo.Setup(x => x.GetAllUsers()).ReturnsAsync(GetTestSessions());
+            _mockRepo.Setup(x => x.GetAllUsers()).ReturnsAsync(Test.Users());
                
             // act
             var actionResult = await userController.Get();
@@ -67,16 +44,16 @@ namespace Project2.UnitTest
             //Assert.Equal("Crane", first.Last);         
         }
 
-        string fake = "fakeID";
+        
         [Fact]
-        public async Task UserController_GetOneUser()
+        public async Task UserController_GetOneUserSuccess()
         {
             // arrange
             var _mockRepo = new Mock<IUserRepo>();
             var _mapper = new Mock<IMapper>();
             var _logger = new NullLogger<UserController>();
             var userController = new UserController(_mockRepo.Object, _logger, _mapper.Object);
-            _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(GetTestSessions()[0]);
+            _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);
                 
             // act
             var actionResult = await userController.GetUserById(fake);
@@ -86,10 +63,9 @@ namespace Project2.UnitTest
             var okObjects = Assert.IsAssignableFrom<OkObjectResult>(actionResult.Result);
             Assert.Equal(200, okObjects.StatusCode);
         }
-
-        
+       
         [Fact]
-        public async Task UserController_AddOneUser()
+        public async Task UserController_AddOneUserSuccess()
         {
             // arrange
             var _mockRepo = new Mock<IUserRepo>();
@@ -102,27 +78,124 @@ namespace Project2.UnitTest
             _mockRepo.Setup(x => x.AddOneUser(It.IsAny<AppUser>())).Callback<AppUser>((x) =>
             {
                appUser = x;
-            });
-
-            var newUser = new UserCreateDTO
-            {
-                UserId = "cus1",
-                First = "Kyle",
-                Last = "Crane",
-                Email = "KC@gmail.com",
-                NumPacksPurchased = 1,
-                CurrencyAmount = 10,
-            };
+            });         
 
             // assert
-            var actionResult = await userController.Post(newUser);
+            var actionResult = await userController.Post(Test.UsersDTO()[0]);
 
             // getting opposite result         
             _mockRepo.Verify(x => x.AddOneUser(It.IsAny<AppUser>()), Times.Once);           
             var DTOs = Assert.IsAssignableFrom<ActionResult<UserReadDTO>>(actionResult);
-            var okObjects = Assert.IsAssignableFrom<CreatedAtActionResult>(actionResult.Result);
-            Assert.Equal(201, okObjects.StatusCode);
-            //Assert.Equal(appUser.UserId,);
+            var createObjects = Assert.IsAssignableFrom<CreatedAtActionResult>(actionResult.Result);
+            Assert.Equal(201, createObjects.StatusCode);
+            //Assert.Equal(appUser.UserId, );
+        }
+
+        [Fact]
+        public async Task UserController_GetAllCardsOfOneUserSuccess()
+        {
+            // arrange
+            var _mockRepo = new Mock<IUserRepo>();
+            var _mapper = new Mock<IMapper>();
+            var _logger = new NullLogger<UserController>();
+            var userController = new UserController(_mockRepo.Object, _logger, _mapper.Object);
+            _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);
+            _mockRepo.Setup(x => x.GetAllCardsOfOneUser(It.IsAny<string>())).ReturnsAsync(Test.Cards());
+
+            // act
+            var actionResult = await userController.GetUsersInventoryById(fake);
+
+            //asert
+            var DTOs = Assert.IsAssignableFrom<ActionResult<IEnumerable<CardReadDTO>>>(actionResult);
+            var okObjects = Assert.IsAssignableFrom<OkObjectResult>(actionResult.Result);
+            Assert.Equal(200, okObjects.StatusCode);
+        }
+
+        [Fact]
+        public async Task UserController_GetOneCardOfOneUserSuccess()
+        {
+            // arrange
+            var _mockRepo = new Mock<IUserRepo>();
+            var _mapper = new Mock<IMapper>();
+            var _logger = new NullLogger<UserController>();
+            var userController = new UserController(_mockRepo.Object, _logger, _mapper.Object);
+            _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);
+            _mockRepo.Setup(x => x.GetOneCardOfOneUser(It.IsAny<string>(),It.IsAny<string>())).ReturnsAsync(Test.Cards()[0]);
+
+            // act
+            var actionResult = await userController.GetUsersCardById(fake,fake2);
+
+            //asert
+            var DTOs = Assert.IsAssignableFrom<ActionResult<CardReadDTO>>(actionResult);
+            var okObjects = Assert.IsAssignableFrom<OkObjectResult>(actionResult.Result);
+            Assert.Equal(200, okObjects.StatusCode);
+        }
+
+
+        [Fact]
+        public async Task UserController_AddOneNewCardToOneUserSuccess()
+        {
+            var _mockRepo = new Mock<IUserRepo>();
+            var _mapper = new Mock<IMapper>();
+            var _logger = new NullLogger<UserController>();
+            var userController = new UserController(_mockRepo.Object, _logger, _mapper.Object);
+            //_mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).Verifiable();
+            _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);         
+            _mockRepo.Setup(x => x.AddOneCardToOneUser(It.IsAny<string>(), It.IsAny<AppCard>())).Verifiable();
+
+            // act
+            var actionResult = await userController.AddCardToUserInventory(fake,Test.CardsDTO()[0]);
+
+            //asert
+            //_mockRepo.Verify(x => x.AddOneUser(It.IsAny<AppUser>()), Times.Once);
+            _mockRepo.Verify(x => x.AddOneCardToOneUser(It.IsAny<string>(), It.IsAny<AppCard>()),Times.Once);
+            var DTOs = Assert.IsAssignableFrom<ActionResult<CardReadDTO>>(actionResult);
+            var createObjects = Assert.IsAssignableFrom<CreatedAtActionResult>(actionResult.Result);
+            Assert.Equal(201, createObjects.StatusCode);
+        }
+
+
+        [Fact]
+        public async Task UserController_DeleteOneCardOfOneUserSuccess()
+        {
+            var _mockRepo = new Mock<IUserRepo>();
+            var _mapper = new Mock<IMapper>();
+            var _logger = new NullLogger<UserController>();
+            var userController = new UserController(_mockRepo.Object, _logger, _mapper.Object);
+            _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);
+            _mockRepo.Setup(x => x.DeleteOneCardOfOneUser(It.IsAny<string>(), It.IsAny<string>())).Verifiable();
+
+            // act
+            var actionResult = await userController.DeleteUsersCardById(fake);
+
+            //asert
+            //_mockRepo.Verify(x => x.AddOneUser(It.IsAny<AppUser>()), Times.Once);
+            _mockRepo.Verify(x => x.DeleteOneCardOfOneUser(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            var DTOs = Assert.IsAssignableFrom<ActionResult>(actionResult);
+            var createObjects = Assert.IsAssignableFrom<NoContentResult>(actionResult);
+            Assert.Equal(204, createObjects.StatusCode);
+        }
+
+        // fail scenarios
+        [Fact]
+        public async Task UserController_AddOneUserFailure()
+        {
+            // arrange
+            var _mockRepo = new Mock<IUserRepo>();
+            var _mapper = new Mock<IMapper>();
+            var _logger = new NullLogger<UserController>();
+            var userController = new UserController(_mockRepo.Object, _logger, _mapper.Object);
+            _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);
+
+            // act
+            var actionResult = await userController.Post(Test.UsersDTO()[0]);
+
+            // assert
+            //Assert.IsAssignableFrom<ConflictObjectResult>(actionResult);
+            var obj = Assert.IsAssignableFrom<ConflictResult>(actionResult.Result);
+            Assert.Equal(409, obj.StatusCode);
         }
     }
+
+
 }

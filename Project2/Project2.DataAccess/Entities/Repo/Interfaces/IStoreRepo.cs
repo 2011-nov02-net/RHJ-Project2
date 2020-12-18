@@ -9,6 +9,6 @@ namespace Project2.DataAccess.Entities.Repo.Interfaces
     {
         Task<IEnumerable<AppStoreItem>> GetAllStoreItems();
         Task<AppStoreItem> GetStoreItemById(string id);
-        Task<bool> UpdateStoreItemById(string id, string option, int amount);
+        Task<bool> UpdateStoreItemById(string id, int amount);
     }
 }
