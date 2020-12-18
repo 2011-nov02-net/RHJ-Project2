@@ -14,13 +14,11 @@ namespace Project2.Api.Controllers
     [ApiController]
     public class PackController : ControllerBase
     {
-        private readonly ILogger<PackController> _logger;
         private readonly IPackRepo _packRepo;
 
-        public PackController(IPackRepo packRepo, ILogger<PackController> logger)
+        public PackController(IPackRepo packRepo)
         {
             _packRepo = packRepo;
-            _logger = logger;
         }
 
         //GET /api/packs

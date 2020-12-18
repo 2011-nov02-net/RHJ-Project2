@@ -17,16 +17,12 @@ namespace Project2.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
         private readonly IUserRepo _userRepo;
-        //private readonly ICardRepo _cardRepo;
 
 
-        public UserController(IUserRepo storeRepo, /*ICardRepo cardRepo,*/ ILogger<UserController> logger)
+        public UserController(IUserRepo storeRepo)
         {        
-            _userRepo = storeRepo;
-            //_cardRepo = cardRepo;
-            _logger = logger;     
+            _userRepo = storeRepo;   
         }
 
         //GET /api/users
@@ -185,8 +181,8 @@ namespace Project2.Api.Controllers
 
         //GET /api/users/{id}/cards/1
         //Gets a single users card by id
-        [HttpGet("{id}/cards")]
-        public async Task<ActionResult<CardReadDTO>> GetUsersCardById(string id, [FromQuery] string cardid)
+        [HttpGet("{id}/cards/{cardid}")]
+        public async Task<ActionResult<CardReadDTO>> GetUsersCardById(string id, string cardid)
         {
             var user = await _userRepo.GetOneUser(id);
             if (user != null)
