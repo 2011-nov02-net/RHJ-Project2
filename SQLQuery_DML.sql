@@ -13,7 +13,7 @@ insert into TEAM.Pack(PackId,Name,Price) values('packC','Bug Out', 12);
 -- inesrt card
 -- dummies for testing, will use pokeAPI to get data
 insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card101','Mew','Psychic',5,8);
-insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card102','MewTwo','Psychic',5.5,8);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card102','MewTwo','Psychic',6,8);
 insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card103','Pinsir','Bug',4,5);
 
 
@@ -55,7 +55,7 @@ update TEAM.StoreInventory set PackQty = 299 where PackId= 'PackC';
 -- no trades made yet, not enough cards atm
 
 select * from TEAM.Customer;
-select * from TEAM.UserCardInveNTORY;
+select * from TEAM.UserCardInventory;
 select * from TEAM.Card;
 select * from TEAM.Pack;
 select * from TEAM.StoreInventory;

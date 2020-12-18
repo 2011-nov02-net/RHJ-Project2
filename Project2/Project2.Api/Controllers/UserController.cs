@@ -124,6 +124,7 @@ namespace Project2.Api.Controllers
         public async Task<ActionResult<IEnumerable<CardReadDTO>>> GetUsersInventoryById(string id)
         {
             var user = await _userRepo.GetOneUser(id);
+             
             if (user != null)
             {
                 var userInv = await _userRepo.GetAllCardsOfOneUser(id);
@@ -184,7 +185,10 @@ namespace Project2.Api.Controllers
 
         //GET /api/users/{id}/cards?cardid=1
         //Gets a single users card by id
-        [HttpGet("{id}/cards")]
+        // routes
+
+        // routes modified
+        [HttpGet("{id}/cards/{cardid}")]
         public async Task<ActionResult<CardReadDTO>> GetUsersCardById(string id, [FromQuery] string cardid)
         {
             var user = await _userRepo.GetOneUser(id);
