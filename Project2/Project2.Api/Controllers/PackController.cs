@@ -46,10 +46,10 @@ namespace Project2.Api.Controllers
             return NotFound(); //error couldnt find any packs
         }
 
-        //GET /api/packs?id=1
+        //GET /api/packs/1
         //Gets a pack by id
-        [HttpGet()]
-        public async Task<ActionResult<PackReadDTO>> GetPackById([FromQuery] string id = "")
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PackReadDTO>> GetPackById(string id)
         {
             var pack = await _packRepo.GetOnePack(id);
 
