@@ -19,7 +19,6 @@ namespace Project2.Api.Controllers
     {
         private readonly IUserRepo _userRepo;
 
-
         public UserController(IUserRepo storeRepo)
         {        
             _userRepo = storeRepo;   
@@ -176,12 +175,13 @@ namespace Project2.Api.Controllers
             };
 
             // what method to return
-            return CreatedAtAction(nameof(AddCardToUserInventory), new { id = cardReadDTO.CardId }, cardReadDTO);
+            return CreatedAtAction(nameof(GetUsersCardById), new { id= user.UserId, cardid= newCard.CardId }, cardReadDTO);
         }
 
         //GET /api/users/{id}/cards/1
         //Gets a single users card by id
         [HttpGet("{id}/cards/{cardid}")]
+        
         public async Task<ActionResult<CardReadDTO>> GetUsersCardById(string id, string cardid)
         {
             var user = await _userRepo.GetOneUser(id);
@@ -214,8 +214,8 @@ namespace Project2.Api.Controllers
 
         //DELETE /api/users/{id}/cards?cardid=1
         //Deletes a single user card by id
-        [HttpDelete("{id}/cards")]
-        public async Task<ActionResult> DeleteUsersCardById(string id, [FromQuery] string cardid = "")
+        [HttpDelete("{id}/cards/{cardid}")]
+        public async Task<ActionResult> DeleteUsersCardById(string id, string cardid)
         {
             var user = await _userRepo.GetOneUser(id);
             if (user != null)
