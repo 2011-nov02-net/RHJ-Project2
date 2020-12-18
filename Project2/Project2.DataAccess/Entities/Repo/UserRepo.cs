@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project2.DataAccess.Entities.Repo.Interfaces;
+using System.Diagnostics;
 
 namespace Project2.DataAccess.Entities.Repo
 {
@@ -118,5 +119,30 @@ namespace Project2.DataAccess.Entities.Repo
             }
              
         }
+
+        public async Task<bool> UpdateUserById(string id, AppUser updateUser)
+        {
+            var dbUser = await _context.Customers.FirstOrDefaultAsync(x=>x.UserId == id);
+            if (dbUser == null || updateUser == null)
+                return false;
+            else
+            {
+                try
+                {
+                    //only necessary to modify currencyAmount and packs purchased in the db
+                    dbUser.CurrencyAmount = updateUser.CurrencyAmount;
+                    dbUser.NumPacksPurchased = updateUser.NumPacksPurchased;
+
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Error Updating User: " + e);
+                }
+            }
+            return false;
+        }
+
     }
 }

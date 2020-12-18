@@ -9,11 +9,12 @@ namespace Project2.Api.DTO
     {
         public string TradeId { get; set; }
         public string OffererId { get; set; }
-
-        // isClosed is not needed
-
-        public string BuyerId { get; set; }        
+        public string BuyerId { get; set; }
+        public bool IsClosed { get; set; }
         public DateTime TradeDate { get; set; }
-        // evolve
+        //TradeDetails
+        public string OfferCardId { get; set; }
+        public string BuyerCardId { get; set; }
+
     }
 }
