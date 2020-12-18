@@ -11,16 +11,16 @@ namespace Project2.DataAccess.Entities.Repo
 {
     public class CardRepo: ICardRepo
     {
-        private readonly DbContextOptions<Project2Context> _contextOptions;
-        public CardRepo(DbContextOptions<Project2Context> contextOptions)
+        private readonly Project2Context _context ;
+        public CardRepo( Project2Context context )
         {
-            _contextOptions = contextOptions;
+            _context  = context ;
         }
 
         public async Task<IEnumerable<AppCard>> GetAllCards()
         {
-            using var context = new Project2Context(_contextOptions);
-            var dbCards = await context.Cards.ToListAsync();
+       
+            var dbCards = await _context.Cards.ToListAsync();
             if (dbCards == null) return null;           
             var appCards = DomainDataMapper.GetAllCards(dbCards); 
             return appCards;
@@ -28,28 +28,20 @@ namespace Project2.DataAccess.Entities.Repo
 
         public async Task<AppCard> GetOneCard(string id)
         {
-            using var context = new Project2Context(_contextOptions);
-            var dbCard = await context.Cards.FirstOrDefaultAsync(x => x.CardId == id);
+     
+            var dbCard = await _context.Cards.FirstOrDefaultAsync(x => x.CardId == id);
             if (dbCard == null) return null;
             var appCard = DomainDataMapper.GetOneCard(dbCard);
             return appCard;
         }
 
         // need to handle duplicate outside
-        public async Task<AppCard> AddOneCard(AppCard card)
+        public async Task AddOneCard(AppCard card)
         {           
-            using var context = new Project2Context(_contextOptions);            
+                  
             var newCard = DomainDataMapper.AddOneCard(card);
-            await context.Cards.AddAsync(newCard);
-            await context.SaveChangesAsync();
-            return card;
+            await _context.Cards.AddAsync(newCard);
+            await _context.SaveChangesAsync();            
         }
-
-
-
-
-
-
-
     }
 }

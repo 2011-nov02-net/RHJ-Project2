@@ -12,26 +12,24 @@ namespace Project2.DataAccess.Entities.Repo
     public class UserRepo: IUserRepo
     {
 
-        private readonly DbContextOptions<Project2Context> _contextOptions;
-        public UserRepo(DbContextOptions<Project2Context> contextOptions)
+        private readonly Project2Context _context;
+        public UserRepo(Project2Context contextOptions)
         {
-            _contextOptions = contextOptions;
+            _context = contextOptions;
         }
 
         public async Task<IEnumerable<AppUser>> GetAllUsers()
-        {
-            using var context = new Project2Context(_contextOptions);
-            var dbUsers = await context.Customers.ToListAsync();
+        {         
+            var dbUsers = await _context.Customers.ToListAsync();
             if (dbUsers == null) return null;
             var appUsers = DomainDataMapper.GetAllUsers(dbUsers);
             return appUsers;
-
         }
 
         public async Task<AppUser> GetOneUser(string id)
         {
-            using var context = new Project2Context(_contextOptions);
-            var dbUser = await context.Customers.FirstOrDefaultAsync(x => x.UserId == id);
+             
+            var dbUser = await _context.Customers.FirstOrDefaultAsync(x => x.UserId == id);
             if (dbUser == null) return null;
             var appUser = DomainDataMapper.GetOneUser(dbUser);
             return appUser;
@@ -39,17 +37,17 @@ namespace Project2.DataAccess.Entities.Repo
       
         public async Task AddOneUser(AppUser user)
         {           
-            using var context = new Project2Context(_contextOptions);
+             
             var newUser = DomainDataMapper.AddOneUser(user);
-            await context.Customers.AddAsync(newUser);
-            await context.SaveChangesAsync();
+            await _context.Customers.AddAsync(newUser);
+            await _context.SaveChangesAsync();
         }    
        
         // not mapped
         public async Task<IEnumerable<AppCard>> GetAllCardsOfOneUser(string id)
         {
-            using var context = new Project2Context(_contextOptions);            
-            var dbInv= await context.UserCardInventories
+                       
+            var dbInv= await _context.UserCardInventories
                                     .Include(x => x.Card).Where(x => x.UserId == id).ToListAsync();
             if (dbInv == null) return null;
             var appCards = dbInv.Select(x => new AppCard
@@ -66,8 +64,8 @@ namespace Project2.DataAccess.Entities.Repo
         // not mapped
         public async Task<AppCard> GetOneCardOfOneUser(string id, string cardId)
         {
-            using var context = new Project2Context(_contextOptions);           
-            var dbInv = await context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == cardId);
+                       
+            var dbInv = await _context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == cardId);
             if (dbInv == null) return null;
             var appCard = new AppCard
             {
@@ -82,13 +80,13 @@ namespace Project2.DataAccess.Entities.Repo
 
         public async Task AddOneCardToOneUser(string id, AppCard card)
         {           
-            using var context = new Project2Context(_contextOptions);                       
-            var dbInv = await context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == card.CardId);
+                                   
+            var dbInv = await _context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == card.CardId);
             if (dbInv != null)
             {
                 // if already has the card
                 dbInv.Quantity += 1;
-                await context.SaveChangesAsync();              
+                await _context.SaveChangesAsync();              
             }
             else
             {
@@ -99,19 +97,19 @@ namespace Project2.DataAccess.Entities.Repo
                     CardId = card.CardId,
                     Quantity = 1,
                 };
-                await context.UserCardInventories.AddAsync(newRecord);
-                await context.SaveChangesAsync();
+                await _context.UserCardInventories.AddAsync(newRecord);
+                await _context.SaveChangesAsync();
             }                      
         }
         
         public async Task DeleteOneCardOfOneUser(string id, string cardId)
         { 
-            using var context = new Project2Context(_contextOptions);          
-            var dbInv = await context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == cardId);           
+                      
+            var dbInv = await _context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == cardId);           
             if (dbInv != null)
             {
-                context.UserCardInventories.Remove(dbInv);
-                await context.SaveChangesAsync();
+                _context.UserCardInventories.Remove(dbInv);
+                await _context.SaveChangesAsync();
             }
             else
             {

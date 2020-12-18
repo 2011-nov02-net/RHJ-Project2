@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -20,14 +20,13 @@ namespace Project2.Api.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IUserRepo _userRepo;
         //private readonly ICardRepo _cardRepo;
-        private readonly IMapper _mapper;
 
-        public UserController(IUserRepo storeRepo, /*ICardRepo cardRepo,*/ ILogger<UserController> logger, IMapper mapper)
+
+        public UserController(IUserRepo storeRepo, /*ICardRepo cardRepo,*/ ILogger<UserController> logger)
         {        
             _userRepo = storeRepo;
             //_cardRepo = cardRepo;
-            _logger = logger;
-            _mapper = mapper;
+            _logger = logger;     
         }
 
         //GET /api/users

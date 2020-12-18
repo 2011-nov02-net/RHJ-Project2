@@ -45,7 +45,7 @@ namespace Project2.Api.Controllers
                 return Ok(cardsDTO); //success
             }
 
-            return NotFound(); //error couldnbt find any cards
+            return NotFound(); //error couldnt find cards
         }
 
         //POST /api/cards
@@ -76,7 +76,7 @@ namespace Project2.Api.Controllers
 
         //GET /api/cards?id=1
         //Gets a card by id
-        [HttpGet()]
+        [HttpGet("{id}")]
         public async Task<ActionResult<CardReadDTO>> GetCardById([FromQuery] string id = "")
         {
             var card = await _cardRepo.GetOneCard(id);
@@ -95,7 +95,7 @@ namespace Project2.Api.Controllers
                 return Ok(cardDTO); //success
             }
 
-            return NotFound(); //error couldnbt find any cards
+            return NotFound(); //error couldn't find any card
         }
     }
 }
