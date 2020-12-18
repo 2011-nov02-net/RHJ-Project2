@@ -24,9 +24,8 @@ namespace Project2.UnitTest
         public async Task UserController_GetAllUsersSuccess()
         {
             // arrange
-            var _mockRepo = new Mock<IUserRepo>();   
-            var _logger = new NullLogger<UserController>();
-            var userController = new UserController(_mockRepo.Object, _logger);
+            var _mockRepo = new Mock<IUserRepo>();         
+            var userController = new UserController(_mockRepo.Object);
             _mockRepo.Setup(x => x.GetAllUsers()).ReturnsAsync(Test.Users());
                
             // act
@@ -49,9 +48,7 @@ namespace Project2.UnitTest
         {
             // arrange
             var _mockRepo = new Mock<IUserRepo>();
-
-            var _logger = new NullLogger<UserController>();
-            var userController = new UserController(_mockRepo.Object, _logger);
+            var userController = new UserController(_mockRepo.Object);
             _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);
                 
             // act
@@ -68,9 +65,8 @@ namespace Project2.UnitTest
         {
             // arrange
             var _mockRepo = new Mock<IUserRepo>();
-            var _logger = new NullLogger<UserController>();
             AppUser appUser= null;
-            var userController = new UserController(_mockRepo.Object, _logger);
+            var userController = new UserController(_mockRepo.Object);
             _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync((AppUser)null);
           
             _mockRepo.Setup(x => x.AddOneUser(It.IsAny<AppUser>())).Callback<AppUser>((x) =>
@@ -94,8 +90,7 @@ namespace Project2.UnitTest
         {
             // arrange
             var _mockRepo = new Mock<IUserRepo>();
-            var _logger = new NullLogger<UserController>();
-            var userController = new UserController(_mockRepo.Object, _logger);
+            var userController = new UserController(_mockRepo.Object);
             _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);
             _mockRepo.Setup(x => x.GetAllCardsOfOneUser(It.IsAny<string>())).ReturnsAsync(Test.Cards());
 
@@ -113,8 +108,7 @@ namespace Project2.UnitTest
         {
             // arrange
             var _mockRepo = new Mock<IUserRepo>();
-            var _logger = new NullLogger<UserController>();
-            var userController = new UserController(_mockRepo.Object, _logger);
+            var userController = new UserController(_mockRepo.Object);
             _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);
             _mockRepo.Setup(x => x.GetOneCardOfOneUser(It.IsAny<string>(),It.IsAny<string>())).ReturnsAsync(Test.Cards()[0]);
 
@@ -132,8 +126,7 @@ namespace Project2.UnitTest
         public async Task UserController_AddOneNewCardToOneUserSuccess()
         {
             var _mockRepo = new Mock<IUserRepo>();
-            var _logger = new NullLogger<UserController>();
-            var userController = new UserController(_mockRepo.Object, _logger);
+            var userController = new UserController(_mockRepo.Object);
             //_mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).Verifiable();
             _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);         
             _mockRepo.Setup(x => x.AddOneCardToOneUser(It.IsAny<string>(), It.IsAny<AppCard>())).Verifiable();
@@ -154,13 +147,12 @@ namespace Project2.UnitTest
         public async Task UserController_DeleteOneCardOfOneUserSuccess()
         {
             var _mockRepo = new Mock<IUserRepo>();
-            var _logger = new NullLogger<UserController>();
-            var userController = new UserController(_mockRepo.Object, _logger);
+            var userController = new UserController(_mockRepo.Object);
             _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);
             _mockRepo.Setup(x => x.DeleteOneCardOfOneUser(It.IsAny<string>(), It.IsAny<string>())).Verifiable();
 
             // act
-            var actionResult = await userController.DeleteUsersCardById(fake);
+            var actionResult = await userController.DeleteUsersCardById(fake,fake2);
 
             //asert
             //_mockRepo.Verify(x => x.AddOneUser(It.IsAny<AppUser>()), Times.Once);
@@ -175,9 +167,8 @@ namespace Project2.UnitTest
         public async Task UserController_AddOneUserFailure()
         {
             // arrange
-            var _mockRepo = new Mock<IUserRepo>();
-            var _logger = new NullLogger<UserController>();
-            var userController = new UserController(_mockRepo.Object, _logger);
+            var _mockRepo = new Mock<IUserRepo>();    
+            var userController = new UserController(_mockRepo.Object);
             _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);
 
             // act

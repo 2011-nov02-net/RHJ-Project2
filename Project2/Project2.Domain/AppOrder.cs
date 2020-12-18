@@ -12,7 +12,7 @@ namespace Project2.Domain
         //may require a list of PackIds to order multiple types of packs
         public string PackId { get; set; }
         public AppPack Pack { get; set; }
-        //public int PackQty { get; set; }
+        public int PackQty { get; set; } //pack qty saved in order detail db table
 
         public DateTime Date { get; set; }
         //probably better as a method

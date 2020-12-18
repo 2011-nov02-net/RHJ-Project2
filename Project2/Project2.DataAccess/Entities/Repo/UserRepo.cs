@@ -65,7 +65,7 @@ namespace Project2.DataAccess.Entities.Repo
         public async Task<AppCard> GetOneCardOfOneUser(string id, string cardId)
         {
                        
-            var dbInv = await _context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == cardId);
+            var dbInv = await _context.UserCardInventories.Include(x => x.Card).FirstOrDefaultAsync(x => x.UserId == id && x.CardId == cardId);
             if (dbInv == null) return null;
             var appCard = new AppCard
             {

@@ -14,5 +14,7 @@ namespace Project2.Api.DTO
         public DateTime Date { get; set; }
         [Range(0,10000)]
         public Double Total { get; set; }
+        public string PackId { get; set; }
+        public int PackQty { get; set; }
     }
 }
