@@ -11,17 +11,17 @@ namespace Project2.DataAccess.Entities.Repo
 {
     public class TradeRepo : ITradeRepo
     {
-        private readonly DbContextOptions<Project2Context> _contextOptions;
-        public TradeRepo(DbContextOptions<Project2Context> contextOptions)
+        private readonly Project2Context _context;
+        public TradeRepo( Project2Context context)
         {
-            _contextOptions = contextOptions;
+            _context = context;
         }
 
         // not mapped
         public async Task<IEnumerable<AppTrade>> GetAllTrades()
         {
-            using var context = new Project2Context(_contextOptions);
-            var dbTrades = await context.Trades.ToListAsync();
+             
+            var dbTrades = await _context.Trades.ToListAsync();
             if (dbTrades == null) return null;
             var appTrades = dbTrades.Select(x => new AppTrade
             {
@@ -42,10 +42,10 @@ namespace Project2.DataAccess.Entities.Repo
         /// <returns>returns an AppTrade for error handling</returns>
         public async Task<AppTrade> GetOneTrade(string id)
         {
-            using var context = new Project2Context(_contextOptions);
-            var dbTrade = await context.Trades.FirstOrDefaultAsync(x => x.TradeId == id);
+           
+            var dbTrade = await _context.Trades.FirstOrDefaultAsync(x => x.TradeId == id);
             if (dbTrade == null) return null;
-            var dbTradeDetail = await context.TradeDetails.FirstOrDefaultAsync(x => x.TradeId == id);
+            var dbTradeDetail = await _context.TradeDetails.FirstOrDefaultAsync(x => x.TradeId == id);
             if (dbTradeDetail == null) return null;
 
             var appTrade = new AppTrade
@@ -67,7 +67,7 @@ namespace Project2.DataAccess.Entities.Repo
         /// <returns>returns the trade that was entered for error handling</returns>
         public async Task<AppTrade> AddOneTrade(AppTrade appTrade)
         {
-            using var context = new Project2Context(_contextOptions);
+             
             var dbTrade = new Trade
             {
                 TradeId = appTrade.TradeId,
@@ -76,8 +76,8 @@ namespace Project2.DataAccess.Entities.Repo
                 IsClosed = appTrade.IsClosed,
                 TradeDate = appTrade.TradeDate,
             };
-            await context.Trades.AddAsync(dbTrade);
-            await context.SaveChangesAsync();
+            await _context.Trades.AddAsync(dbTrade);
+            await _context.SaveChangesAsync();
 
             var dbTradeDetail = new TradeDetail
             {
@@ -85,8 +85,8 @@ namespace Project2.DataAccess.Entities.Repo
                 OfferCardId = appTrade.OfferCard.CardId,
                 BuyerCardId = appTrade.BuyerCard.CardId,
             };
-            await context.TradeDetails.AddAsync(dbTradeDetail);
-            await context.SaveChangesAsync();
+            await _context.TradeDetails.AddAsync(dbTradeDetail);
+            await _context.SaveChangesAsync();
 
             return appTrade;
         }

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -20,14 +20,13 @@ namespace Project2.Api.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IUserRepo _userRepo;
         //private readonly ICardRepo _cardRepo;
-        private readonly IMapper _mapper;
 
-        public UserController(IUserRepo storeRepo, /*ICardRepo cardRepo,*/ ILogger<UserController> logger, IMapper mapper)
+
+        public UserController(IUserRepo storeRepo, /*ICardRepo cardRepo,*/ ILogger<UserController> logger)
         {        
             _userRepo = storeRepo;
             //_cardRepo = cardRepo;
-            _logger = logger;
-            _mapper = mapper;
+            _logger = logger;     
         }
 
         //GET /api/users
@@ -125,6 +124,7 @@ namespace Project2.Api.Controllers
         public async Task<ActionResult<IEnumerable<CardReadDTO>>> GetUsersInventoryById(string id)
         {
             var user = await _userRepo.GetOneUser(id);
+             
             if (user != null)
             {
                 var userInv = await _userRepo.GetAllCardsOfOneUser(id);
@@ -183,7 +183,7 @@ namespace Project2.Api.Controllers
             return CreatedAtAction(nameof(GetUsersCardById), new { id = cardReadDTO.CardId }, cardReadDTO);
         }
 
-        //GET /api/users/{id}/cards?cardid=1
+        //GET /api/users/{id}/cards/1
         //Gets a single users card by id
         [HttpGet("{id}/cards")]
         public async Task<ActionResult<CardReadDTO>> GetUsersCardById(string id, [FromQuery] string cardid)

@@ -10,7 +10,7 @@ namespace Project2.DataAccess.Entities.Repo.Interfaces
     {
         Task<IEnumerable<AppCard>> GetAllCards();
         Task<AppCard> GetOneCard(string id);
-        Task<AppCard> AddOneCard(AppCard card);
+        Task AddOneCard(AppCard card);
 
     }
 }

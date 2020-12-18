@@ -19,10 +19,10 @@ namespace Project2.Api.Controllers
             return Ok();
         }
 
-        //GET /api/store?id=1
+        //GET /api/store/1
         //Gets a store item by id
-        [HttpGet()]
-        public IActionResult GetStoreItemById([FromQuery] string id = "")
+        [HttpGet("{id}")]
+        public IActionResult GetStoreItemById(string id)
         {
             return Ok();
         }

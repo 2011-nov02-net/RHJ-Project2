@@ -12,18 +12,16 @@ namespace Project2.DataAccess.Entities.Repo
 {
     public class AuctionRepo : IAuctionRepo
     {
-        private readonly DbContextOptions<Project2Context> _contextOptions;
-        public AuctionRepo(DbContextOptions<Project2Context> contextOptions)
+        private readonly Project2Context _context ;
+        public AuctionRepo(Project2Context context )
         {
-            _contextOptions = contextOptions;
+            _context  = context ;
         }
 
         //Get all auctions
         public async Task<IEnumerable<AppAuction>> GetAllAuctions()
-        {
-            using var context = new Project2Context(_contextOptions);
-
-            var dbAuctions = await context.Auctions.ToListAsync();
+        {       
+            var dbAuctions = await _context.Auctions.ToListAsync();
 
             if (dbAuctions == null)
                 return null;
@@ -36,9 +34,8 @@ namespace Project2.DataAccess.Entities.Repo
         //Get auction by id
         public async Task<AppAuction> GetAuctionById(string id)
         {
-            using var context = new Project2Context(_contextOptions);
-
-            var dbAuctions = await context.Auctions.FirstOrDefaultAsync(x => x.AuctionId == id);
+     
+            var dbAuctions = await _context.Auctions.FirstOrDefaultAsync(x => x.AuctionId == id);
             if (dbAuctions == null) 
                 return null;
 
@@ -49,8 +46,8 @@ namespace Project2.DataAccess.Entities.Repo
         //get auction details by id
         public async Task<AppAuction> GetAuctionDetailById(string id)
         {
-            using var context = new Project2Context(_contextOptions);
-            var dbDetail = await context.AuctionDetails.FirstOrDefaultAsync(x => x.AuctionId == id);
+ 
+            var dbDetail = await _context.AuctionDetails.FirstOrDefaultAsync(x => x.AuctionId == id);
             if (dbDetail == null)
                 return null;
 
@@ -61,7 +58,7 @@ namespace Project2.DataAccess.Entities.Repo
         //Create an auction
         public async Task<bool> CreateAuction(AppAuction auction)
         {
-            using var context = new Project2Context(_contextOptions);
+ 
             if (auction == null)
             {
                 return false;
@@ -91,9 +88,9 @@ namespace Project2.DataAccess.Entities.Repo
                 //Add to db
                 try
                 {
-                    await context.Auctions.AddAsync(dbAuction);
-                    await context.AuctionDetails.AddAsync(dbAuctionDetail);
-                    await context.SaveChangesAsync();
+                    await _context.Auctions.AddAsync(dbAuction);
+                    await _context.AuctionDetails.AddAsync(dbAuctionDetail);
+                    await _context.SaveChangesAsync();
 
                     return true;
                 }
@@ -109,8 +106,8 @@ namespace Project2.DataAccess.Entities.Repo
         //Update auction by id
         public async Task<bool> UpdateAuction(string id, AppAuction auction)
         {
-            using var context = new Project2Context(_contextOptions);
-            var updateAuction = await context.Auctions.Where(x => x.AuctionId == id).FirstAsync();
+ 
+            var updateAuction = await _context.Auctions.Where(x => x.AuctionId == id).FirstAsync();
             if (auction == null)
             {
                 return false;
@@ -127,7 +124,7 @@ namespace Project2.DataAccess.Entities.Repo
                     updateAuction.SellDate = auction.SellDate;
                     
                     //save updated record
-                    await context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
 
                     return true;
                 }
@@ -143,8 +140,8 @@ namespace Project2.DataAccess.Entities.Repo
         //Update auction detail by id
         public async Task<bool> UpdateAuctionDetail(string id, AppAuction auction)
         {
-            using var context = new Project2Context(_contextOptions);
-            var updateAuctionDetail = await context.AuctionDetails.Where(x => x.AuctionId == id).FirstAsync();
+ 
+            var updateAuctionDetail = await _context.AuctionDetails.Where(x => x.AuctionId == id).FirstAsync();
             if (auction == null)
             {
                 return false;
@@ -161,7 +158,7 @@ namespace Project2.DataAccess.Entities.Repo
                     updateAuctionDetail.ExpDate = auction.ExpDate;
 
                     //save updated record
-                    await context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
 
                     return true;
                 }

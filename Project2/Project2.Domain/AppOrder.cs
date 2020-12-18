@@ -43,7 +43,7 @@ namespace Project2.Domain
                 int cards = 8 * Pack.PackQty;
                 for (int i = 0; i < cards; ++i)
                 {
-                    Orderer.AddCardToInventory(Pack.GetCard());
+                    //Orderer.AddCardToInventory(Pack.GetCard());
                 }
                 return true;
             }
