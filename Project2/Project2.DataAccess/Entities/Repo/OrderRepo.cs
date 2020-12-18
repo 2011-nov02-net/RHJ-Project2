@@ -101,5 +101,7 @@ namespace Project2.DataAccess.Entities.Repo
             await _context.SaveChangesAsync();
             return order;
         }
+
+        //Get card info from pokemon api
     }
 }
