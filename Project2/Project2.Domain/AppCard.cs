@@ -13,6 +13,15 @@ namespace Project2.Domain
         public int Rarity { get; set; }
         public double Value { get; set; }
 
+        //TODO: add into database
+        public double Rating { get; set; }
+        public int NumOfRatings { get; set; }
+
+        //currently not tracking the list of ratings
+        private List<double> _ratings;
+        private readonly double _rarityWeight = 2;
+        private readonly double _ratingWeight = 1;
+
         public AppCard()
         {
      
@@ -22,7 +31,44 @@ namespace Project2.Domain
         {
             CardId = id;
             Pack = pack;
+            UpdateValue();
         }
-        
+
+        /// <summary>
+        /// adds a rating for the card and calculates a new average rating
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="rating"></param>
+        /// <returns>new aggregate rating</returns>
+        public void NewRating(AppUser user, double rating)
+        {
+            //TODO: prevent duplicate rating from the same user
+            if (user.Inventory.Exists(x => x.CardId == this.CardId) && NumOfRatings != 0)
+            {
+                //calculate average rating
+                double sum = Rating * NumOfRatings;
+                ++NumOfRatings;
+                sum += rating;
+                Rating = sum / NumOfRatings;
+                UpdateValue();
+            }
+            else if(user.Inventory.Exists(x => x.CardId == this.CardId) && NumOfRatings == 0)
+            {
+                Rating = rating;
+                NumOfRatings++;
+                UpdateValue();
+            }
+        }
+
+        /// <summary>
+        /// calculate value during construction and when rating changes
+        /// </summary>
+        public void UpdateValue()
+        {
+            if (NumOfRatings != 0)
+                Value = Rarity * _rarityWeight + (Rating * _ratingWeight) - 2;
+            else
+                Value = Rarity * _rarityWeight;
+        }
     }
 }

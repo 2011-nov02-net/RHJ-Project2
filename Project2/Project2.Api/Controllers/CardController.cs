@@ -74,10 +74,10 @@ namespace Project2.Api.Controllers
             return Conflict(); //card already exists and cant be created
         }
 
-        //GET /api/cards?id=1
+        //GET /api/cards/1
         //Gets a card by id
         [HttpGet("{id}")]
-        public async Task<ActionResult<CardReadDTO>> GetCardById([FromQuery] string id = "")
+        public async Task<ActionResult<CardReadDTO>> GetCardById(string id)
         {
             var card = await _cardRepo.GetOneCard(id);
 
