@@ -18,14 +18,37 @@ namespace Project2.Domain
         //probably better as a method
         public double Total { get; set; }
 
-        public AppOrder(string id, AppUser orderer, AppPack pack, int quantity)
+        public AppOrder(string id, AppUser orderer, AppPack pack)
         {
             this.OrderId = id;
             this.Orderer = orderer;
             this.Pack = pack;
+            this.Total = Pack.PackQty * Pack.Price;
         }
         public AppOrder()
         {
+        }
+
+        /// <summary>
+        /// executes an order of packs for the orderer
+        /// </summary>
+        /// <param name="orderer"></param>
+        /// <param name="pack"></param>
+        /// <returns>true on succesful order</returns>
+        public bool FillOrder()
+        {
+            if (Orderer.CurrencyAmount >= Total)
+            {
+                Orderer.CurrencyAmount -= Total;
+                int cards = 8 * Pack.PackQty;
+                for (int i = 0; i < cards; ++i)
+                {
+                    Orderer.AddCardToInventory(Pack.GetCard());
+                }
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

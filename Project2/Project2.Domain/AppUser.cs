@@ -62,5 +62,22 @@ namespace Project2.Domain
                 throw new ArgumentException("card not in user's inventory");
             }
         }
+
+        /// <summary>
+        /// calls card.NewRating, passing this user's rating.
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="rating"></param>
+        public void RateCard(AppCard card, double rating)
+        {
+            if (card != null && Inventory.Exists(x => x.CardId == card.CardId))
+            {
+                card.NewRating(this, rating);
+            }
+            else
+            {
+                throw new ArgumentException("card not in user's inventory");
+            }
+        }
     }
 }
