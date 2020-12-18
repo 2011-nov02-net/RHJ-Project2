@@ -179,6 +179,24 @@ namespace Project2.UnitTest
             var obj = Assert.IsAssignableFrom<ConflictResult>(actionResult.Result);
             Assert.Equal(409, obj.StatusCode);
         }
+
+        [Fact]
+        public async Task UserController_GetOneUserFailure()
+        {
+            // arrange
+            var _mockRepo = new Mock<IUserRepo>();
+            var userController = new UserController(_mockRepo.Object);
+            _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync((AppUser)null);
+
+            // act
+            var actionResult = await userController.GetUserById(fake);
+
+            // assert
+            var action = Assert.IsAssignableFrom<NotFoundResult>(actionResult.Result);
+            Assert.Equal(404, action.StatusCode);
+
+        }
+
     }
 
 

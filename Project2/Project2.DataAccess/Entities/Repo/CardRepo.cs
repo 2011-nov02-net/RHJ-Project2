@@ -11,15 +11,14 @@ namespace Project2.DataAccess.Entities.Repo
 {
     public class CardRepo: ICardRepo
     {
-        private readonly Project2Context _context ;
+        private readonly Project2Context _context;
         public CardRepo( Project2Context context )
         {
             _context  = context ;
         }
 
         public async Task<IEnumerable<AppCard>> GetAllCards()
-        {
-       
+        {   
             var dbCards = await _context.Cards.ToListAsync();
             if (dbCards == null) return null;           
             var appCards = DomainDataMapper.GetAllCards(dbCards); 
@@ -27,8 +26,7 @@ namespace Project2.DataAccess.Entities.Repo
         }
 
         public async Task<AppCard> GetOneCard(string id)
-        {
-     
+        {   
             var dbCard = await _context.Cards.FirstOrDefaultAsync(x => x.CardId == id);
             if (dbCard == null) return null;
             var appCard = DomainDataMapper.GetOneCard(dbCard);
@@ -37,8 +35,7 @@ namespace Project2.DataAccess.Entities.Repo
 
         // need to handle duplicate outside
         public async Task AddOneCard(AppCard card)
-        {           
-                  
+        {                         
             var newCard = DomainDataMapper.AddOneCard(card);
             await _context.Cards.AddAsync(newCard);
             await _context.SaveChangesAsync();            

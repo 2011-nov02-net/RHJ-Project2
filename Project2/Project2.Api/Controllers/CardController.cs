@@ -28,7 +28,6 @@ namespace Project2.Api.Controllers
         public async Task<ActionResult<IEnumerable<CardReadDTO>>> Get()
         {
             var cards = await _cardRepo.GetAllCards();
-
             if(cards != null)
             {
                 var cardsDTO = cards.Select(x => new CardReadDTO
@@ -39,37 +38,33 @@ namespace Project2.Api.Controllers
                     Rarity = x.Rarity,
                     Value = x.Value
                 });
-
                 return Ok(cardsDTO); //success
             }
-
             return NotFound(); //error couldnt find cards
         }
 
         //POST /api/cards
         //creates a new card
         [HttpPost]
-        public async Task<ActionResult<CardCreateDTO>> Post(CardCreateDTO newCard)
+        public async Task<ActionResult<CardReadDTO>> Post(CardCreateDTO newCard)
         {
             //check if card exists
-            var check = _cardRepo.GetOneCard(newCard.CardId);
-            if (check == null)
+            var card = await _cardRepo.GetOneCard(newCard.CardId);
+            if (card != null)
             {
-                var createdCard = new AppCard()
-                {
-                    CardId = newCard.CardId,
-                    Name = newCard.Name,
-                    Type = newCard.Type,
-                    Rarity = newCard.Rarity,
-                    Value = newCard.Value
-                };
-
-                await _cardRepo.AddOneCard(createdCard);
-
-                return CreatedAtAction("Create Card", new { createdCard }); //201 new card created
+                return Conflict(); //card already exists and cant be created
             }
-
-            return Conflict(); //card already exists and cant be created
+            var createdCard = new AppCard()
+            {
+                CardId = newCard.CardId,
+                Name = newCard.Name,
+                Type = newCard.Type,
+                Rarity = newCard.Rarity,
+                Value = newCard.Value
+            };
+            await _cardRepo.AddOneCard(createdCard);
+            return CreatedAtAction(nameof(GetCardById), new { id = createdCard.CardId }, createdCard); //201 new card created
+            
         }
 
         //GET /api/cards/1
@@ -78,7 +73,6 @@ namespace Project2.Api.Controllers
         public async Task<ActionResult<CardReadDTO>> GetCardById(string id)
         {
             var card = await _cardRepo.GetOneCard(id);
-
             if (card != null)
             {
                 var cardDTO = new CardReadDTO
@@ -89,10 +83,8 @@ namespace Project2.Api.Controllers
                     Rarity = card.Rarity,
                     Value = card.Value
                 };
-
                 return Ok(cardDTO); //success
             }
-
             return NotFound(); //error couldn't find any card
         }
     }
