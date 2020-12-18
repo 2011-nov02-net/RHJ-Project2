@@ -102,7 +102,7 @@ namespace Project2.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<TradeCreateDTO>> UpdateTradeById(string id, TradeCreateDTO tradeDTO)
         {
-            var trade = _tradeRepo.GetOneTrade(tradeDTO.TradeId);
+            var trade = await _tradeRepo.GetOneTrade(tradeDTO.TradeId);
             //update if trade is found
             if (trade != null)
             {
