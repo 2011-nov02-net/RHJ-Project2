@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Project2.DataAccess.Entities;
+using Project2.DataAccess.Entities.Repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
