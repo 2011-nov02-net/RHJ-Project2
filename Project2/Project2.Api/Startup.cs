@@ -1,13 +1,15 @@
-using AutoMapper;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Project2.DataAccess.Entities;
 using Project2.DataAccess.Entities.Repo;
 using Project2.DataAccess.Entities.Repo.Interfaces;
 using System;
@@ -29,7 +31,22 @@ namespace Project2.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            
+            var connectionString = Configuration.GetConnectionString("default");
+            if (connectionString is null)
+            {
+                throw new InvalidOperationException("no connection string 'default' found");
+            }
+            services.AddDbContext<Project2Context>(options =>
+                options.UseSqlServer(connectionString));
+            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PokeCard.Api", Version = "v1" });
+            });
+
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<ICardRepo, CardRepo>();
             services.AddScoped<IPackRepo, PackRepo>();
@@ -42,10 +59,7 @@ namespace Project2.Api
 
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Project2.Api", Version = "v1" });
-            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
