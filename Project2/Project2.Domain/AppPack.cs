@@ -21,5 +21,12 @@ namespace Project2.Domain
             this.Name = name;
         }
 
+        //placeholder method to create a new card from this pack.
+        public AppCard CreateCard( )
+        {
+            AppCard card = new AppCard();
+
+            return card;
+        }
     }
 }
