@@ -55,9 +55,6 @@ namespace Project2.Api
             services.AddScoped<IAuctionRepo, AuctionRepo>();
             services.AddScoped<IStoreRepo, StoreRepo>();
 
-
-
-
             services.AddControllers();
             
         }
