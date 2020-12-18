@@ -15,13 +15,11 @@ namespace Project2.Api.Controllers
     [ApiController]
     public class CardController : ControllerBase
     {
-        private readonly ILogger<CardController> _logger;
         private readonly ICardRepo _cardRepo;
 
-        public CardController(ICardRepo cardRepo, ILogger<CardController> logger)
+        public CardController(ICardRepo cardRepo)
         {
             _cardRepo = cardRepo;
-            _logger = logger;
         }
 
         //GET /api/cards
