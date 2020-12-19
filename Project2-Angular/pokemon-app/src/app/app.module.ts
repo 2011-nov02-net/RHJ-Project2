@@ -3,10 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ConvertRarityPipe } from './pipes/convert-rarity.pipe';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConvertRarityPipe,
+    
   ],
   imports: [
     BrowserModule,

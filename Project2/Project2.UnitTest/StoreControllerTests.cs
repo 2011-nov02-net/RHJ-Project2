@@ -86,6 +86,7 @@ namespace Project2.UnitTest
             var actionResult = await storeController.GetStoreItemById(fake);
 
             //
+            _mockRepo.Verify(x => x.GetStoreItemById(It.IsAny<string>()), Times.Once);
             var result = Assert.IsAssignableFrom<NotFoundResult>(actionResult.Result);
             Assert.Equal(404, result.StatusCode);
         }
