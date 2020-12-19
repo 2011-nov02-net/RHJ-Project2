@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Project2.UnitTest
 {
-    public class StoreControllerTests
+    public class StoreControllerUnitTests
     {
         // success scenarios
         string fake = "";
@@ -52,7 +52,7 @@ namespace Project2.UnitTest
             Assert.Equal(200, result.StatusCode);
         }
 
-        /*
+        
         [Fact]
         public async Task StoreController_UpdateOneItemSuccess()
         {
@@ -62,17 +62,35 @@ namespace Project2.UnitTest
             _mockRepo.Setup(x => x.GetStoreItemById(It.IsAny<string>())).Verifiable();
             _mockRepo.Setup(x => x.UpdateStoreItemById(It.IsAny<string>(),It.IsAny<int>())).Verifiable();
             _mockRepo.Setup(x => x.GetStoreItemById(It.IsAny<string>())).ReturnsAsync(Test.Items()[0]);
-            _mockRepo.Setup(x => x.UpdateStoreItemById(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(Test.Items()[0]);
+            _mockRepo.Setup(x => x.UpdateStoreItemById(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(true);
+            // repo return type determines mock return type
 
             // act
-            var actionResult = await storeController.GetStoreItemById(fake);
+            var actionResult = await storeController.UpdateStoreItemById(fake,Test.ItemsDTO()[0]);
 
-            //
-            _mockRepo.Verify(x => x.GetStoreItemById(It.IsAny<string>()), Times.Once);           
+            // arrange
+            _mockRepo.Verify(x => x.GetStoreItemById(It.IsAny<string>()), Times.Once);
+            _mockRepo.Verify(x => x.UpdateStoreItemById(It.IsAny<string>(), It.IsAny<int>()),Times.Once);
+            var result = Assert.IsAssignableFrom<NoContentResult>(actionResult.Result);
+            Assert.Equal(204, result.StatusCode);
         }
-        */
-
+        
         // fail scenarios
+        [Fact]
+        public async Task StoreController_GetAllItemsFail()
+        {
+            // arrange
+            var _mockRepo = new Mock<IStoreRepo>();
+            var storeController = new StoreController(_mockRepo.Object);
+            _mockRepo.Setup(x => x.GetAllStoreItems()).ReturnsAsync((IEnumerable<AppStoreItem>)null);          
+            // act
+            var actionResult = await storeController.Get();
+
+            // assert
+            var result = Assert.IsAssignableFrom<NotFoundResult>(actionResult.Result);
+            Assert.Equal(404, result.StatusCode);
+        }
+
         [Fact]
         public async Task StoreController_GetOneItemFail()
         {
