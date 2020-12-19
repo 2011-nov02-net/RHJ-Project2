@@ -32,7 +32,7 @@ namespace Project2.Api.Controllers
                 var storeDTOs = storeItems.Select(x => new StoreDTO
                 {
                     PackId = x.PackId,
-                    PackQty = x.Qty
+                    PackQty = x.PackQty
                 });
                 return Ok(storeDTOs);
             }
@@ -50,7 +50,7 @@ namespace Project2.Api.Controllers
                 var storeDTO = new StoreDTO
                 {
                     PackId = storeItem.PackId,
-                    PackQty = storeItem.Qty
+                    PackQty = storeItem.PackQty
                 };
                 return Ok(storeDTO);
             }

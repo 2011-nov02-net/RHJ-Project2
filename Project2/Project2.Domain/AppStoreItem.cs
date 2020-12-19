@@ -6,13 +6,15 @@ namespace Project2.Domain
 {
     public class AppStoreItem
     {
-        public string PackId { get; }
-        public int Qty { get; set; }
+        public string PackId { get; set; }
+        public int PackQty { get; set; }
+
+        public AppStoreItem() { }     
 
         public AppStoreItem(string id, int qty)
         {
             PackId = id;
-            Qty = qty;
+            PackQty = qty;
         }
     }
 }

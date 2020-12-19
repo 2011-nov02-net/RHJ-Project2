@@ -20,9 +20,7 @@ namespace Project2.DataAccess.Entities.Repo
 
         //Get all packs in store inventory
         public async Task<IEnumerable<AppStoreItem>> GetAllStoreItems()
-        {
-             
-
+        {            
             var dbStorePacks = await _context.StoreInventories.ToListAsync();
 
             if (dbStorePacks == null)
@@ -35,10 +33,8 @@ namespace Project2.DataAccess.Entities.Repo
 
         //Get a specific pack by id
         public async Task<AppStoreItem> GetStoreItemById(string id)
-        {
-          
-
-            var dbPack = await _context.StoreInventories.Where(x => x.PackId == id).FirstAsync();
+        {          
+            var dbPack = await _context.StoreInventories.FirstOrDefaultAsync(x => x.PackId == id);
 
             if (dbPack == null)
                 return null;
@@ -52,9 +48,8 @@ namespace Project2.DataAccess.Entities.Repo
         //add if manager adds more stock
         //sub if user purchases a pack to decrease stock
         public async Task<bool> UpdateStoreItemById(string id, int amount)
-        {
-            
-            var pack = await _context.StoreInventories.Where(x => x.PackId == id).FirstAsync();
+        {          
+            var pack = await _context.StoreInventories.FirstOrDefaultAsync(x => x.PackId == id);
             if (pack == null)
                 return false;
 
