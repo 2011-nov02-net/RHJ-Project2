@@ -13,6 +13,7 @@ namespace Project2.UnitTest
         // regular versions are for _mockRepo.Setup(x)
         // DTO versions are for controller.action(x)
        
+        // users and cards
         public static List<AppUser> Users()
         {
             var sessions = new List<AppUser>();
@@ -69,23 +70,6 @@ namespace Project2.UnitTest
             return sessions;
         }
 
-        public static List<AppStoreItem> Items()
-        {
-            var sessions = new List<AppStoreItem>();
-            sessions.Add(new AppStoreItem
-            {
-                PackId = "pack101",
-                PackQty = 10,
-            });
-            sessions.Add(new AppStoreItem
-            {
-                PackId = "pack101",
-                PackQty = 10,
-            });
-            return sessions;
-        }
-
-
         // UserReadDTO does not have userRole
         public static List<UserCreateDTO> UsersDTO()
         {
@@ -141,7 +125,40 @@ namespace Project2.UnitTest
             return sessions;
         }
 
+        // store items
+        public static List<AppStoreItem> Items()
+        {
+            var sessions = new List<AppStoreItem>();
+            sessions.Add(new AppStoreItem
+            {
+                PackId = "pack101",
+                PackQty = 10,
+            });
+            sessions.Add(new AppStoreItem
+            {
+                PackId = "pack101",
+                PackQty = 10,
+            });
+            return sessions;
+        }
 
+        public static List<StoreDTO> ItemsDTO()
+        {
+            var sessions = new List<StoreDTO>();
+            sessions.Add(new StoreDTO
+            {
+                PackId = "pack101",
+                PackQty = 10,
+            });
+            sessions.Add(new StoreDTO
+            {
+                PackId = "pack101",
+                PackQty = 10,
+            });
+            return sessions;
+        }
+
+        
 
     }
 }

@@ -40,8 +40,7 @@ namespace Project2.UnitTest
             //Assert.Equal("Kyle", first.First);
             //Assert.Equal("Crane", first.Last);         
         }
-
-        
+    
         [Fact]
         public async Task UserController_GetOneUserSuccess()
         {
