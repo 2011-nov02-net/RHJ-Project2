@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Card } from '../interfaces/card';
+ 
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,10 @@ export class BackendService {
 
   constructor(private http:HttpClient) { }
   
-  // promise -> observable
-  
-  getUserCards()//Promise<Card[]>
+  // promise -> observable  
+  getUserCards() 
   {
-    // how to replace userId
-    // <Card[]>
+    // userId hard coded, replce with login
     return this.http.get(`${this.baseUrl}/users/cus2/cards`);
   }
   
