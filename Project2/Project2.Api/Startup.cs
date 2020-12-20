@@ -42,11 +42,6 @@ namespace Project2.Api
             }
             services.AddDbContext<Project2Context>(options =>
                 options.UseSqlServer(connectionString));
-            
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PokeCard.Api", Version = "v1" });
-            });
 
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<ICardRepo, CardRepo>();
@@ -55,6 +50,35 @@ namespace Project2.Api
             services.AddScoped<ITradeRepo, TradeRepo>();
             services.AddScoped<IAuctionRepo, AuctionRepo>();
             services.AddScoped<IStoreRepo, StoreRepo>();
+
+            services.AddControllers(options =>
+            {
+             
+                options.OutputFormatters.RemoveType<StringOutputFormatter>();
+           
+                options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
+                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+
+                options.ReturnHttpNotAcceptable = true;
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PokeCard.Api", Version = "v1" });
+            });
+			
+			services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowAnyMethod() // allow PUT & DELETE not just GET & POST
+                            .AllowAnyHeader()
+                            .AllowCredentials();
+                    });
+            });
+
 
             services.AddControllers();
 
@@ -73,6 +97,8 @@ namespace Project2.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+			
+			app.UseCors();
 
             app.UseAuthorization();
 

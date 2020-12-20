@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PoketcgService} from '../../services/poketcg.service';
+
 
 @Component({
   selector: 'app-user',
@@ -7,14 +7,11 @@ import { PoketcgService} from '../../services/poketcg.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  // placeholder, to be changed depends on what a user actually sees
-  sets:any;
-  constructor(public poketcgService:PoketcgService) { }
+  
+  constructor() { }
 
   ngOnInit(): void {
-
-    this.poketcgService.getPoketcg().subscribe((data) => { this.sets = data;} );
-    
+ 
   }
 
 }
