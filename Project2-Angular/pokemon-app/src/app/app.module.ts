@@ -20,6 +20,7 @@ import { BackendService} from './services/backend.service';
 import { StoreComponent } from './components/store/store.component';
 import { AboutComponent } from './components/about/about.component';
 import { NavComponent } from './components/nav/nav.component';
+import { HistoryComponent } from './components/history/history.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { NavComponent } from './components/nav/nav.component';
     AuctionComponent,
     StoreComponent,
     AboutComponent,
-    NavComponent,  
+    NavComponent,
+    HistoryComponent,  
   ],
   imports: [
     FormsModule,

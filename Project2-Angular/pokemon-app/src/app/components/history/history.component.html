@@ -1,0 +1,70 @@
+<br />
+<h4>User Trade & Auction History</h4>
+<br />
+<!-- trades -->
+<div *ngIf="_router.url == '/history/trades'">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+        <a class="nav-link active" routerLink="/history/trades">Trades</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link " routerLink="/history/auctions">Auctions</a>
+        </li>
+    </ul>
+    <div>
+        <!-- trade history stuff -->
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Trade Id</th>
+                <th scope="col">Offerer</th>
+                <th scope="col">Buyer</th>
+                <th scope="col">Trade Date</th>
+                <th scope="col">Closed?</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let t of trades">
+                <td *ngFor="let c of tradehead">
+                    {{t[c]}}
+                </td>
+                <td><a href="#">Details</a></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<!-- auctions -->
+<div *ngIf="_router.url == '/history/auctions'">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+        <a class="nav-link" routerLink="/history/trades">Trades</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link active" routerLink="/history/auctions">Auctions</a>
+        </li>
+    </ul>
+    <div>
+        <!-- auction history stuff -->
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" *ngFor="let c of aucthead">
+                    {{c}}
+                </th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of auctions">
+                <td *ngFor="let c of aucthead">
+                    {{a[c]}}
+                </td>
+                <td><a href="#">Details</a></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

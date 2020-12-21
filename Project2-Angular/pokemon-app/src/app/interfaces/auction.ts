@@ -1,4 +1,4 @@
-export interface auction
+export interface Auction
 {
     AuctionId:string;
     SellerId:string;
