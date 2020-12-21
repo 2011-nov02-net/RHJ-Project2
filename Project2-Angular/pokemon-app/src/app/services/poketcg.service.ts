@@ -13,4 +13,8 @@ export class PoketcgService {
   getPoketcg(){
     return this.http.get(this.url);
   }
+
+  getImgFromCardId(id:string) {
+    
+  }
 }

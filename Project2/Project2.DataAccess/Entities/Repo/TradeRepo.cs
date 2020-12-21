@@ -21,7 +21,7 @@ namespace Project2.DataAccess.Entities.Repo
         public async Task<IEnumerable<AppTrade>> GetAllTrades()
         {
              
-            var dbTrades = await _context.Trades.ToListAsync();
+            var dbTrades = await _context.Trades.Include(x => x.TradeDetail).ToListAsync();
             if (dbTrades == null) return null;
             var appTrades = dbTrades.Select(x => new AppTrade
             {
@@ -30,6 +30,8 @@ namespace Project2.DataAccess.Entities.Repo
                 BuyerId = x.BuyerId,
                 IsClosed = x.IsClosed,
                 TradeDate = x.TradeDate,
+                OfferCardId = x.TradeDetail.OfferCardId,
+                BuyerCardId = x.TradeDetail.BuyerCardId,
             });
             return appTrades;
         }

@@ -4,21 +4,22 @@
   <li *ngFor="let card of cards"
     [class.selected]="card === selectedCard"
     (click)="onSelect(card)">
-    <span class="badge">{{card.CardId}}</span> {{card.Name}}
+    <span class="badge">{{card.cardId}}</span> {{card.name}}
   </li>
 </ul>
 
 <div *ngIf="selectedCard">
 
   <div *ngIf="selectedCard">
-    <h2>{{selectedCard.Name | uppercase}} Details:</h2>
+    <h2>{{selectedCard.name | uppercase}} Details:</h2>
+    <img src= "https://images.pokemontcg.io/xy10/29.png"> 
     <div><span>Card: </span>{{selectedCard.image}}</div>
-    <div><span>Card ID: </span>{{selectedCard.CardId}}</div>
-    <div><span>Type: </span>{{selectedCard.Type}}</div>
+    <div><span>Card ID: </span>{{selectedCard.cardId}}</div>
+    <div><span>Type: </span>{{selectedCard.type}}</div>
     <!-- pipe not needed here -->
-    <div><span>Rarity: </span>{{selectedCard.Rarity}}</div>
+    <div><span>Rarity: </span>{{selectedCard.rarity}}</div>
     <!-- to be added -->
-    <div><span>Value: </span>{{selectedCard.Value}}</div>
+    <div><span>Value: </span>{{selectedCard.value}}</div>
   </div>
   
 
@@ -33,10 +34,13 @@
           <option value=""></option>        
           <!-- lower case name-->
           <!--  -->
-          <option [value] ="card.name" *ngFor="let card of cards" (click)="onSelect(card)" [class.selected]= "card === selectedCard" >{{card.name}}</option>
+          <option [value] ="card.name" *ngFor="let card of cards" (submit)="onSelect(card)" [class.selected]= "card === selectedCard" >{{card.name}}</option>
         </select>
 
+        <!-- <p class="">outside selected</p> -->
+
         <div *ngIf="selectedCard">
+          <!-- <p>inside selected</p> -->
           <h2>{{selectedCard.Name | uppercase}} Details:</h2>
           <div><span>Card: </span>{{selectedCard.image}}</div>
           <div><span>Card ID: </span>{{selectedCard.CardId}}</div>
