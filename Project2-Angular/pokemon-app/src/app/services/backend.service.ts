@@ -35,6 +35,10 @@ export class BackendService {
     return this.http.get<Trade[]>(this.baseUrl + '/trades');
   }
 
+  getTradeById(id:string): Observable<Trade> {
+    return this.http.get<Trade>(this.baseUrl + '/trades/' + id);
+  }
+
   getAuctions(): Observable<Auction[]> {
     return this.http.get<Auction[]>(this.baseUrl + '/auctions');
   }
