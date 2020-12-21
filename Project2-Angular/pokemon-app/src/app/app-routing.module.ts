@@ -9,12 +9,19 @@ import { PurchaseComponent } from './components/purchase/purchase.component';
 import { StoreComponent } from './components/store/store.component';
 import { AuthGuard } from './auth/auth.guard';
 import { NavComponent } from './components/nav/nav.component';
+import { AuctionComponent } from './components/auction/auction.component';
+import { TradeComponent } from './components/trade/trade.component';
+import { HistoryComponent } from './components/history/history.component';
 
 // all routes handled here
 const routes: Routes = [{ path:'',component:LoginComponent},
 {path:'user',component:UserComponent},
 {path:'collection',component:CollectionComponent},
 {path:'purchase',component:PurchaseComponent},
+{path:'auctions',component:AuctionComponent},
+{path:'trades',component:TradeComponent},
+{path:'history/auctions',component:HistoryComponent},
+{path:'history/trades',component:HistoryComponent},
 
 // guarded
 {path:'store',component:StoreComponent,canActivate:[AuthGuard]},
