@@ -113,14 +113,12 @@ namespace Project2.DataAccess.Entities.Repo
 
             int rarity = GetRarity(card.Card.Rarity);
 
-
-            var returnCard = new AppCard
+            //initial rating and numOfRatings = 0
+            var returnCard = new AppCard(0,0,rarity)
             {
                 CardId = card.Card.Id,
                 Name = card.Card.Name,
                 Type = card.Card.Types.First(),
-                Rarity = rarity,
-                Value = 0
             };
 
             return returnCard;

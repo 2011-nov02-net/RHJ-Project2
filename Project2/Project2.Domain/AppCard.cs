@@ -18,21 +18,24 @@ namespace Project2.Domain
         public int NumOfRatings { get; set; }
 
         //currently not tracking the list of ratings
-        private List<double> _ratings;
+        //private List<double> _ratings;
         private readonly double _rarityWeight = 2;
         private readonly double _ratingWeight = 1;
 
-        public AppCard()
+        public AppCard(double rating, int numOfRatings, int rarity)
         {
-     
+            Rating = rating;
+            NumOfRatings = numOfRatings;
+            Rarity = rarity;
+            UpdateValue();
         }
 
-        public AppCard(string id, AppPack pack)
+/*        public AppCard(string id, AppPack pack)
         {
             CardId = id;
             Pack = pack;
             UpdateValue();
-        }
+        }*/
 
         /// <summary>
         /// adds a rating for the card and calculates a new average rating

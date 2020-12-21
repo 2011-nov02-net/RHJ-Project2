@@ -132,7 +132,8 @@ namespace Project2.Api.Controllers
                         Name = x.Name,
                         Type = x.Type,
                         Rarity = x.Rarity,
-                        Value = x.Value,
+                        Rating = x.Rating,
+                        NumOfRatings = x.NumOfRatings,
                     });
                     return Ok(cardsReadDTO);
                 }
@@ -150,14 +151,13 @@ namespace Project2.Api.Controllers
             AppCard newCard;
             if (user != null)
             {               
-                newCard = new AppCard
+                newCard = new AppCard(cardCreateDTO.Rating, cardCreateDTO.NumOfRatings, cardCreateDTO.Rarity)
                 {
                     CardId = cardCreateDTO.CardId,
                     Name = cardCreateDTO.Name,
                     Type = cardCreateDTO.Type,
-                    Rarity = cardCreateDTO.Rarity,
-                    Value = cardCreateDTO.Value,
                 };
+                newCard.UpdateValue();
                 await _userRepo.AddOneCardToOneUser(id,newCard);            
             }
             else
@@ -171,7 +171,9 @@ namespace Project2.Api.Controllers
                 Name = cardCreateDTO.Name,
                 Type = cardCreateDTO.Type,
                 Rarity = cardCreateDTO.Rarity,
-                Value = cardCreateDTO.Value,
+                Rating = cardCreateDTO.Rating,
+                NumOfRatings = cardCreateDTO.NumOfRatings,
+                Value = cardCreateDTO.Value
             };
 
             // what method to return

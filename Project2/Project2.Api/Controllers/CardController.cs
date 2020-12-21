@@ -36,6 +36,8 @@ namespace Project2.Api.Controllers
                     Name = x.Name,
                     Type = x.Type,
                     Rarity = x.Rarity,
+                    Rating = x.Rating,
+                    NumOfRatings = x.NumOfRatings,
                     Value = x.Value
                 });
                 return Ok(cardsDTO); //success
@@ -54,13 +56,11 @@ namespace Project2.Api.Controllers
             {
                 return Conflict(); //card already exists and cant be created
             }
-            var createdCard = new AppCard()
+            var createdCard = new AppCard(newCard.Rating, newCard.NumOfRatings, newCard.Rarity)
             {
                 CardId = newCard.CardId,
                 Name = newCard.Name,
                 Type = newCard.Type,
-                Rarity = newCard.Rarity,
-                Value = newCard.Value
             };
             await _cardRepo.AddOneCard(createdCard);
             return CreatedAtAction(nameof(GetCardById), new { id = createdCard.CardId }, createdCard); //201 new card created
@@ -81,6 +81,8 @@ namespace Project2.Api.Controllers
                     Name = card.Name,
                     Type = card.Type,
                     Rarity = card.Rarity,
+                    Rating = card.Rating,
+                    NumOfRatings = card.NumOfRatings,
                     Value = card.Value
                 };
                 return Ok(cardDTO); //success

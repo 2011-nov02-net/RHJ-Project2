@@ -24,7 +24,7 @@ namespace Project2.Domain
         //placeholder method to create a new card from this pack.
         public AppCard CreateCard( )
         {
-            AppCard card = new AppCard();
+            AppCard card = new AppCard(0,0,0);
 
             return card;
         }

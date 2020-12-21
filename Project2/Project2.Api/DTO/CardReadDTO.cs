@@ -13,7 +13,10 @@ namespace Project2.Api.DTO
         public string Name { get; set; }
         public string Type { get; set; }
         public int Rarity { get; set; }
-        [Range(0,1000)]
+        [Range(0, 1000)]
         public double Value { get; set; }
+        [Range(0, 5)]
+        public double Rating { get; set; }
+        public int NumOfRatings { get; set; }
     }
 }

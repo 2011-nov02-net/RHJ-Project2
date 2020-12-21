@@ -43,29 +43,26 @@ namespace Project2.UnitTest
         public static List<AppCard> Cards()
         {
             var sessions = new List<AppCard>();
-            sessions.Add(new AppCard
+            sessions.Add(new AppCard(3,1,5)
             {
                 CardId = "card101",
                 Name = "Mew",
                 Type = "Psychic",
-                Rarity = 5,
-                Value = 10,
+                //Rarity = 5,
             });
-            sessions.Add(new AppCard
+            sessions.Add(new AppCard(1, 2,6)
             {
                 CardId = "card102",
                 Name = "MewTwo",
                 Type = "Psychic",
-                Rarity = 6,
-                Value = 15,
+                //Rarity = 6,
             });
-            sessions.Add(new AppCard
+            sessions.Add(new AppCard(4,3,4)
             {
                 CardId = "card103",
                 Name = "Pinsir",
                 Type = "Bug",
-                Rarity = 4,
-                Value = 5,
+                //Rarity = 4,
             });
             return sessions;
         }

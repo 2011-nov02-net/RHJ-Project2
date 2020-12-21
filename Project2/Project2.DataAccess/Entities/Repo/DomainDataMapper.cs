@@ -12,27 +12,30 @@ namespace Project2.DataAccess.Entities.Repo
         // cards
         public static IEnumerable<AppCard> GetAllCards(IEnumerable<Card> dbCards)
         {
-            var appCards = dbCards.Select(x => new AppCard
+            //use foreach so that updatevaue may be called
+            var appCards = new List<AppCard>();
+            foreach (var dbCard in dbCards)
             {
-                CardId = x.CardId,
-                Name = x.Name,
-                Type = x.Type,
-                Rarity = x.Rarity,
-                Value = x.Value,
-                
-            });
+                //get parameters from db once scaffolded
+                AppCard appCard = new AppCard(1.5, 2,dbCard.Rarity) //var appCard = new AppCard(dbCard.Rating, dbCard.NumOfRatings,dbCard.Rarity)
+                {
+                    CardId = dbCard.CardId,
+                    Name = dbCard.Name,
+                    Type = dbCard.Type,
+                };
+                appCards.Add(appCard);
+            }
             return appCards;
 
         }
         public static AppCard GetOneCard(Card dbCard)
         {
-            var appCard = new AppCard
+            //get parameters from db once scaffolded
+            var appCard = new AppCard(1.5,2, dbCard.Rarity) //var appCard = new AppCard(dbCard.Rating, dbCard.NumOfRatings, dbCard.Rarity)
             {
                 CardId = dbCard.CardId,
                 Name = dbCard.Name,
                 Type = dbCard.Type,
-                Rarity = dbCard.Rarity,
-                Value = dbCard.Value,
             };
             return appCard;
         }
@@ -44,7 +47,10 @@ namespace Project2.DataAccess.Entities.Repo
                 Name = card.Name,
                 Type = card.Type,
                 Rarity = card.Rarity,
-                Value = card.Value,
+                //
+                //Rating = card.Rating,
+                //NumOfRatings = card.NumOfRatings,
+                Value = card.Value
             };
             return newCard;
         }
