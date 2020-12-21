@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BackendService } from '../../services/backend.service';
-import {pack} from '../../interfaces/pack';
+import {Pack} from '../../interfaces/pack';
 
 @Component({
   selector: 'app-store',
@@ -10,10 +10,12 @@ import {pack} from '../../interfaces/pack';
 })
 export class StoreComponent implements OnInit {
 
+    packs: any;
+
   constructor(private backEndService: BackendService  ) { }
 
   ngOnInit(): void {
-    this.backEndService.
+    this.backEndService.getStoreItems().subscribe((data) => { this.packs  = data; })
   }
 
 }
