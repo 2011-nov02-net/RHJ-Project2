@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Login} from '../interfaces/login';
 //import { RouterModule} from '@angular/route';
 
 @Component({
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  login = 
+  login:Login = 
   {
     email:'',
     password:'',    

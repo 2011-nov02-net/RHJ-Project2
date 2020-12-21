@@ -1,14 +1,19 @@
+
+
+
 <div class="row mt-2">
   <div class="col-md-6" >
     <label for="email" class="font-weight-bold">User Email:</label>
-    <!-- <input type="text" id="email" class="form-control" [(NgModel)] = "login.email"> -->
+    <!-- <input [(ngModel)]="login.email" placeholder="name"/> -->
+    <input type="text" id="email" class="form-control" [(ngModel)] = "login.email" placeholder="->">
 </div>
 </div>
 
 <div class="row mt-2">
     <div class="col-md-6">
       <label for="password" class="font-weight-bold">User Password:</label>
-      <!-- <input type="text" id="password" class="form-control" [(NgModel)] = "login.password"> -->
+      <!-- <input [(ngModel)]="login.password" placeholder="name"/> -->
+      <input type="text" id="password" class="form-control" [(ngModel)]="login.password" placeholder="->">
     </div>
 </div>
 
@@ -17,6 +22,5 @@
       <button [routerLink]="['collection']" class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
     </div>
 </div>
-
 
 
