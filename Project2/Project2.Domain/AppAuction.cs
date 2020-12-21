@@ -34,12 +34,10 @@ namespace Project2.Domain
         }
         public AppAuction()
         {
-            this.PriceListed = card.Value / 4;
-            this.BuyoutPrice = card.Value * 2;
-            this.NumberBids = 0;
+
         }
 
-        
+        // NewBid(), Sold(), BuyOut()
         /// <summary>
         /// updates the auction with a new bid
         /// </summary>
