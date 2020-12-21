@@ -23,6 +23,11 @@ export class BackendService {
     return this.http.get(`${this.baseUrl}/users/cus2/cards`);
   }
   
+  getStorePacks()
+  {
+    // userId hard coded, replce with login
+    return this.http.get(`${this.baseUrl}/store`);
+  }
  /*
  getUserCards():Promise<Card[]>
  {

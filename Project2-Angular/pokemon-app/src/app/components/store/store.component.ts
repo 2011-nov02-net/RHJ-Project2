@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { BackendService } from '../../services/backend.service';
+import {pack} from '../../interfaces/pack';
+
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoreComponent implements OnInit {
 
-  constructor() { }
+  constructor(private backEndService: BackendService  ) { }
 
   ngOnInit(): void {
+    this.backEndService.
   }
 
 }
