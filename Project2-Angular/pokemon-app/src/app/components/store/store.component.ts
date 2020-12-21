@@ -15,7 +15,7 @@ export class StoreComponent implements OnInit {
   constructor(private backEndService: BackendService  ) { }
 
   ngOnInit(): void {
-    this.backEndService.getStoreItems().subscribe((data) => { this.packs  = data; })
+    //this.backEndService.getStoreItems().subscribe((data) => { this.packs  = data; })
   }
 
 }
