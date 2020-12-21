@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BackendService } from '../../services/backend.service';
-import {Pack} from '../../interfaces/pack';
+//import {Pack} from '../../interfaces/pack';
 
 @Component({
   selector: 'app-store',
