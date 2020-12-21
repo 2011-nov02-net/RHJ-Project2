@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+ 
 
 import { Card } from 'src/app/interfaces/card';
 import { BackendService } from '../../services/backend.service';
@@ -13,6 +14,8 @@ import { BackendService } from '../../services/backend.service';
 export class CollectionComponent implements OnInit {
   // null = null
   cards: Card[] | any;
+  selectedCard: Card | any;
+
   constructor( private backendService:BackendService) { }
 
   ngOnInit(): void {
@@ -21,6 +24,10 @@ export class CollectionComponent implements OnInit {
     this.backendService.getUserCards().subscribe((data) => { this.cards = data; });
 
 }
+  onSelect(card:Card):void{
+    this.selectedCard = card;
+     
+  }
   
 
 }
