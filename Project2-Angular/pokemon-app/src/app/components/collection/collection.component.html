@@ -1,14 +1,17 @@
 <div class="row mt-2">
-    <div class="col-md-6" >
+    <div class="col-md-6">
       <label for="card" class="font-weight-bold">Card:</label>
       <select name="" id="card" class="form-control">
         <option value=""></option>
-        <!-- lower case name-->>
+        <!-- *ngIf='cards' -->
+        <!-- lower case name-->
         <option [value] ="card.name" *ngFor="let card of cards">{{card.name}}</option>
 
             
       </select>
-  </div>
+    </div>
+
+
 </div>
  
  

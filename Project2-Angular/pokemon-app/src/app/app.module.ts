@@ -18,6 +18,8 @@ import { AuctionComponent } from './components/auction/auction.component';
 import { PoketcgService} from './services/poketcg.service';
 import { BackendService} from './services/backend.service';
 import { StoreComponent } from './components/store/store.component';
+import { AboutComponent } from './components/about/about.component';
+import { NavComponent } from './components/nav/nav.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { StoreComponent } from './components/store/store.component';
     PurchaseComponent,
     TradeComponent,
     AuctionComponent,
-    StoreComponent,  
+    StoreComponent,
+    AboutComponent,
+    NavComponent,  
   ],
   imports: [
     FormsModule,

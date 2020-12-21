@@ -7,6 +7,7 @@ import { CollectionComponent } from './components/collection/collection.componen
 import { PurchaseComponent } from './components/purchase/purchase.component';
 import { StoreComponent } from './components/store/store.component';
 import { AuthGuard } from './auth/auth.guard';
+import { NavComponent } from './components/nav/nav.component';
 
 // all routes handled here
 const routes: Routes = [{ path:'',component:LoginComponent},
