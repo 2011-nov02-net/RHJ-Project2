@@ -19,6 +19,7 @@ namespace Project2.DataAccess.Entities.Repo
                 Type = x.Type,
                 Rarity = x.Rarity,
                 Value = x.Value,
+                
             });
             return appCards;
 
@@ -115,9 +116,9 @@ namespace Project2.DataAccess.Entities.Repo
             var appAuctions = dbAuctions.Select(x => new AppAuction
             {
                 AuctionId = x.AuctionId,
-                SellerId = x.Seller.UserId,
-                BuyerId = x.Buyer.UserId,
-                CardId = x.Card.CardId,
+                SellerId = x.SellerId,
+                BuyerId = x.BuyerId,
+                CardId = x.CardId,
                 PriceSold = (double)x.PriceSold,
                 SellDate = (DateTime)x.SellDate
             });
@@ -130,9 +131,9 @@ namespace Project2.DataAccess.Entities.Repo
             var appAuction = new AppAuction()
             {
                 AuctionId = dbAuction.AuctionId,
-                SellerId = dbAuction.Seller.UserId,
-                BuyerId = dbAuction.Buyer.UserId,
-                CardId = dbAuction.Card.CardId,
+                SellerId = dbAuction.SellerId,
+                BuyerId = dbAuction.BuyerId,
+                CardId = dbAuction.CardId,
                 PriceSold = (double)dbAuction.PriceSold,
                 SellDate = (DateTime)dbAuction.SellDate
             };
