@@ -12,9 +12,9 @@ insert into TEAM.Pack(PackId,Name,Price) values('packC','Bug Out', 12);
 
 -- inesrt card
 -- dummies for testing, will use pokeAPI to get data
-insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card101','Mew','Psychic',5,8);
-insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card102','MewTwo','Psychic',6,8);
-insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card103','Pinsir','Bug',4,5);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value,Rating,NumOfRatings) values('card101','Mew','Psychic',5,8,0,0);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value,Rating,NumOfRatings) values('card102','MewTwo','Psychic',6,8,3,5);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value,Rating,NumOfRatings) values('card103','Pinsir','Bug',4,5,1,2);
 
 
 -- insert user card inventory
