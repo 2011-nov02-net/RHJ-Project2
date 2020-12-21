@@ -1,18 +1,55 @@
-<div class="row mt-2">
-    <div class="col-md-6">
-      <label for="card" class="font-weight-bold">Card:</label>
-      <select name="" id="card" class="form-control">
-        <option value=""></option>
-        <!-- *ngIf='cards' -->
-        <!-- lower case name-->
-        <option [value] ="card.name" *ngFor="let card of cards">{{card.name}}</option>
+<!-- list version -->
+<h2>Collection</h2>
+<ul class="cards">
+  <li *ngFor="let card of cards"
+    [class.selected]="card === selectedCard"
+    (click)="onSelect(card)">
+    <span class="badge">{{card.CardId}}</span> {{card.Name}}
+  </li>
+</ul>
 
-            
-      </select>
-    </div>
+<div *ngIf="selectedCard">
 
+  <div *ngIf="selectedCard">
+    <h2>{{selectedCard.Name | uppercase}} Details:</h2>
+    <div><span>Card: </span>{{selectedCard.image}}</div>
+    <div><span>Card ID: </span>{{selectedCard.CardId}}</div>
+    <div><span>Type: </span>{{selectedCard.Type}}</div>
+    <!-- pipe not needed here -->
+    <div><span>Rarity: </span>{{selectedCard.Rarity}}</div>
+    <!-- to be added -->
+    <div><span>Value: </span>{{selectedCard.Value}}</div>
+  </div>
+  
 
 </div>
+
+<!-- dropdown version -->
+<div class="row mt-2">
+    <div class="col-md-6">
+      <!-- <form [formGroup]="form" (ngSubmit)="submit()"></form> -->
+        <label for="card" class="font-weight-bold">Card:</label>
+        <select name="" id="card" class="form-control">
+          <option value=""></option>        
+          <!-- lower case name-->
+          <!--  -->
+          <option [value] ="card.name" *ngFor="let card of cards" (click)="onSelect(card)" [class.selected]= "card === selectedCard" >{{card.name}}</option>
+        </select>
+
+        <div *ngIf="selectedCard">
+          <h2>{{selectedCard.Name | uppercase}} Details:</h2>
+          <div><span>Card: </span>{{selectedCard.image}}</div>
+          <div><span>Card ID: </span>{{selectedCard.CardId}}</div>
+          <div><span>Type: </span>{{selectedCard.Type}}</div>
+          <!-- pipe not needed here -->
+          <div><span>Rarity: </span>{{selectedCard.Rarity}}</div>
+          <!-- to be added -->
+          <div><span>Value: </span>{{selectedCard.Value}}</div>
+        </div> 
+    </div>
+    
+  </div>
+ 
  
  
   
