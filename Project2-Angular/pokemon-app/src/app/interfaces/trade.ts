@@ -1,4 +1,4 @@
-export interface trade
+export interface Trade
 {
     TradeId:string;
     OffererId:string;

@@ -16,6 +16,7 @@ import { CollectionComponent } from './components/collection/collection.componen
 import { PurchaseComponent } from './components/purchase/purchase.component';
 import { TradeComponent } from './components/trade/trade.component';
 import { AuctionComponent } from './components/auction/auction.component';
+import { HistoryComponent } from './components/history/history.component';
 import { ConvertRarityPipe } from './pipes/convert-rarity.pipe';
 
 import { PoketcgService} from './services/poketcg.service';
@@ -35,7 +36,8 @@ import { BackendService} from './services/backend.service';
     AuctionComponent,
     StoreComponent,
     AboutComponent,
-    NavComponent,  
+    NavComponent,
+    HistoryComponent, 
   ],
   imports: [
     FormsModule,

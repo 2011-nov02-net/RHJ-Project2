@@ -51,7 +51,9 @@ insert into TEAM.OrderItem(OrderId,PackId,PackQty) values('order777','PackC',1);
 update TEAM.StoreInventory set PackQty = 299 where PackId= 'PackC';
 
 -- insert trade
+insert into TEAM.Trade(TradeId, OffererId, BuyerId) values('trade1001', 'cus1', 'cus2');
 -- insert trade detail
+insert into TEAM.TradeDetail(TradeId, OfferCardId, BuyerCardId) values('trade1001', 'card101', 'card102');
 -- no trades made yet, not enough cards atm
 
 select * from TEAM.Customer;

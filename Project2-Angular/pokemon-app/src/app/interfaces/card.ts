@@ -1,6 +1,7 @@
 export interface Card
 {
     CardId:string;
+    image:string;
     Name:string;
     Type:string;
     // make a custom pipe, common-> 1, uncommon-> 2, rare->3
