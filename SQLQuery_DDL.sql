@@ -27,8 +27,13 @@ CREATE TABLE TEAM.Card (
   Type nvarchar(40) not null,
   Rarity Int not null,
   Value float not null,
+  Rating float not null,
+  NumOfRatings Int not null,
+  "Image" nvarchar(200) null,
   check(Rarity >0),
   check(Value >0), 
+  check(Rating >0),
+  check(NumOfRatings >0),
 )
 
 CREATE TABLE TEAM.UserCardInventory (

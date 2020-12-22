@@ -28,6 +28,15 @@ namespace Project2.Domain
         public AppOrder()
         {
         }
+        /// <summary>
+        /// May only be called after the Order is associated with a pack.
+        /// </summary>
+        /// <returns>total cost of the Order</returns>
+        public double CalculateTotal()
+        {
+            Total = Pack.PackQty * Pack.Price;
+            return Total;
+        }
 
         /// <summary>
         /// executes an order of packs for the orderer
@@ -43,7 +52,7 @@ namespace Project2.Domain
                 int cards = 8 * Pack.PackQty;
                 for (int i = 0; i < cards; ++i)
                 {
-                    //Orderer.AddCardToInventory(Pack.GetCard());
+                    Orderer.AddCardToInventory(Pack.CreateCard());
                 }
                 return true;
             }

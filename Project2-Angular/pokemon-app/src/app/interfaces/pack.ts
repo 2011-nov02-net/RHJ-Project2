@@ -1,4 +1,4 @@
-export interface pack
+export interface Pack
 {
     PackId:string;
     Name:string;

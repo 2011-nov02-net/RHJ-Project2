@@ -42,5 +42,11 @@ export class BackendService {
   getAuctions(): Observable<Auction[]> {
     return this.http.get<Auction[]>(this.baseUrl + '/auctions');
   }
-  
-}
+
+  getStorePacks()
+  {
+    // userId hard coded, replce with login
+    return this.http.get(`${this.baseUrl}/store`);
+  }
+
+

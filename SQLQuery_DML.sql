@@ -12,9 +12,11 @@ insert into TEAM.Pack(PackId,Name,Price) values('packC','Bug Out', 12);
 
 -- inesrt card
 -- dummies for testing, will use pokeAPI to get data
-insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card101','Mew','Psychic',5,8);
-insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card102','MewTwo','Psychic',6,8);
-insert into TEAM.Card(CardId,Name,Type,Rarity,Value) values('card103','Pinsir','Bug',4,5);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value,Rating,NumOfRatings) values('card101','Mew','Psychic',5,8,1,1);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value,Rating,NumOfRatings) values('card102','MewTwo','Psychic',6,8,3,5);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value,Rating,NumOfRatings) values('card103','Pinsir','Bug',4,5,1,2);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value,Rating,NumOfRatings) values('base1-28','Growlithe','Fire',4,5,1,2);
+insert into TEAM.Card(CardId,Name,Type,Rarity,Value,Rating,NumOfRatings) values('base1-29','Haunter','Psychic',4,5,1,2);
 
 
 -- insert user card inventory
@@ -52,8 +54,10 @@ update TEAM.StoreInventory set PackQty = 299 where PackId= 'PackC';
 
 -- insert trade
 insert into TEAM.Trade(TradeId, OffererId, BuyerId) values('trade1001', 'cus1', 'cus2');
+insert into TEAM.Trade(TradeId, OffererId, BuyerId) values('trade1002', 'cus1', 'cus2');
 -- insert trade detail
 insert into TEAM.TradeDetail(TradeId, OfferCardId, BuyerCardId) values('trade1001', 'card101', 'card102');
+insert into TEAM.TradeDetail(TradeId, OfferCardId, BuyerCardId) values('trade1002', 'base1-28', 'base1-29');
 -- no trades made yet, not enough cards atm
 
 select * from TEAM.Customer;

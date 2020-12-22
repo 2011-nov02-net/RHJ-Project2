@@ -12,27 +12,30 @@ namespace Project2.DataAccess.Entities.Repo
         // cards
         public static IEnumerable<AppCard> GetAllCards(IEnumerable<Card> dbCards)
         {
-            var appCards = dbCards.Select(x => new AppCard
+            //use foreach so that updatevaue may be called
+            var appCards = new List<AppCard>();
+            foreach (var dbCard in dbCards)
             {
-                CardId = x.CardId,
-                Name = x.Name,
-                Type = x.Type,
-                Rarity = x.Rarity,
-                Value = x.Value,
-                
-            });
+                var appCard = new AppCard(dbCard.Rating, dbCard.NumOfRatings,dbCard.Rarity)
+                {
+                    CardId = dbCard.CardId,
+                    Name = dbCard.Name,
+                    Type = dbCard.Type,
+                    Image = dbCard.Image,
+                };
+                appCards.Add(appCard);
+            }
             return appCards;
 
         }
         public static AppCard GetOneCard(Card dbCard)
         {
-            var appCard = new AppCard
+            var appCard = new AppCard(dbCard.Rating, dbCard.NumOfRatings, dbCard.Rarity)
             {
                 CardId = dbCard.CardId,
                 Name = dbCard.Name,
                 Type = dbCard.Type,
-                Rarity = dbCard.Rarity,
-                Value = dbCard.Value,
+                Image = dbCard.Image,
             };
             return appCard;
         }
@@ -44,7 +47,10 @@ namespace Project2.DataAccess.Entities.Repo
                 Name = card.Name,
                 Type = card.Type,
                 Rarity = card.Rarity,
-                Value = card.Value,
+                Image = card.Image,
+                Rating = card.Rating,
+                NumOfRatings = card.NumOfRatings,
+                Value = card.Value
             };
             return newCard;
         }

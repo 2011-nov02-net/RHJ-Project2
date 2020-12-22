@@ -20,6 +20,9 @@ namespace Project2.DataAccess.Entities
         public string Type { get; set; }
         public int Rarity { get; set; }
         public double Value { get; set; }
+        public double Rating { get; set; }
+        public int NumOfRatings { get; set; }
+        public string Image { get; set; }
 
         public virtual ICollection<Auction> Auctions { get; set; }
         public virtual ICollection<TradeDetail> TradeDetailBuyerCards { get; set; }
