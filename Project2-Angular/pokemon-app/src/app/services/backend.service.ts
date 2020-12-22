@@ -81,10 +81,18 @@ export class BackendService {
   getTradeById(id:string): Observable<Trade> {
     return this.http.get<Trade>(this.baseUrl + '/trades/' + id);
 
+<<<<<<< HEAD
+  postTrade(trade: Trade): Observable<Trade> {
+    console.log("Trade");
+    return this.http.post<Trade>(this.baseUrl + '/trades', trade);
+  }
+
+=======
   }
   updateTradeById(id:string,trade:Trade): Observable<Trade> {
     return this.http.put<Trade>(this.baseUrl + '/trades/' + id,trade);
   }
+>>>>>>> f95c5d511b53235a43494c8b03213954f1d8c6e2
   //Auctions
   //does not get auction details
   getAuctions(): Observable<Auction[]> {

@@ -27,6 +27,14 @@ namespace Project2.DataAccess.Entities.Repo
             return appUsers;
         }
 
+        public async Task<AppUser> GetOneUserByEmail(string email)
+        {
+            var dbUser = await _context.Customers.FirstOrDefaultAsync(x => x.Email == email);
+            if (dbUser == null) return null;
+            var appUser = DomainDataMapper.GetOneUser(dbUser);
+            return appUser;
+        }
+
         public async Task<AppUser> GetOneUser(string id)
         {
              
