@@ -28,7 +28,12 @@ export class BackendService {
 
   constructor(private http:HttpClient) { }
   
-  // promise -> observable  
+  // promise -> observable 
+  getUserById(id:string): Observable<User>
+  {
+    return this.http.get<User>(this.baseUrl + "/users/" + id);
+
+  }
 
   getUserByEmail(email:string): Observable<User>
   {
