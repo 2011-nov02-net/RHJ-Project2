@@ -31,14 +31,23 @@ namespace Project2.Api.Controllers
 
             if (auctions != null)
             {
+
                 var auctionDTO = auctions.Select(x => new AuctionReadDTO
                 {
+                    //auction
                     AuctionId = x.AuctionId,
                     SellerId = x.SellerId,
                     BuyerId = x.BuyerId,
                     CardId = x.CardId,
                     PriceSold = (double)x.PriceSold,
-                    SellDate = (DateTime)x.SellDate
+                    SellDate = (DateTime)x.SellDate,
+
+                    //auctionDetails
+                    PriceListed = x.PriceListed,
+                    BuyoutPrice = x.BuyoutPrice,
+                    NumberBids = (int)x.NumberBids,
+                    SellType = x.SellType,
+                    ExpDate = x.ExpDate
 
                 });
 
@@ -54,12 +63,13 @@ namespace Project2.Api.Controllers
         public async Task<ActionResult<AuctionCreateDTO>> Post(AuctionCreateDTO newAuction)
         {
             //check if auction exists
-            var check = _auctRepo.GetAuctionById(newAuction.AuctionId);
+            var check = await _auctRepo.GetAuctionById(newAuction.AuctionId);
             if(check == null)
             {
+                //for repo
                 var createdAuction = new AppAuction()
                 {
-                    //for auction
+                    // auction
                     AuctionId = newAuction.AuctionId,
                     SellerId = newAuction.SellerId,
                     BuyerId = newAuction.BuyerId,
@@ -67,7 +77,7 @@ namespace Project2.Api.Controllers
                     PriceSold = (double)newAuction.PriceSold,
                     SellDate = (DateTime)newAuction.SellDate,
 
-                    //for auction details
+                    //auction details
                     PriceListed = newAuction.PriceListed,
                     BuyoutPrice = newAuction.BuyoutPrice,
                     NumberBids = newAuction.NumberBids,
@@ -75,10 +85,28 @@ namespace Project2.Api.Controllers
                     ExpDate = newAuction.ExpDate
 
                 };
-
                 await _auctRepo.CreateAuction(createdAuction);
 
-                return CreatedAtAction("Create Auction", new {createdAuction}); //201 new auction created
+                //for response
+                var auctionReadDTO = new AuctionReadDTO
+                {
+                    //auction
+                    AuctionId = createdAuction.AuctionId,
+                    SellerId = createdAuction.SellerId,
+                    BuyerId = createdAuction.BuyerId,
+                    CardId = createdAuction.CardId,
+                    PriceSold = (double)createdAuction.PriceSold,
+                    SellDate = (DateTime)createdAuction.SellDate,
+
+                    //auction details
+                    PriceListed = createdAuction.PriceListed,
+                    BuyoutPrice = createdAuction.BuyoutPrice,
+                    NumberBids = (int)createdAuction.NumberBids,
+                    SellType = createdAuction.SellType,
+                    ExpDate = createdAuction.ExpDate
+                };
+
+                return CreatedAtAction(nameof(GetAuctionById), new {id = auctionReadDTO.AuctionId},auctionReadDTO); //201 new auction created
             }
 
             return Conflict(); //auction already exists and cant be created
@@ -100,7 +128,13 @@ namespace Project2.Api.Controllers
                     BuyerId = auction.BuyerId,
                     CardId = auction.CardId,
                     PriceSold = (double)auction.PriceSold,
-                    SellDate = (DateTime)auction.SellDate
+                    SellDate = (DateTime)auction.SellDate,
+                    //for auction details
+                    PriceListed = auction.PriceListed,
+                    BuyoutPrice = auction.BuyoutPrice,
+                    NumberBids = (int)auction.NumberBids,
+                    SellType = auction.SellType,
+                    ExpDate = auction.ExpDate
 
                 };
 
@@ -126,7 +160,13 @@ namespace Project2.Api.Controllers
                     BuyerId = newAuction.BuyerId,
                     CardId = newAuction.CardId,
                     PriceSold = (double)newAuction.PriceSold,
-                    SellDate = (DateTime)newAuction.SellDate
+                    SellDate = (DateTime)newAuction.SellDate,
+                    //for auction details
+                    PriceListed = newAuction.PriceListed,
+                    BuyoutPrice = newAuction.BuyoutPrice,
+                    NumberBids = (int)newAuction.NumberBids,
+                    SellType = newAuction.SellType,
+                    ExpDate = newAuction.ExpDate
 
                 };
                 bool result = await _auctRepo.UpdateAuction(id, auction);
@@ -145,7 +185,7 @@ namespace Project2.Api.Controllers
 
         //GET /api/auctions/{id}/details
         //Gets auction details by id
-        [HttpGet("{id}/details")]
+/*        [HttpGet("{id}/details")]
         public async Task<ActionResult<AuctionReadDTO>> GetAuctionDetailsById(string id)
         {
             var details = await _auctRepo.GetAuctionDetailById(id);
@@ -167,11 +207,11 @@ namespace Project2.Api.Controllers
             }
 
             return NotFound(); //Return 404 if no auction details found
-        }
+        }*/
 
         //PUT /api/auctions/{id}/details
         //Update auction details by id
-        [HttpPut("{id}/details")]
+/*        [HttpPut("{id}/details")]
         public async Task<ActionResult<AuctionCreateDTO>> UpdateAuctionDetailsById(string id, AuctionCreateDTO newAuction)
         {
             var check = await _auctRepo.GetAuctionDetailById(id);
@@ -200,6 +240,6 @@ namespace Project2.Api.Controllers
             }
 
             return NotFound(); //Return 404 if no auction details found
-        }
+        }*/
     }
 }
