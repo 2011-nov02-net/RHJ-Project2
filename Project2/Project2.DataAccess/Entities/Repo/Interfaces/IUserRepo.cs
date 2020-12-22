@@ -9,6 +9,7 @@ namespace Project2.DataAccess.Entities.Repo.Interfaces
     public interface IUserRepo
     {
         Task<IEnumerable<AppUser>> GetAllUsers();
+        Task<AppUser> GetOneUserByEmail(string email);
         Task<AppUser> GetOneUser(string id);
         Task AddOneUser(AppUser user);
         Task<IEnumerable<AppCard>> GetAllCardsOfOneUser(string id);

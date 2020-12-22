@@ -3,7 +3,8 @@ import { ActivatedRoute} from '@angular/router';
 import { Location} from '@angular/common';
 
 import { User} from '../../interfaces/user';
-import { Login} from '../../login';
+import { Login} from '../../interfaces/login';
+
 // need backend services
 import { BackendService} from '../../services/backend.service';
 
@@ -15,25 +16,21 @@ import { BackendService} from '../../services/backend.service';
 })
 export class UserComponent implements OnInit {
 
-  @Input() currentUser!:User;
   @Input() login!:Login;
+  @Input() user!:User;
   
-  constructor( private route:ActivatedRoute, private backendService:BackendService, private location:Location) { 
-    // set up services
-    
+  
+  constructor( private route:ActivatedRoute, private backendService:BackendService, private location:Location) {    
   }
 
   ngOnInit(): void {
-    this.currentUser = history.state.loginUser;
-    console.log(history.state.loginUser);
-    console.log(this.currentUser);
     console.log(history.state.login);
     console.log(this.login)
   }
 
   getOneUser():void{
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.backendService.getUserById(id).subscribe( user => this.currentUser = user)
+    this.backendService.getUserById(id).subscribe( user => this.user = user)
   }
 
   goNack(): void{
