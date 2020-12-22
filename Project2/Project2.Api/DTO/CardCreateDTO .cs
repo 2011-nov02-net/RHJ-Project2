@@ -18,5 +18,6 @@ namespace Project2.Api.DTO
         [Range(0,5)]
         public double Rating { get; set; }
         public int NumOfRatings { get; set; }
+        public string Image { get; set; }
     }
 }

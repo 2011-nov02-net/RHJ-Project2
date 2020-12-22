@@ -22,6 +22,7 @@ namespace Project2.DataAccess.Entities.Repo
                     CardId = dbCard.CardId,
                     Name = dbCard.Name,
                     Type = dbCard.Type,
+                    //Image = dbCard.Image,
                 };
                 appCards.Add(appCard);
             }
@@ -36,6 +37,7 @@ namespace Project2.DataAccess.Entities.Repo
                 CardId = dbCard.CardId,
                 Name = dbCard.Name,
                 Type = dbCard.Type,
+                //Image = dbCard.Image,
             };
             return appCard;
         }
@@ -47,7 +49,7 @@ namespace Project2.DataAccess.Entities.Repo
                 Name = card.Name,
                 Type = card.Type,
                 Rarity = card.Rarity,
-                //
+                //Image = card.Image,
                 //Rating = card.Rating,
                 //NumOfRatings = card.NumOfRatings,
                 Value = card.Value

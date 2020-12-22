@@ -56,6 +56,7 @@ namespace Project2.DataAccess.Entities.Repo
                 CardId = x.CardId,
                 Name = x.Card.Name,
                 Type = x.Card.Type,
+                //Image = x.Card.Image
             });
             return appCards;
         }
@@ -71,6 +72,7 @@ namespace Project2.DataAccess.Entities.Repo
                 CardId = dbInv.CardId,
                 Name = dbInv.Card.Name,
                 Type = dbInv.Card.Type,
+                //Image = dbInv.Card.Image
             };
             return appCard;
         }

@@ -16,6 +16,7 @@ namespace Project2.Domain
         //TODO: add into database
         public double Rating { get; set; }
         public int NumOfRatings { get; set; }
+        public string? Image { get; set; }
 
         //currently not tracking the list of ratings
         //private List<double> _ratings;

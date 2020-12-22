@@ -38,7 +38,8 @@ namespace Project2.Api.Controllers
                     Rarity = x.Rarity,
                     Rating = x.Rating,
                     NumOfRatings = x.NumOfRatings,
-                    Value = x.Value
+                    Value = x.Value,
+                    Image = x.Image
                 });
                 return Ok(cardsDTO); //success
             }
@@ -61,6 +62,7 @@ namespace Project2.Api.Controllers
                 CardId = newCard.CardId,
                 Name = newCard.Name,
                 Type = newCard.Type,
+                Image = newCard.Image
             };
             await _cardRepo.AddOneCard(createdCard);
             return CreatedAtAction(nameof(GetCardById), new { id = createdCard.CardId }, createdCard); //201 new card created
@@ -83,7 +85,8 @@ namespace Project2.Api.Controllers
                     Rarity = card.Rarity,
                     Rating = card.Rating,
                     NumOfRatings = card.NumOfRatings,
-                    Value = card.Value
+                    Value = card.Value,
+                    Image = card.Image
                 };
                 return Ok(cardDTO); //success
             }

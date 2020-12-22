@@ -156,6 +156,7 @@ namespace Project2.Api.Controllers
                     CardId = cardCreateDTO.CardId,
                     Name = cardCreateDTO.Name,
                     Type = cardCreateDTO.Type,
+                    Image = cardCreateDTO.Image,
                 };
                 newCard.UpdateValue();
                 await _userRepo.AddOneCardToOneUser(id,newCard);            
