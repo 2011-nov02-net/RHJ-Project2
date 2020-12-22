@@ -19,8 +19,12 @@
 
 <div class="row mt-2">
     <div class="col-md-6">
-      <button [routerLink]="['collection']" class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
+      <button [routerLink]="['user']" class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
     </div>
 </div>
+
+
+<app-user [login]="login"></app-user>
+
 
 

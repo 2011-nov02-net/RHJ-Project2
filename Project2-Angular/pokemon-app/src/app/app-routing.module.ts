@@ -17,6 +17,7 @@ import { HistoryComponent } from './components/history/history.component';
 // all routes handled here
 const routes: Routes = [{ path:'',component:LoginComponent},
 {path:'user',component:UserComponent},
+{path:'user/:id', component: UserComponent },
 {path:'collection',component:CollectionComponent},
 {path:'purchase',component:PurchaseComponent},
 {path:'auctions',component:AuctionComponent},
@@ -26,7 +27,8 @@ const routes: Routes = [{ path:'',component:LoginComponent},
 {path:'history/trades',component:HistoryComponent},
 
 // guarded
-{path:'store',component:StoreComponent,canActivate:[AuthGuard]},
+{path:'store',component:StoreComponent/*,canActivate:[AuthGuard]*/},
+
 ];
 
 @NgModule({

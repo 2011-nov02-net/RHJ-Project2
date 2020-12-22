@@ -44,7 +44,7 @@ namespace Project2.Api.Controllers
             return NotFound(); //Return 404 if no orders found
         }
 
-        //GET /api/order
+        //POST /api/order
         //Creates an order
         [HttpPost]
         public async Task<ActionResult<OrderCreateDTO>> Post(OrderCreateDTO newOrder, int qty)
