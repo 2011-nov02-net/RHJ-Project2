@@ -6,4 +6,5 @@ export interface Pack
     Price:number;
     // use | date in an html element
     DateReleased:Date;
+    PackQty:number;
 } 

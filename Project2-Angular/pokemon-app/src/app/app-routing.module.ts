@@ -24,7 +24,8 @@ const routes: Routes = [{ path:'',component:LoginComponent},
 {path:'history/trades',component:HistoryComponent},
 
 // guarded
-{path:'store',component:StoreComponent,canActivate:[AuthGuard]},
+{path:'store',component:StoreComponent/*,canActivate:[AuthGuard]*/},
+
 ];
 
 @NgModule({
