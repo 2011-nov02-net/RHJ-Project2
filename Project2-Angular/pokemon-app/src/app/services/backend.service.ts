@@ -29,12 +29,23 @@ export class BackendService {
   constructor(private http:HttpClient) { }
   
   // promise -> observable 
+  //User
+  getUsers(): Observable<User[]>
+  {
+    return this.http.get<User[]>(this.baseUrl + "/users");
+  }
+
+  postUser(user: User): Observable<User> {
+    return this.http.post<User>(this.baseUrl + '/users', user);
+  }
+
   getUserById(id:string): Observable<User>
   {
     return this.http.get<User>(this.baseUrl + "/users/" + id);
 
   }
 
+  //not in Usercontroller
   getUserByEmail(email:string): Observable<User>
   {
     return this.http.get<User>(this.baseUrl + "/users/emails/" + email);
@@ -47,6 +58,17 @@ export class BackendService {
     return this.http.get<Card[]>(`${this.baseUrl}/users/cus2/cards`);
   }
 
+  postUserCard(id:string, card: Card): Observable<Card> {
+    
+    return this.http.post<Card>(this.baseUrl + '/users/' + id + '/cards', card);
+  }
+  getUserCard(id:string, cardId:string):Observable<Card> 
+  {
+    
+    return this.http.get<Card>(`${this.baseUrl}/users/${id}/cards/${cardId}`);
+  }
+
+  //Trades
   getTrades(): Observable<Trade[]> {
     return this.http.get<Trade[]>(this.baseUrl + '/trades');
   }
@@ -55,14 +77,17 @@ export class BackendService {
     return this.http.get<Trade>(this.baseUrl + '/trades/' + id);
   }
 
+  //Auctions
   getAuctions(): Observable<Auction[]> {
     return this.http.get<Auction[]>(this.baseUrl + '/auctions');
   }
 
+  //Store
   getStorePacks(): Observable<Pack[]>
   {
     return this.http.get<Pack[]>(`${this.baseUrl}/store`);
   }
+  //Order
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.baseUrl + '/order');
   }
@@ -70,5 +95,10 @@ export class BackendService {
   postOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(this.baseUrl + '/order', order);
   }
+
+  //Card
+
+  //Pack
+
 
 }
