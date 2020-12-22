@@ -32,6 +32,7 @@ export class StoreComponent implements OnInit {
   // initialOrders():Observable<Order[]>{
   //   return this.backEndService.getOrders();
   // }
+  //should get Order object from current user and Pack
   sendOrder(order: Order): void{
     this.backEndService.postOrder(order);
   }

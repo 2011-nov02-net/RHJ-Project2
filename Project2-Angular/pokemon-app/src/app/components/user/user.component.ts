@@ -3,7 +3,7 @@ import { ActivatedRoute} from '@angular/router';
 import { Location} from '@angular/common';
 
 import { User} from '../../interfaces/user';
-import { Login} from '../../login';
+//import { Login} from '../../login';
 // need backend services
 import { BackendService} from '../../services/backend.service';
 
