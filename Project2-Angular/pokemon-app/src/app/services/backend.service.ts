@@ -25,6 +25,13 @@ export class BackendService {
   constructor(private http:HttpClient) { }
   
   // promise -> observable  
+
+  getUserByEmail(email:string)
+  {
+    return this.http.get(this.baseUrl + "/users/emails/" + email);
+
+  }
+
   getUserCards() 
   {
     // userId hard coded, replce with login
@@ -50,3 +57,4 @@ export class BackendService {
   }
 
 
+}
