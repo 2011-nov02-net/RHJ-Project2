@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Login} from '../interfaces/login';
-//import { RouterModule} from '@angular/route';
+import { User } from '../interfaces/user';
+import { BackendService} from '../services/backend.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,19 @@ export class LoginComponent implements OnInit {
     password:'',    
   }
 
-  constructor() { }
+  user:User ={
+    userId:'',
+    first:'',
+    last:'',
+    email:'',
+    // extras can be removed
+    //userRole:string;
+    numPacksPurchased:0,
+    // use | currency in an html element
+    currencyAmount:0,
+  }
+  
+  constructor(private backendService:BackendService) { }
 
   ngOnInit(): void {
   }
@@ -23,8 +37,10 @@ export class LoginComponent implements OnInit {
   SubmitLogin()
   {
     // send login info to backend and fectch customer id
-    //   
-
+    console.log(this.login); 
+    console.log(this.user);
+    this.backendService.getUserByEmail(this.login.email).subscribe(data =>  console.log(data));
+    this.backendService.getUserByEmail(this.login.email).subscribe((data) => { this.user = data; });
   }
 
 }

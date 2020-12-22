@@ -1,12 +1,12 @@
 export interface User
 {
-    UserId:string;
-    Frist:string;
-    Last:string;
-    Email:string;
+    userId:string;
+    first:string;
+    last:string;
+    email:string;
     // extras can be removed
-    UserRole:string;
-    NumberPacksPurchased:number;
+    //userRole:string;
+    numPacksPurchased:number;
     // use | currency in an html element
-    CurrencyAmount:number;
+    currencyAmount:number;
 }

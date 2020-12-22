@@ -26,8 +26,11 @@ export class CollectionComponent implements OnInit {
 }
   onSelect(card:Card):void{
     this.selectedCard = card;
+    console.log("submitted")
+    console.log(this.selectedCard);
      
   }
+ 
   
 
 }

@@ -7,6 +7,8 @@ import { environment} from '../../environments/environment';
 import { environmentProd} from '../../environments/environment.prod';
 import { fromEventPattern, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { User } from '../interfaces//user';
+import { Card } from '../interfaces/card';
 import { Trade } from '../interfaces/trade'
 import { Auction } from '../interfaces/auction'
 
@@ -15,8 +17,8 @@ import { Auction } from '../interfaces/auction'
 })
 export class BackendService {
   // to be replaced by app service url
-  private baseUrl =  'https://localhost:44301/api';
-  // private baseUrl = ` ${environment.baseUrl}`;
+  //private baseUrl =  'https://localhost:44301/api';
+  private baseUrl = `${environment.baseUrl}`;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -25,10 +27,17 @@ export class BackendService {
   constructor(private http:HttpClient) { }
   
   // promise -> observable  
-  getUserCards() 
+
+  getUserByEmail(email:string): Observable<User>
+  {
+    return this.http.get<User>(this.baseUrl + "/users/emails/" + email);
+
+  }
+
+  getUserCards():Observable<Card[]> 
   {
     // userId hard coded, replce with login
-    return this.http.get(`${this.baseUrl}/users/cus2/cards`);
+    return this.http.get<Card[]>(`${this.baseUrl}/users/cus2/cards`);
   }
 
   getTrades(): Observable<Trade[]> {
@@ -42,19 +51,12 @@ export class BackendService {
   getAuctions(): Observable<Auction[]> {
     return this.http.get<Auction[]>(this.baseUrl + '/auctions');
   }
-  
+
   getStorePacks()
   {
     // userId hard coded, replce with login
     return this.http.get(`${this.baseUrl}/store`);
   }
- /*
- getUserCards():Promise<Card[]>
- {
-   // how to replace userId
-   // <Card[]>
-   return this.http.get<Card[]>(`${this.baseUrl}/users`).toPromise();
- }
- */
+
 
 }
