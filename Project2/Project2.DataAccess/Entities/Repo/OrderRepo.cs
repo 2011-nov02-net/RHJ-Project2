@@ -119,6 +119,7 @@ namespace Project2.DataAccess.Entities.Repo
                 CardId = card.Card.Id,
                 Name = card.Card.Name,
                 Type = card.Card.Types.First(),
+                Image = card.Card.ImageUrl
             };
 
             return returnCard;
