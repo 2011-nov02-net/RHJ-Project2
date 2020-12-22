@@ -58,6 +58,10 @@ export class BackendService {
   {
     return this.http.get<Pack[]>(`${this.baseUrl}/store`);
   }
+  getOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.baseUrl + '/order');
+  }
+
   postOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(this.baseUrl + '/order', order);
   }
