@@ -92,12 +92,10 @@ export class BackendService {
     return this.http.get<Order[]>(this.baseUrl + '/order');
   }
 
-<<<<<<< HEAD
   getCardById(id:string): Observable<Card[]>{
     return this.http.get<Card[]>(this.baseUrl + '/cards/' + id);
   }
 
-=======
   postOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(this.baseUrl + '/order', order);
   }
@@ -105,7 +103,5 @@ export class BackendService {
   //Card
 
   //Pack
-
->>>>>>> e95634d55909a1ede21eb2e2a0cf35b220b89165
 
 }
