@@ -44,8 +44,8 @@ export class BackendService {
     return this.http.get<Trade[]>(this.baseUrl + '/trades');
   }
 
-  getTradeById(id:string): Observable<Trade> {
-    return this.http.get<Trade>(this.baseUrl + '/trades/' + id);
+  getTradeById(id:string): Observable<Trade[]> {
+    return this.http.get<Trade[]>(this.baseUrl + '/trades/' + id);
   }
 
   getAuctions(): Observable<Auction[]> {
@@ -56,6 +56,10 @@ export class BackendService {
   {
     // userId hard coded, replce with login
     return this.http.get(`${this.baseUrl}/store`);
+  }
+
+  getCardById(id:string): Observable<Card[]>{
+    return this.http.get<Card[]>(this.baseUrl + '/cards/' + id);
   }
 
 
