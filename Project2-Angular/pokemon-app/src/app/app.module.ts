@@ -21,6 +21,9 @@ import { ConvertRarityPipe } from './pipes/convert-rarity.pipe';
 
 import { PoketcgService} from './services/poketcg.service';
 import { BackendService} from './services/backend.service';
+import { TradeDetailComponent } from './components/trade-detail/trade-detail.component';
+import { TradeCardComponent } from './components/trade-card/trade-card.component';
+import { TradeCreateComponent } from './components/trade-create/trade-create.component';
 
 
 
@@ -37,7 +40,10 @@ import { BackendService} from './services/backend.service';
     StoreComponent,
     AboutComponent,
     NavComponent,
-    HistoryComponent, 
+    HistoryComponent,
+    TradeDetailComponent,
+    TradeCardComponent,
+    TradeCreateComponent, 
   ],
   imports: [
     FormsModule,

@@ -80,6 +80,7 @@ export class BackendService {
   }
   getTradeById(id:string): Observable<Trade> {
     return this.http.get<Trade>(this.baseUrl + '/trades/' + id);
+
   }
   updateTradeById(id:string,trade:Trade): Observable<Trade> {
     return this.http.put<Trade>(this.baseUrl + '/trades/' + id,trade);
@@ -116,6 +117,10 @@ export class BackendService {
     return this.http.get<Order[]>(this.baseUrl + '/order');
   }
 
+  getCardById(id:string): Observable<Card[]>{
+    return this.http.get<Card[]>(this.baseUrl + '/cards/' + id);
+  }
+
   postOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(this.baseUrl + '/order', order);
   }
@@ -123,6 +128,5 @@ export class BackendService {
   //Card
 
   //Pack
-
 
 }
