@@ -90,6 +90,31 @@ namespace Project2.Api.Controllers
             return CreatedAtAction(nameof(GetUserById), new { id = userReadDTO.UserId}, userReadDTO);
         }
 
+        //GET /api/users/{email}
+        //Gets a single user by email
+        [Route("emails/{email}")]
+        [HttpGet]
+        public async Task<ActionResult<UserReadDTO>> GetUserByEmail(string email)
+        {
+            var user = await _userRepo.GetOneUserByEmail(email);
+            if (user != null)
+            {
+                //var userReadDTO = _mapper.Map<UserReadDTO>(user);
+                var userReadDTO = new UserReadDTO
+                {
+                    UserId = user.UserId,
+                    First = user.First,
+                    Last = user.Last,
+                    Email = user.Email,
+                    NumPacksPurchased = user.NumPacksPurchased,
+                    CurrencyAmount = user.CurrencyAmount,
+                };
+                return Ok(userReadDTO);
+            }
+            return NotFound();
+        }
+
+
         //GET /api/users/{id}
         //Gets a single user by id
         [HttpGet("{id}")]
@@ -134,6 +159,7 @@ namespace Project2.Api.Controllers
                         Rarity = x.Rarity,
                         Rating = x.Rating,
                         NumOfRatings = x.NumOfRatings,
+                        Image = x.Image,
                     });
                     return Ok(cardsReadDTO);
                 }
