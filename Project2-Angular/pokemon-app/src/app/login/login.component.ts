@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     password:'',    
   }
 
-  user:User ={
+  loginUser:User ={
     userId:'',
     first:'',
     last:'',
@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
   {
     // send login info to backend and fectch customer id
     console.log(this.login); 
-    console.log(this.user);
+    console.log(this.loginUser);
     this.backendService.getUserByEmail(this.login.email).subscribe(data =>  console.log(data));
-    this.backendService.getUserByEmail(this.login.email).subscribe((data) => { this.user = data; });
+    this.backendService.getUserByEmail(this.login.email).subscribe((data) => { this.loginUser = data; });
   }
 
 }
