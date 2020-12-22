@@ -30,13 +30,7 @@ export class CollectionComponent implements OnInit {
     console.log(this.selectedCard);
      
   }
-
-  submit(card:Card)
-  {
-    this.selectedCard = card;
-    console.log("submitted")
-    console.log(this.selectedCard);
-  }
+ 
   
 
 }

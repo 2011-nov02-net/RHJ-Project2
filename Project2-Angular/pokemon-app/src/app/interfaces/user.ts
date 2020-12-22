@@ -1,4 +1,4 @@
-export interface User
+export default interface User
 {
     UserId:string;
     Frist:string;

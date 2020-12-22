@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Login} from '../interfaces/login';
-//import { RouterModule} from '@angular/route';
+import { User } from '../interfaces/user';
+import { BackendService} from '../services/backend.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,18 @@ export class LoginComponent implements OnInit {
     password:'',    
   }
 
-  constructor() { }
+  user:User=
+  {
+    UserId:'',  
+    Frist:'',
+    Last:'',
+    Email:'', 
+    UserRole: '',
+    NumberPacksPurchased:0, 
+    CurrencyAmount: 0 
+  }
+
+  constructor(private backendService:BackendService) { }
 
   ngOnInit(): void {
   }
@@ -23,8 +36,13 @@ export class LoginComponent implements OnInit {
   SubmitLogin()
   {
     // send login info to backend and fectch customer id
-    //   
-
+    //  
+    console.log(this.login); 
+    console.log(this.user);
+    this.backendService.getUserByEmail(this.login.email).subscribe(data =>  this.user = data);
+    console.log(this.user);
+    console.log(this.login);
+    // Initials@gmail.com
   }
 
 }
