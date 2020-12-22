@@ -1,1 +1,28 @@
-<p>trade-create works!</p>
+<h3>Create Trade</h3>
+<div class="trade-container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="trading-buttons">
+                <button class="btn btn-success mr-1" (click)="createTrade(card.cardId)">Submit Trade</button>
+                <a class="btn btn-danger" routerLink="/trades">Back to Trading Center</a>
+                <p></p>
+                <label>Select a Card to Trade:</label>
+                <select class="custom-select" #cardSelect (change)='onSelectedCard(cardSelect.value)'>
+                    <option selected>Choose Card...</option>
+                    <option *ngFor="let c of userCards" [value]="c.cardId">{{c.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" *ngIf="card" style="width: 350px">
+                <img src="{{card?.image}}" class="card-img-top" alt="Card Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{card?.name}}</h5>
+                    <span class="card-text">Type: {{card?.type}}</span><br>
+                    <span class="card-text">Rarity: {{card?.rarity}}</span><br>
+                    <span class="card-text">Value: {{card?.value}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

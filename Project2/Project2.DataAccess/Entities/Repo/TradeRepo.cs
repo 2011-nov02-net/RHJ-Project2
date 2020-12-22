@@ -60,6 +60,7 @@ namespace Project2.DataAccess.Entities.Repo
                 OfferCardId = dbTradeDetail.OfferCardId,
                 BuyerCardId = dbTradeDetail.BuyerCardId
             };
+
             return appTrade;
         }
         /// <summary>
@@ -73,8 +74,8 @@ namespace Project2.DataAccess.Entities.Repo
             var dbTrade = new Trade
             {
                 TradeId = appTrade.TradeId,
-                OffererId = appTrade.Offerer.UserId,
-                BuyerId = appTrade.Buyer.UserId,
+                OffererId = appTrade.OffererId,
+                //BuyerId = appTrade.Buyer.UserId,
                 IsClosed = appTrade.IsClosed,
                 TradeDate = appTrade.TradeDate,
             };
@@ -84,8 +85,8 @@ namespace Project2.DataAccess.Entities.Repo
             var dbTradeDetail = new TradeDetail
             {
                 TradeId = appTrade.TradeId,
-                OfferCardId = appTrade.OfferCard.CardId,
-                BuyerCardId = appTrade.BuyerCard.CardId,
+                OfferCardId = appTrade.OfferCardId,
+                //BuyerCardId = appTrade.BuyerCardId
             };
             await _context.TradeDetails.AddAsync(dbTradeDetail);
             await _context.SaveChangesAsync();

@@ -16,10 +16,14 @@ namespace Project2.Api.Controllers
     {
 
         private readonly ITradeRepo _tradeRepo;
+        private readonly IUserRepo _userRepo;
+        private readonly ICardRepo _cardRepo;
 
-        public TradeController( ITradeRepo tradeRepo)
+        public TradeController( ITradeRepo tradeRepo, IUserRepo userRepo, ICardRepo cardRepo)
         {
             _tradeRepo = tradeRepo;
+            _userRepo = userRepo;
+            _cardRepo = cardRepo;
         }
         //GET /api/trades
         //Gets all trades
@@ -51,23 +55,38 @@ namespace Project2.Api.Controllers
         public async Task<ActionResult<TradeCreateDTO>> Post(TradeCreateDTO newTrade)
         {
             //check if trade already exists
-            var trade = _tradeRepo.GetOneTrade(newTrade.TradeId);
+            Console.WriteLine("ID: " + newTrade.TradeId);
+            //var trade = _tradeRepo.GetOneTrade(newTrade.TradeId);
+            TradeReadDTO trade = null;
             if (trade == null)
             {
-                var appTrade = new AppTrade()
+                AppUser buyer = await _userRepo.GetOneUser(newTrade.BuyerId);
+                AppUser offerer = await _userRepo.GetOneUser(newTrade.OffererId);
+                AppCard card = await _cardRepo.GetOneCard(newTrade.OfferCardId);
+                 var appTrade = new AppTrade()
+                 {
+                    TradeId = newTrade.TradeId,
+                    OffererId = offerer.UserId,
+                    //BuyerId = buyer.UserId, dont need when creating a trade only updating
+                    TradeDate = newTrade.TradeDate,
+                    IsClosed = false, //should always be false when creating
+                    //tradeDetails
+                    OfferCardId = card.CardId,
+                     //BuyerCardId = newTrade.BuyerCardId dont need when creating a trade only updating
+                 };
+                var tradeDTO = new TradeReadDTO
                 {
                     TradeId = newTrade.TradeId,
                     OffererId = newTrade.OffererId,
-                    BuyerId = newTrade.BuyerId,
-                    TradeDate = newTrade.TradeDate,
+                    //BuyerId = newTrade.BuyerId,
                     IsClosed = newTrade.IsClosed,
-                    //tradeDetails
-                    OfferCardId = newTrade.OfferCardId,
-                    BuyerCardId = newTrade.BuyerCardId
-                };
+                    TradeDate = newTrade.TradeDate,
+                    //TradeDetails
+                    OfferCardId = newTrade.TradeId
+            };
 
                 await _tradeRepo.AddOneTrade(appTrade);
-                return CreatedAtAction("Create Trade", new { appTrade });
+                return CreatedAtAction(nameof(GetTradeById), new { id = tradeDTO.TradeId }, tradeDTO);
             }
 
             return Conflict();
