@@ -16,13 +16,12 @@ namespace Project2.DataAccess.Entities.Repo
             var appCards = new List<AppCard>();
             foreach (var dbCard in dbCards)
             {
-                //get parameters from db once scaffolded
-                AppCard appCard = new AppCard(1.5, 2,dbCard.Rarity) //var appCard = new AppCard(dbCard.Rating, dbCard.NumOfRatings,dbCard.Rarity)
+                var appCard = new AppCard(dbCard.Rating, dbCard.NumOfRatings,dbCard.Rarity)
                 {
                     CardId = dbCard.CardId,
                     Name = dbCard.Name,
                     Type = dbCard.Type,
-                    //Image = dbCard.Image,
+                    Image = dbCard.Image,
                 };
                 appCards.Add(appCard);
             }
@@ -31,13 +30,12 @@ namespace Project2.DataAccess.Entities.Repo
         }
         public static AppCard GetOneCard(Card dbCard)
         {
-            //get parameters from db once scaffolded
-            var appCard = new AppCard(1.5,2, dbCard.Rarity) //var appCard = new AppCard(dbCard.Rating, dbCard.NumOfRatings, dbCard.Rarity)
+            var appCard = new AppCard(dbCard.Rating, dbCard.NumOfRatings, dbCard.Rarity)
             {
                 CardId = dbCard.CardId,
                 Name = dbCard.Name,
                 Type = dbCard.Type,
-                //Image = dbCard.Image,
+                Image = dbCard.Image,
             };
             return appCard;
         }
@@ -49,9 +47,9 @@ namespace Project2.DataAccess.Entities.Repo
                 Name = card.Name,
                 Type = card.Type,
                 Rarity = card.Rarity,
-                //Image = card.Image,
-                //Rating = card.Rating,
-                //NumOfRatings = card.NumOfRatings,
+                Image = card.Image,
+                Rating = card.Rating,
+                NumOfRatings = card.NumOfRatings,
                 Value = card.Value
             };
             return newCard;

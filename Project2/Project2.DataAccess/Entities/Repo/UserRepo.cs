@@ -51,12 +51,12 @@ namespace Project2.DataAccess.Entities.Repo
             var dbInv= await _context.UserCardInventories
                                     .Include(x => x.Card).Where(x => x.UserId == id).ToListAsync();
             if (dbInv == null) return null;
-            var appCards = dbInv.Select(x => new AppCard(1,2, x.Card.Rarity) //var appCard = new AppCard(dbInv.Card.Rating, dbInv.Card.NumOfRatings,x.Card.Rarity)
+            var appCards = dbInv.Select(x => new AppCard(x.Card.Rating, x.Card.NumOfRatings, x.Card.Rarity)
             {
                 CardId = x.CardId,
                 Name = x.Card.Name,
                 Type = x.Card.Type,
-                //Image = x.Card.Image
+                Image = x.Card.Image
             });
             return appCards;
         }
@@ -67,12 +67,12 @@ namespace Project2.DataAccess.Entities.Repo
                        
             var dbInv = await _context.UserCardInventories.Include(x => x.Card).FirstOrDefaultAsync(x => x.UserId == id && x.CardId == cardId);
             if (dbInv == null) return null;
-            var appCard = new AppCard(1,2, dbInv.Card.Rarity) //var appCard = new AppCard(dbInv.Card.Rating, dbInv.Card.NumOfRatings,dbInv.Card.Rarity)
+            var appCard = new AppCard(dbInv.Card.Rating, dbInv.Card.NumOfRatings,dbInv.Card.Rarity)
             {
                 CardId = dbInv.CardId,
                 Name = dbInv.Card.Name,
                 Type = dbInv.Card.Type,
-                //Image = dbInv.Card.Image
+                Image = dbInv.Card.Image
             };
             return appCard;
         }
