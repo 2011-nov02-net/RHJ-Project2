@@ -7,6 +7,8 @@ import { environment} from '../../environments/environment';
 import { environmentProd} from '../../environments/environment.prod';
 import { fromEventPattern, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { User } from '../interfaces//user';
+import { Card } from '../interfaces/card';
 import { Trade } from '../interfaces/trade'
 import { Auction } from '../interfaces/auction'
 
@@ -26,16 +28,16 @@ export class BackendService {
   
   // promise -> observable  
 
-  getUserByEmail(email:string)
+  getUserByEmail(email:string): Observable<User>
   {
-    return this.http.get(this.baseUrl + "/users/emails/" + email);
+    return this.http.get<User>(this.baseUrl + "/users/emails/" + email);
 
   }
 
-  getUserCards() 
+  getUserCards():Observable<Card[]> 
   {
     // userId hard coded, replce with login
-    return this.http.get(`${this.baseUrl}/users/cus2/cards`);
+    return this.http.get<Card[]>(`${this.baseUrl}/users/cus2/cards`);
   }
 
   getTrades(): Observable<Trade[]> {
