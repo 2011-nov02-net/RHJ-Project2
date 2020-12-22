@@ -1,0 +1,39 @@
+<h3>Trade Offer</h3>
+<div class="trade-container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{offerCard?.image}}" class="card-img-top" alt="Card Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{offerCard?.name}}</h5>
+                    <span class="card-text">Type: {{offerCard?.type}}</span><br>
+                    <span class="card-text">Rarity: {{offerCard?.rarity}}</span><br>
+                    <span class="card-text">Value: {{offerCard?.value}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="trading-buttons">
+                <button class="btn btn-sm btn-success mr-1">Submit Trade</button>
+                <a class="btn btn-sm btn-danger" routerLink="/trades">Back to Trading Center</a>
+                <p></p>
+                <label>Select a Card to Trade:</label>
+                <select class="custom-select" #cardSelect (change)='onSelectedCard(cardSelect.value)'>
+                    <option selected>Choose Card...</option>
+                    <option *ngFor="let c of userCards" [value]="c.cardId">{{c.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" *ngIf="buyerCard">
+                <img src="{{buyerCard?.image}}" class="card-img-top" alt="Card Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{buyerCard?.name}}</h5>
+                    <span class="card-text">Type: {{buyerCard?.type}}</span><br>
+                    <span class="card-text">Rarity: {{buyerCard?.rarity}}</span><br>
+                    <span class="card-text">Value: {{buyerCard?.value}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
