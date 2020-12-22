@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BackendService } from '../../services/backend.service';
-//import {Pack} from '../../interfaces/pack';
+import {Pack} from '../../interfaces/pack';
+import {Order} from '../../interfaces/order';
 
 @Component({
   selector: 'app-store',
@@ -10,12 +11,19 @@ import { BackendService } from '../../services/backend.service';
 })
 export class StoreComponent implements OnInit {
 
-    packs: any;
+    packs: Pack[] | any;
+    orders: Order[] | any;
 
   constructor(private backEndService: BackendService  ) { }
 
   ngOnInit(): void {
-    //this.backEndService.getStoreItems().subscribe((data) => { this.packs  = data; })
+    this.getStorePacks();
   }
 
+  getStorePacks(): void{
+    this.backEndService.getStorePacks().subscribe(packs => { this.packs  = packs; })
+  }
+  sendOrder(input: number): void{
+
+  }
 }

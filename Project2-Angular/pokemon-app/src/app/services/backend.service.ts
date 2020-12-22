@@ -11,6 +11,8 @@ import { User } from '../interfaces//user';
 import { Card } from '../interfaces/card';
 import { Trade } from '../interfaces/trade'
 import { Auction } from '../interfaces/auction'
+import { Pack } from '../interfaces/pack'
+import { Order } from '../interfaces/order'
 
 @Injectable({
   providedIn: 'root'
@@ -52,11 +54,12 @@ export class BackendService {
     return this.http.get<Auction[]>(this.baseUrl + '/auctions');
   }
 
-  getStorePacks()
+  getStorePacks(): Observable<Pack[]>
   {
-    // userId hard coded, replce with login
-    return this.http.get(`${this.baseUrl}/store`);
+    return this.http.get<Pack[]>(`${this.baseUrl}/store`);
   }
-
+  postOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(this.baseUrl + '/order', order);
+  }
 
 }

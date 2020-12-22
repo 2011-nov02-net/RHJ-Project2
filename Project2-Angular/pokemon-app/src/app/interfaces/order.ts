@@ -1,4 +1,4 @@
-export interface order
+export interface Order
 {
     OrderId:string;
     UserId:string;
