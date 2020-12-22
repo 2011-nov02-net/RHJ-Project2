@@ -1,4 +1,4 @@
-export default interface Card
+export interface Card
 {
     CardId:string;
     Image: string;
