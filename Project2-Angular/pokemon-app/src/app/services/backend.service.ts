@@ -68,25 +68,53 @@ export class BackendService {
     return this.http.get<Card>(`${this.baseUrl}/users/${id}/cards/${cardId}`);
   }
 
+  updateUserById(id:string,user:User):Observable<User>{
+    return this.http.put<User>(`${this.baseUrl}/users/${id}`, user);
+  }
   //Trades
   getTrades(): Observable<Trade[]> {
     return this.http.get<Trade[]>(this.baseUrl + '/trades');
   }
-
-  getTradeById(id:string): Observable<Trade[]> {
-    return this.http.get<Trade[]>(this.baseUrl + '/trades/' + id);
+  postTrade(trade:Trade): Observable<Trade> {
+    return this.http.post<Trade>(this.baseUrl + '/trades',trade);
   }
+  getTradeById(id:string): Observable<Trade> {
+    return this.http.get<Trade>(this.baseUrl + '/trades/' + id);
 
+<<<<<<< HEAD
   postTrade(trade: Trade): Observable<Trade> {
     console.log("Trade");
     return this.http.post<Trade>(this.baseUrl + '/trades', trade);
   }
 
+=======
+  }
+  updateTradeById(id:string,trade:Trade): Observable<Trade> {
+    return this.http.put<Trade>(this.baseUrl + '/trades/' + id,trade);
+  }
+>>>>>>> f95c5d511b53235a43494c8b03213954f1d8c6e2
   //Auctions
+  //does not get auction details
   getAuctions(): Observable<Auction[]> {
     return this.http.get<Auction[]>(this.baseUrl + '/auctions');
   }
-
+  
+  postAuction(auction:Auction):Observable<Auction>{
+    return this.http.post<Auction>(this.baseUrl + '/auctions',auction);
+  }
+  getAuctionById(id:string): Observable<Auction> {
+    return this.http.get<Auction>(this.baseUrl + '/auctions/' + id);
+  }
+  getAuctionDetailsById(id:string): Observable<Auction> {
+    return this.http.get<Auction>(this.baseUrl + '/auctions/' + id + 'details');
+  }
+  //currently returns no content from controller
+  updateAuctionById(id:string,auction:Auction): Observable<Auction> {
+    return this.http.put<Auction>(this.baseUrl + '/auctions/' + id, auction);
+  }
+  updateAuctionDetailsById(id:string,auction:Auction): Observable<Auction> {
+    return this.http.put<Auction>(this.baseUrl + '/auctions/' + id + 'details',auction);
+  }
   //Store
   getStorePacks(): Observable<Pack[]>
   {
