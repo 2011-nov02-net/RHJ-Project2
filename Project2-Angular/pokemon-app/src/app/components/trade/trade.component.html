@@ -3,21 +3,14 @@
 <hr>
 <div class="trade-container">
     <div class="row">
-        <div class="col-sm-3">
-            <div class="card">
-                <img src="https://images.pokemontcg.io/base1/28.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Growlithe</h5>
-                  <a href="#" class="btn btn-primary">Offer Trade</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card" *ngFor="let t of trades">
-                <img src="https://images.pokemontcg.io/base1/28.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">{{t.offerCardId}}</h5>
-                  <a href="#" class="btn btn-primary">Offer Trade</a>
+        <div class="col-sm-3" *ngFor="let t of trades">
+            <div *ngIf="!t.isClosed">
+                <div class="card">
+                    <img src="https://images.pokemontcg.io/base1/28.png" class="card-img-top" alt="Card Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{t.offerCardId}}</h5>
+                        <a href="#" class="btn btn-primary">Offer Trade</a>
+                    </div>
                 </div>
             </div>
         </div>

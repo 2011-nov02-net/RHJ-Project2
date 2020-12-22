@@ -8,4 +8,5 @@ export interface Card
     Rarity:number;
     // use | currency in an html element
     Value:number;
+    Img:string;
 }

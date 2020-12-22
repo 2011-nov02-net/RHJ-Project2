@@ -10,7 +10,7 @@ import { BackendService } from 'src/app/services/backend.service';
 export class TradeComponent implements OnInit {
 
   trades: Trade[] | any;
-  tradeId:string = 'trade1001';
+  width:number = 0;
 
   constructor(private backend: BackendService) { }
 
@@ -18,8 +18,14 @@ export class TradeComponent implements OnInit {
     this.getTrades();
   }
 
+  //add backend get method for only open trades
   getTrades(): void {
     this.backend.getTrades().subscribe(trades => this.trades = trades);
   }
+
+  getCardFromId(): void {
+    
+  }
+
 
 }
