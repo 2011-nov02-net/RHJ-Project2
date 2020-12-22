@@ -15,8 +15,8 @@ import { Auction } from '../interfaces/auction'
 })
 export class BackendService {
   // to be replaced by app service url
-  private baseUrl =  'https://localhost:44301/api';
-  // private baseUrl = ` ${environment.baseUrl}`;
+  //private baseUrl =  'https://localhost:44301/api';
+  private baseUrl = `${environment.baseUrl}`;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -43,13 +43,4 @@ export class BackendService {
     return this.http.get<Auction[]>(this.baseUrl + '/auctions');
   }
   
- /*
- getUserCards():Promise<Card[]>
- {
-   // how to replace userId
-   // <Card[]>
-   return this.http.get<Card[]>(`${this.baseUrl}/users`).toPromise();
- }
- */
-
 }

@@ -8,54 +8,23 @@
   </li>
 </ul>
 
-<div *ngIf="selectedCard">
-
   <div *ngIf="selectedCard">
     <h2>{{selectedCard.name | uppercase}} Details:</h2>
+    <!-- <img src = selectedCard.image> -->
     <img src= "https://images.pokemontcg.io/xy10/29.png"> 
-    <div><span>Card: </span>{{selectedCard.image}}</div>
-    <div><span>Card ID: </span>{{selectedCard.cardId}}</div>
-    <div><span>Type: </span>{{selectedCard.type}}</div>
-    <!-- pipe not needed here -->
-    <div><span>Rarity: </span>{{selectedCard.rarity}}</div>
-    <!-- to be added -->
-    <div><span>Value: </span>{{selectedCard.value}}</div>
+    <div id = "details"> 
+      <a>Card ID: {{selectedCard.cardId}}</a><br>
+      <a>Type: {{selectedCard.type}}</a><br>
+      <!-- pipe not needed here -->
+      <a>Rarity: {{selectedCard.rarity}}</a><br>
+      <!-- to be added -->
+      <a>Value: {{selectedCard.value}}</a><br>
+    </div>
   </div>
   
 
-</div>
 
-<!-- dropdown version -->
-<div class="row mt-2">
-    <div class="col-md-6">
-      <!-- <form [formGroup]="form" (ngSubmit)="submit()"></form> -->
-        <label for="card" class="font-weight-bold">Card:</label>
-        <select name="" id="card" class="form-control">
-          <option value=""></option>        
-          <!-- lower case name-->
-          <!--  -->
-          <option [value] ="card.name" *ngFor="let card of cards" (submit)="onSelect(card)" [class.selected]= "card === selectedCard" >{{card.name}}</option>
-        </select>
 
-        <!-- <p class="">outside selected</p> -->
-
-        <div *ngIf="selectedCard">
-          <!-- <p>inside selected</p> -->
-          <h2>{{selectedCard.Name | uppercase}} Details:</h2>
-          <div><span>Card: </span>{{selectedCard.image}}</div>
-          <div><span>Card ID: </span>{{selectedCard.CardId}}</div>
-          <div><span>Type: </span>{{selectedCard.Type}}</div>
-          <!-- pipe not needed here -->
-          <div><span>Rarity: </span>{{selectedCard.Rarity}}</div>
-          <!-- to be added -->
-          <div><span>Value: </span>{{selectedCard.Value}}</div>
-        </div> 
-    </div>
-    
-  </div>
- 
- 
- 
   
   
   

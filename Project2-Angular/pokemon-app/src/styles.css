@@ -1,2 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+body{
+    /* cursor: url('../src/assets/ball'),auto; */
+    /* cursor: url('../src/assets/default.png'),default; */
+    /* cursor: url('../src/assets/pointer.png'),pointer; */
+}
