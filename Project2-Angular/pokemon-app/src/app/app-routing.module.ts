@@ -17,7 +17,7 @@ import { HistoryComponent } from './components/history/history.component';
 
 // all routes handled here
 const routes: Routes = [{ path:'',component:LoginComponent},
-{path:'user',component:UserComponent},
+//{path:'user',component:UserComponent},
 {path:'user/:id', component: UserComponent },
 {path:'collection',component:CollectionComponent},
 {path:'purchase',component:PurchaseComponent},

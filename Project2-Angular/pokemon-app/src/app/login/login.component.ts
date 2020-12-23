@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   login:Login = {    
     email:'',
-    password:'',    
+    password:'',
+    checked:false,    
   }
     
   user:User ={
@@ -29,10 +30,13 @@ export class LoginComponent implements OnInit {
     // use | currency in an html element
     currencyAmount:0,
   }
+
+  guests:User[] | null = null
   
   constructor(private backendService:BackendService, private router:Router) { }
 
   ngOnInit(): void {
+    this.backendService.getUsers().subscribe((data) => { this.guests = data;});
   }
 
 
@@ -45,7 +49,7 @@ export class LoginComponent implements OnInit {
     this.backendService.getUserByEmail(this.login.email).subscribe((data) => { this.user = data; });
 
     // this is another way to route, if routerlink works, comment this line 
-    this.router.navigate(['/user/' + this.user.userId]);
+    // this.router.navigate(['/user/' + this.user.userId]);
   }
 
 }

@@ -1,30 +1,55 @@
 
 
-
-<div class="row mt-2">
-  <div class="col-md-6" >
-    <label for="email" class="font-weight-bold">User Email:</label>
-    <!-- <input [(ngModel)]="login.email" placeholder="name"/> -->
-    <input type="text" id="email" class="form-control" [(ngModel)] = "login.email" placeholder="->">
-</div>
-</div>
-
-<div class="row mt-2">
-    <div class="col-md-6">
-      <label for="password" class="font-weight-bold">User Password:</label>
-      <!-- <input [(ngModel)]="login.password" placeholder="name"/> -->
-      <input type="text" id="password" class="form-control" [(ngModel)]="login.password" placeholder="->">
+ 
+<div class = "form-group">
+  <div class="row mt-2">
+    <div class="col-md-6" >
+      <h4> Welcome Back, Trainer!</h4>
+      <label for="email" class="font-weight-bold">Trainer Email:</label>
+      <input type="text" id="email" class="form-control" required [(ngModel)] = "login.email" placeholder="->">
     </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <label for="password" class="font-weight-bold">Trainer Password:</label>
+      <input type="text" id="password" class="form-control" required [(ngModel)]="login.password" placeholder="->" >
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-6">
+      
+      <!-- <label for="remember" class="font-weight-bold">Remember Me</label> -->
+      <input type="checkbox" id="remember" [(ngModel)]="login.checked" > 
+      <span> <strong> Remember Me</strong></span>
+    </div>
+  </div>
+ 
+
+  <div class="row mt-2">
+      <div class="col-md-6">
+        <button [routerLink]="['/user', user.userId]"  class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
+      
+      </div>
+  </div>
+
+  
+  <div *ngFor= "let guest of guests">
+    <a [routerLink]="['user',guest.userId]">{{guest.first}}</a>
+
+
+
+
+  </div>   
+   
+
 </div>
 
-<div class="row mt-2">
-    <div class="col-md-6">
-      <button  class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
-    </div>
-</div>
+
 
 <!-- this routerlink used to be in the button -->
-<!-- [routerLink]="['user'] + user.userId" -->
+<!-- [routerLink]="['/user', user.userId"] -->
 
-
+<!-- "['/hero', hero.id]" -->
 
