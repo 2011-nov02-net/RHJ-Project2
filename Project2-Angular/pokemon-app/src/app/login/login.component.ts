@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   login:Login = {    
     email:'',
-    password:'',    
+    password:'',
+    checked:false,    
   }
     
   user:User ={
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
     this.backendService.getUserByEmail(this.login.email).subscribe((data) => { this.user = data; });
 
     // this is another way to route, if routerlink works, comment this line 
-    this.router.navigate(['/user/' + this.user.userId]);
+    // this.router.navigate(['/user/' + this.user.userId]);
   }
 
 }
