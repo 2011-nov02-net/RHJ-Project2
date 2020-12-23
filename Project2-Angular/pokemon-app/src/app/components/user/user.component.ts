@@ -17,8 +17,8 @@ import { Observable } from 'rxjs';
 })
 export class UserComponent implements OnInit {
 
-  @Input() login!:Login;
-  @Input() user!:User;
+  login!:Login;
+  user!:User;
   test$!:Observable<User>;
   
   
@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.getOneUser();
     console.log(history.state.login);
     console.log(this.login)
   }
