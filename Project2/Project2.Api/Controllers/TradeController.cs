@@ -144,7 +144,6 @@ namespace Project2.Api.Controllers
                 if (appTrade.IsClosed && appTrade.BuyerId != null) {
                     appTrade.Buyer = await _userRepo.GetOneUser(appTrade.BuyerId);
                     appTrade.Offerer = await _userRepo.GetOneUser(appTrade.OffererId);
-<<<<<<< HEAD
                     appTrade.BuyerCardId = buyercard.CardId;
                     appTrade.OfferCardId = offercard.CardId;
                     //appTrade.MakeTrade();
@@ -154,19 +153,6 @@ namespace Project2.Api.Controllers
                     await _userRepo.AddOneCardToOneUser(appTrade.OffererId, buyercard.CardId);
                     await _userRepo.DeleteOneCardOfOneUser(appTrade.BuyerId, buyercard.CardId);
                     await _userRepo.DeleteOneCardOfOneUser(appTrade.OffererId, offercard.CardId);
-
-=======
-                    appTrade.BuyerCard = await _cardRepo.GetOneCard(appTrade.BuyerCardId);
-                    appTrade.OfferCard = await _cardRepo.GetOneCard(appTrade.OfferCardId);
-                    //appTrade.MakeTrade();
-
-                    await _userRepo.AddOneCardToOneUser(appTrade.BuyerId, appTrade.OfferCard);
-                    await _userRepo.AddOneCardToOneUser(appTrade.OffererId, appTrade.BuyerCard);
-                    await _userRepo.DeleteOneCardOfOneUser(appTrade.BuyerId, appTrade.BuyerCardId);
-                    await _userRepo.DeleteOneCardOfOneUser(appTrade.OffererId, appTrade.OfferCardId);
-                    await _userRepo.UpdateUserById(appTrade.BuyerId, appTrade.Buyer);
-                    await _userRepo.UpdateUserById(appTrade.OffererId, appTrade.Offerer);
->>>>>>> fff74650f6e6134bbc3cba66b31af27a42708867
                 }
                 
                 bool result = await _tradeRepo.UpdateTradeById(id, appTrade);
