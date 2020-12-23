@@ -27,14 +27,27 @@
   </div>
  
 
-<div class="row mt-2">
-    <div class="col-md-6">
-      <button [routerLink]="['/user', user.userId]"  class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
-     
-    </div>
-</div>
+  <div class="row mt-2">
+      <div class="col-md-6">
+        <button [routerLink]="['/user', user.userId]"  class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
+      
+      </div>
+  </div>
+
+  
+  <div *ngFor= "let guest of guests">
+    <a [routerLink]="['user',guest.userId]">{{guest.first}}</a>
+
+
+
+
+  </div>   
+   
 
 </div>
+
+
+
 <!-- this routerlink used to be in the button -->
 <!-- [routerLink]="['/user', user.userId"] -->
 

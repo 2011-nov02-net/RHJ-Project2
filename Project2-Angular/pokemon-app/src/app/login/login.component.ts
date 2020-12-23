@@ -30,10 +30,13 @@ export class LoginComponent implements OnInit {
     // use | currency in an html element
     currencyAmount:0,
   }
+
+  guests:User[] | null = null
   
   constructor(private backendService:BackendService, private router:Router) { }
 
   ngOnInit(): void {
+    this.backendService.getUsers().subscribe((data) => { this.guests = data;});
   }
 
 
