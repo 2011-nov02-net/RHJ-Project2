@@ -1,8 +1,8 @@
 export interface Trade
 {
     tradeId:string;
-    OffererId:string;
-    BuyerId:string;
+    offererId:string;
+    buyerId:string;
     isClosed:boolean;
     // use | date in an html element
     TradeDate:Date;

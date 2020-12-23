@@ -109,14 +109,16 @@ namespace Project2.DataAccess.Entities.Repo
                 return false;
             else
             {
-                dbTrade.TradeId = updateTrade.TradeId;
+                //dbTrade.TradeId = updateTrade.TradeId;
                 dbTrade.BuyerId = updateTrade.BuyerId;
-                dbTrade.OffererId = updateTrade.OffererId;
+                //dbTrade.OffererId = updateTrade.OffererId;
                 dbTrade.IsClosed = updateTrade.IsClosed;
-                dbTrade.TradeDate = updateTrade.TradeDate;
+                //dbTrade.TradeDate = updateTrade.TradeDate;
                 //tradedetail
-                dbTradeDetail.OfferCardId = updateTrade.OfferCard.CardId;
-                dbTradeDetail.BuyerCardId = updateTrade.BuyerCard.CardId;
+                dbTradeDetail.OfferCardId = updateTrade.OfferCardId;
+                dbTradeDetail.BuyerCardId = updateTrade.BuyerCardId;
+
+                await _context.SaveChangesAsync();
                 return true;
             }
         }

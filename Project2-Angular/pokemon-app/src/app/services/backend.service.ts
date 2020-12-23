@@ -59,6 +59,12 @@ export class BackendService {
     return this.http.get<Card[]>(`${this.baseUrl}/users/cus2/cards`);
   }
 
+  getUserCardsById(userId:string):Observable<Card[]> 
+  {
+    // userId hard coded, replce with login
+    return this.http.get<Card[]>(this.baseUrl + '/users/' + userId + '/cards');
+  }
+
   postUserCard(id:string, card: Card): Observable<Card> {
     
     return this.http.post<Card>(this.baseUrl + '/users/' + id + '/cards', card);

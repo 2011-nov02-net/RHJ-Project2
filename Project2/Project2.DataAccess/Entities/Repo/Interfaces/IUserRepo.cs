@@ -14,7 +14,7 @@ namespace Project2.DataAccess.Entities.Repo.Interfaces
         Task AddOneUser(AppUser user);
         Task<IEnumerable<AppCard>> GetAllCardsOfOneUser(string id);
         Task<AppCard> GetOneCardOfOneUser(string id, string cardId);
-        Task AddOneCardToOneUser(string id, AppCard card);
+        Task AddOneCardToOneUser(string id, string cardId);
         Task DeleteOneCardOfOneUser(string id, string cardId);
         Task<bool> UpdateUserById(string id, AppUser user);
 

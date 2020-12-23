@@ -17,14 +17,14 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" *ngIf='email' href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{email.email}}</a>
+                <a class="nav-link dropdown-toggle" *ngIf='email' href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pokemon Trainer</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" routerLink="/collection"><em class="fas fa-box"></em> Inventory</a>
                     <a class="dropdown-item" routerLink="/history/trades"><em class="fas fa-list"></em> My History</a>
                     <div *ngIf="role">
                         <a class="dropdown-item" routerLink="/"><em class="fas fa-tools"></em> Admin Panel</a>
                     </div>
-                    <div *ngIf="loggedIn">
+                    <div>
                         <a class="dropdown-item" routerLink="/" (click)='logOut()'><em class="fas fa-sign-out-alt"></em> Logout</a>
                     </div>
                 </div>
