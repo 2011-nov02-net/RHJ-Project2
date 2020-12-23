@@ -7,6 +7,7 @@ import { Login} from '../../interfaces/login';
 
 // need backend services
 import { BackendService} from '../../services/backend.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -18,12 +19,14 @@ export class UserComponent implements OnInit {
 
   @Input() login!:Login;
   @Input() user!:User;
+  test$!:Observable<User>;
   
   
   constructor( private route:ActivatedRoute, private backendService:BackendService, private location:Location) {    
   }
 
   ngOnInit(): void {
+    
     console.log(history.state.login);
     console.log(this.login)
   }
@@ -33,7 +36,7 @@ export class UserComponent implements OnInit {
     this.backendService.getUserById(id).subscribe( user => this.user = user)
   }
 
-  goNack(): void{
+  goBack(): void{
     this.location.back();
   }
 

@@ -78,7 +78,7 @@ namespace Project2.Api.Controllers
 
                 await _auctRepo.CreateAuction(createdAuction);
 
-                return CreatedAtAction("Create Auction", new {createdAuction}); //201 new auction created
+                return CreatedAtAction("nameof(GetAuctioneById)", new { id = createdAuction.AuctionId}, createdAuction); //201 new auction created
             }
 
             return Conflict(); //auction already exists and cant be created
