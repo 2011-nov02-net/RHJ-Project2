@@ -30,16 +30,22 @@ namespace Project2.Domain
         }
 
         /// <summary>
-        /// executes the trade and sets flag to indicate a closed trade, should only be called after buyer confirmation
+        /// executes the trade if IsClosed flag indicates a closed trade, should only be called after buyer confirmation
         /// </summary>
         public void MakeTrade()
         {
-            TradeDate = DateTime.UtcNow;
-            IsClosed = true;
-            Buyer.AddCardToInventory(OfferCard);
-            Offerer.AddCardToInventory(BuyerCard);
-            Buyer.RemoveCardFromInventory(BuyerCard);
-            Offerer.RemoveCardFromInventory(OfferCard);
+            if (IsClosed == true)
+            {
+                TradeDate = DateTime.UtcNow;
+                Buyer.AddCardToInventory(OfferCard);
+                Offerer.AddCardToInventory(BuyerCard);
+                Buyer.RemoveCardFromInventory(BuyerCard);
+                Offerer.RemoveCardFromInventory(OfferCard);
+            }
+            else
+            {
+                throw new Exception("trade is not closed.");
+            }
         }
     }
 }

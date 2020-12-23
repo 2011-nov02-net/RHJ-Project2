@@ -25,6 +25,7 @@ namespace Project2.Api.Controllers
             _userRepo = userRepo;
             _cardRepo = cardRepo;
         }
+
         //GET /api/trades
         //Gets all trades
         [HttpGet]
@@ -137,6 +138,15 @@ namespace Project2.Api.Controllers
                     BuyerCardId = tradeDTO.BuyerCardId
                 };
 
+                //perform business logic after updating the AppTrade
+                if (appTrade.IsClosed && appTrade.BuyerId != null) { 
+                    appTrade.Buyer = await _userRepo.GetOneUser(appTrade.BuyerId);
+                    appTrade.Offerer = await _userRepo.GetOneUser(appTrade.OffererId);
+                    appTrade.BuyerCard = await _cardRepo.GetOneCard(appTrade.BuyerCardId);
+                    appTrade.OfferCard = await _cardRepo.GetOneCard(appTrade.OfferCardId);
+                    appTrade.MakeTrade();
+                }
+                
                 bool result = await _tradeRepo.UpdateTradeById(id,  appTrade);
                 if (result)
                 {
