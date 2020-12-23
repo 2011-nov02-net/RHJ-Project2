@@ -107,6 +107,7 @@ namespace Project2.Api.Controllers
                 };
 
                 return CreatedAtAction(nameof(GetAuctionById), new {id = auctionReadDTO.AuctionId},auctionReadDTO); //201 new auction created
+
             }
 
             return Conflict(); //auction already exists and cant be created
