@@ -4,8 +4,7 @@ export interface User
     first:string;
     last:string;
     email:string;
-    // extras can be removed
-    //userRole:string;
+    userRole:string;
     numPacksPurchased:number;
     // use | currency in an html element
     currencyAmount:number;
