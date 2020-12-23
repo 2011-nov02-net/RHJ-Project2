@@ -9,7 +9,7 @@ trigger:
     - master
   paths:
     include:
-    - Project2
+    - Project2/*
 
 stages:
 - stage: build
