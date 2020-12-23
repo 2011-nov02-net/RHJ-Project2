@@ -9,7 +9,7 @@ trigger:
      - master
   paths:
     include:
-      - Project2-Angular/pokemon-app/*
+      - Project2-Angular/*
       - azure-pipelines-1.yml
     exclude:
       - Project2/*
