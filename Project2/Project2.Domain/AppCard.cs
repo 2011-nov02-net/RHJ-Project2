@@ -13,7 +13,6 @@ namespace Project2.Domain
         public int Rarity { get; set; }
         public double Value { get; set; }
 
-        //TODO: add into database
         public double Rating { get; set; }
         public int NumOfRatings { get; set; }
         public string? Image { get; set; }

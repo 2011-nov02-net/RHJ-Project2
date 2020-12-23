@@ -70,18 +70,18 @@ namespace Project2.Api.Controllers
                 var createdAuction = new AppAuction()
                 {
                     // auction
-                    AuctionId = newAuction.AuctionId,
+                    AuctionId = newAuction.AuctionId, //= _auctRepo.IdGen(),
                     SellerId = newAuction.SellerId,
-                    BuyerId = newAuction.BuyerId,
+                    //BuyerId = newAuction.BuyerId,
                     CardId = newAuction.CardId,
-                    PriceSold = (double)newAuction.PriceSold,
-                    SellDate = (DateTime)newAuction.SellDate,
+                    //PriceSold = (double)newAuction.PriceSold,
+                    //SellDate = (DateTime)newAuction.SellDate,
 
                     //auction details
                     PriceListed = newAuction.PriceListed,
                     BuyoutPrice = newAuction.BuyoutPrice,
-                    NumberBids = newAuction.NumberBids,
-                    SellType = newAuction.SellType,
+                    //NumberBids = newAuction.NumberBids,
+                    //SellType = newAuction.SellType,
                     ExpDate = newAuction.ExpDate
 
                 };
@@ -93,16 +93,16 @@ namespace Project2.Api.Controllers
                     //auction
                     AuctionId = createdAuction.AuctionId,
                     SellerId = createdAuction.SellerId,
-                    BuyerId = createdAuction.BuyerId,
+                    //BuyerId = createdAuction.BuyerId,
                     CardId = createdAuction.CardId,
-                    PriceSold = (double)createdAuction.PriceSold,
-                    SellDate = (DateTime)createdAuction.SellDate,
+                    //PriceSold = (double)createdAuction.PriceSold,
+                    //SellDate = (DateTime)createdAuction.SellDate,
 
                     //auction details
                     PriceListed = createdAuction.PriceListed,
                     BuyoutPrice = createdAuction.BuyoutPrice,
-                    NumberBids = (int)createdAuction.NumberBids,
-                    SellType = createdAuction.SellType,
+                    //NumberBids = (int)createdAuction.NumberBids,
+                    //SellType = createdAuction.SellType,
                     ExpDate = createdAuction.ExpDate
                 };
 
@@ -150,7 +150,7 @@ namespace Project2.Api.Controllers
         public async Task<ActionResult<AuctionCreateDTO>> UpdateAuctionById(string id, AuctionCreateDTO newAuction)
         {
             var check = await _auctRepo.GetAuctionById(id);
-
+            
             if (check != null)
             {
                 var auction = new AppAuction
@@ -182,64 +182,5 @@ namespace Project2.Api.Controllers
 
             return NotFound(); //Return 404 if no auction details found
         }
-
-        //GET /api/auctions/{id}/details
-        //Gets auction details by id
-/*        [HttpGet("{id}/details")]
-        public async Task<ActionResult<AuctionReadDTO>> GetAuctionDetailsById(string id)
-        {
-            var details = await _auctRepo.GetAuctionDetailById(id);
-
-            if (details != null)
-            {
-                var auctionDTO = new AuctionReadDTO
-                {
-                    AuctionId = details.AuctionId,
-                    PriceListed = details.PriceListed,
-                    BuyoutPrice = details.BuyoutPrice,
-                    NumberBids = (int)details.NumberBids,
-                    SellType = details.SellType,
-                    ExpDate = details.ExpDate
-
-                };
-
-                return Ok(auctionDTO); //return auction details
-            }
-
-            return NotFound(); //Return 404 if no auction details found
-        }*/
-
-        //PUT /api/auctions/{id}/details
-        //Update auction details by id
-/*        [HttpPut("{id}/details")]
-        public async Task<ActionResult<AuctionCreateDTO>> UpdateAuctionDetailsById(string id, AuctionCreateDTO newAuction)
-        {
-            var check = await _auctRepo.GetAuctionDetailById(id);
-
-            if (check != null)
-            {
-                var auction = new AppAuction
-                {
-                    AuctionId = newAuction.AuctionId,
-                    PriceListed = newAuction.PriceListed,
-                    BuyoutPrice = newAuction.BuyoutPrice,
-                    NumberBids = newAuction.NumberBids,
-                    SellType = newAuction.SellType,
-                    ExpDate = newAuction.ExpDate
-
-                };
-                bool result = await _auctRepo.UpdateAuctionDetail(id, auction);
-                if (result)
-                {
-                    return NoContent(); //update successfull
-                }
-                else
-                {
-                    return BadRequest(); //something wrong with update
-                }
-            }
-
-            return NotFound(); //Return 404 if no auction details found
-        }*/
     }
 }

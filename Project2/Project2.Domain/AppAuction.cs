@@ -37,21 +37,20 @@ namespace Project2.Domain
 
         }
 
-        // NewBid(), Sold(), BuyOut()
         /// <summary>
         /// updates the auction with a new bid
         /// </summary>
         /// <param name="bidTime"></param>
         /// <param name="bidAmount"></param>
         /// <param name="bidder"></param>
-        public void NewBid(DateTime bidTime, double bidAmount, AppUser bidder)
+        public void NewBid(DateTime bidTime, double bidAmount/*, AppUser bidder*/)
         {
             double bidDifference = bidAmount - PriceListed;
             //update bid if auction has not expired and bid is at least 50 cents higher than current price
             if(bidDifference > .50 && DateTime.Compare(ExpDate, bidTime) > 0)
             {
                 PriceListed = bidAmount;
-                Buyer = bidder;
+                //Buyer = bidder;
                 NumberBids = ++NumberBids ?? 1;
             }
             else if (bidDifference <= .50)
@@ -71,11 +70,11 @@ namespace Project2.Domain
         /// buyer bought out the auction, update buyer and close auction
         /// </summary>
         /// <param name="buyer"></param>
-        public void BuyOut(AppUser buyer) //true if successful
+        public void BuyOut(/*AppUser buyer*/) //true if successful
         {
-            if (buyer.CurrencyAmount > this.BuyoutPrice)
+            if (Buyer.CurrencyAmount > this.BuyoutPrice)
             {
-                Buyer = buyer;
+                //Buyer = buyer;
                 Buyer.AddCardToInventory(Card);
                 Seller.RemoveCardFromInventory(Card);
                 Buyer.CurrencyAmount -= this.BuyoutPrice;
