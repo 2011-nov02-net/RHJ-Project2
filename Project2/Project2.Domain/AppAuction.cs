@@ -93,7 +93,7 @@ namespace Project2.Domain
         /// Updates the AppAuction if it has expired
         /// </summary>
         /// <returns>Called AppAuction object</returns>
-        public AppAuction Expired()
+        public bool Expired()
         {
             if (NumberBids != null && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)
             {
@@ -103,19 +103,17 @@ namespace Project2.Domain
                 Seller.CurrencyAmount += PriceListed;
                 this.PriceSold = this.PriceListed;
                 this.SellDate = ExpDate;
-                this.SellType = "Buyout"; //this seems odd
+                this.SellType = "Bid"; //this seems odd
+                return true;
             }
-            else if (NumberBids == null && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)
+            else if ((NumberBids == null || NumberBids == 0) && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)
             {
                 this.PriceSold = 0;
                 this.SellDate = ExpDate;
                 this.SellType = "None"; //expired with no bids
+                return true;
             }
-            else
-            {
-                throw new Exception("Auction not expired");
-            }
-            return this;
+            return false;
         }
     }
 }
