@@ -13,6 +13,7 @@ import { Trade } from '../interfaces/trade'
 import { Auction } from '../interfaces/auction'
 import { Pack } from '../interfaces/pack'
 import { Order } from '../interfaces/order'
+import { OrderItem } from '../interfaces/orderItem'
 
 @Injectable({
   providedIn: 'root'
@@ -76,8 +77,10 @@ export class BackendService {
     return this.http.get<Trade[]>(this.baseUrl + '/trades');
   }
   postTrade(trade:Trade): Observable<Trade> {
+    console.log("Trade");
     return this.http.post<Trade>(this.baseUrl + '/trades',trade);
   }
+
   getTradeById(id:string): Observable<Trade> {
     return this.http.get<Trade>(this.baseUrl + '/trades/' + id);
 
@@ -86,7 +89,6 @@ export class BackendService {
     return this.http.put<Trade>(this.baseUrl + '/trades/' + id,trade);
   }
   //Auctions
-  //does not get auction details
   getAuctions(): Observable<Auction[]> {
     return this.http.get<Auction[]>(this.baseUrl + '/auctions');
   }
@@ -97,36 +99,52 @@ export class BackendService {
   getAuctionById(id:string): Observable<Auction> {
     return this.http.get<Auction>(this.baseUrl + '/auctions/' + id);
   }
-  getAuctionDetailsById(id:string): Observable<Auction> {
-    return this.http.get<Auction>(this.baseUrl + '/auctions/' + id + 'details');
-  }
-  //currently returns no content from controller
+
   updateAuctionById(id:string,auction:Auction): Observable<Auction> {
     return this.http.put<Auction>(this.baseUrl + '/auctions/' + id, auction);
-  }
-  updateAuctionDetailsById(id:string,auction:Auction): Observable<Auction> {
-    return this.http.put<Auction>(this.baseUrl + '/auctions/' + id + 'details',auction);
   }
   //Store
   getStorePacks(): Observable<Pack[]>
   {
     return this.http.get<Pack[]>(`${this.baseUrl}/store`);
   }
+  getStorePackById(id:string): Observable<Pack>
+  {
+    return this.http.get<Pack>(`${this.baseUrl}/store/${id}`);
+  }
+  updateStorePackById(id:string,pack:Pack): Observable<Pack> {
+    return this.http.put<Pack>(this.baseUrl + '/store/' + id, pack);
+  }
   //Order
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.baseUrl + '/order');
   }
 
-  getCardById(id:string): Observable<Card[]>{
-    return this.http.get<Card[]>(this.baseUrl + '/cards/' + id);
+  getOrderById(id:string): Observable<Order> {
+    return this.http.get<Order>(`${this.baseUrl}/order/${id}`);
   }
-
+  getOrderItemsById(id:string): Observable<OrderItem[]> {
+    return this.http.get<OrderItem[]>(`${this.baseUrl}/order/${id}/details`);
+  }
   postOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(this.baseUrl + '/order', order);
   }
 
   //Card
-
+  getCards(): Observable<Card[]>{
+    return this.http.get<Card[]>(this.baseUrl + '/cards/');
+  }
+  getCardById(id:string): Observable<Card>{
+    return this.http.get<Card>(this.baseUrl + '/cards/' + id);
+  }
+  postCard(card: Card): Observable<Card>{
+    return this.http.post<Card>(this.baseUrl + '/cards/', card);
+  }
   //Pack
-
+  getPacks(): Observable<Pack[]>{
+    return this.http.get<Pack[]>(this.baseUrl + '/packs/');
+  }
+  getPackById(id:string): Observable<Pack>{
+    return this.http.get<Pack>(this.baseUrl + '/packs/' + id);
+  }
 }

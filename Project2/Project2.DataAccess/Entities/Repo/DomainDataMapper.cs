@@ -12,7 +12,7 @@ namespace Project2.DataAccess.Entities.Repo
         // cards
         public static IEnumerable<AppCard> GetAllCards(IEnumerable<Card> dbCards)
         {
-            //use foreach so that updatevaue may be called
+            
             var appCards = new List<AppCard>();
             foreach (var dbCard in dbCards)
             {
@@ -117,20 +117,31 @@ namespace Project2.DataAccess.Entities.Repo
         }
 
         //auctions
-        public static IEnumerable<AppAuction> GetAllAuctions(IEnumerable<Auction> dbAuctions)
+/*        public static IEnumerable<AppAuction> GetAllAuctions(IEnumerable<Auction> dbAuctions, IEnumerable<AuctionDetail> dbAuctionDetails)
         {
-            var appAuctions = dbAuctions.Select(x => new AppAuction
+            var appAuctions = new List<AppAuction>();
+
+            foreach (var dbAuction in dbAuctions)
             {
-                AuctionId = x.AuctionId,
-                SellerId = x.SellerId,
-                BuyerId = x.BuyerId,
-                CardId = x.CardId,
-                PriceSold = (double)x.PriceSold,
-                SellDate = (DateTime)x.SellDate
-            });
+                var appAuction = new AppAuction() 
+                {
+                    AuctionId = dbAuction.AuctionId,
+                    SellerId = dbAuction.SellerId,
+                    BuyerId = dbAuction.BuyerId,
+                    CardId = dbAuction.CardId,
+                    PriceSold = (double)dbAuction.PriceSold,
+                    SellDate = (DateTime)dbAuction.SellDate,
+                    PriceListed = dbAuctionDetail.PriceListed,
+                    BuyoutPrice = dbAuctionDetail.BuyoutPrice,
+                    NumberBids = dbAuctionDetail.NumberBids,
+                    SellType = dbAuctionDetail.SellType,
+                    ExpDate = dbAuctionDetail.ExpDate
+                };
+                appAuctions.Add(appAuction);
+            }
 
             return appAuctions;
-        }
+        }*/
 
         public static AppAuction GetAuction(Auction dbAuction)
         {

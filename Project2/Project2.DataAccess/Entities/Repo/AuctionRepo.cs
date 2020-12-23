@@ -13,20 +13,57 @@ namespace Project2.DataAccess.Entities.Repo
     public class AuctionRepo : IAuctionRepo
     {
         private readonly Project2Context _context ;
-        public AuctionRepo(Project2Context context )
+        private readonly IUserRepo _userRepo;
+        private readonly ICardRepo _cardRepo;
+        public AuctionRepo(Project2Context context , IUserRepo userRepo, ICardRepo cardRepo)
         {
+            _cardRepo = cardRepo;
+            _userRepo = userRepo;
             _context  = context ;
         }
 
         //Get all auctions
         public async Task<IEnumerable<AppAuction>> GetAllAuctions()
         {       
-            var dbAuctions = await _context.Auctions.ToListAsync();
-
+            var dbAuctions = await _context.Auctions
+                .Include(x=>x.AuctionDetail).ToListAsync();
+            
             if (dbAuctions == null)
                 return null;
 
-            var appAuctions = DomainDataMapper.GetAllAuctions(dbAuctions);
+            var appAuctions = new List<AppAuction>();
+
+            foreach (var dbAuction in dbAuctions)
+            {
+                var appAuction = new AppAuction()
+                {
+                    AuctionId = dbAuction.AuctionId,
+                    SellerId = dbAuction.SellerId,
+                    BuyerId = dbAuction.BuyerId,
+                    CardId = dbAuction.CardId,
+                    PriceSold = (double)dbAuction.PriceSold,
+                    SellDate = (DateTime)dbAuction.SellDate,
+                    PriceListed = dbAuction.AuctionDetail.PriceListed,
+                    BuyoutPrice = dbAuction.AuctionDetail.BuyoutPrice,
+                    NumberBids = dbAuction.AuctionDetail.NumberBids,
+                    SellType = dbAuction.AuctionDetail.SellType,
+                    ExpDate = dbAuction.AuctionDetail.ExpDate
+                };
+
+                //check if a buyer exists and set Buyer and Seller for Expiration check
+                if (appAuction.BuyerId != "" && appAuction.BuyerId != null) 
+                    appAuction.Buyer = await _userRepo.GetOneUser(appAuction.BuyerId);
+                appAuction.Seller = await _userRepo.GetOneUser(appAuction.SellerId);
+                appAuction.Card = await _cardRepo.GetOneCard(appAuction.CardId);
+
+                //updates appAuction if UtcNow > ExpDate
+                if(appAuction.Expired())
+                {
+                    await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
+                    await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
+                }
+                appAuctions.Add(appAuction);
+            }
 
             return appAuctions;
         }
@@ -35,24 +72,39 @@ namespace Project2.DataAccess.Entities.Repo
         public async Task<AppAuction> GetAuctionById(string id)
         {
      
-            var dbAuctions = await _context.Auctions.FirstOrDefaultAsync(x => x.AuctionId == id);
-            if (dbAuctions == null) 
+            var dbAuction = await _context.Auctions.Include(x => x.AuctionDetail).FirstOrDefaultAsync(x => x.AuctionId == id);
+            if (dbAuction == null) 
                 return null;
+            
+            var appAuction = new AppAuction()
+            {
+                AuctionId = dbAuction.AuctionId,
+                SellerId = dbAuction.SellerId,
+                BuyerId = dbAuction.BuyerId,
+                CardId = dbAuction.CardId,
+                PriceSold = (double)dbAuction.PriceSold,
+                SellDate = (DateTime)dbAuction.SellDate,
+                //details
+                PriceListed = dbAuction.AuctionDetail.PriceListed,
+                BuyoutPrice = dbAuction.AuctionDetail.BuyoutPrice,
+                NumberBids = dbAuction.AuctionDetail.NumberBids,
+                SellType = dbAuction.AuctionDetail.SellType,
+                ExpDate = dbAuction.AuctionDetail.ExpDate
+            };
+            //check if a buyer exists and set Buyer and Seller for Expiration check
+            if (appAuction.BuyerId != "" && appAuction.BuyerId != null)
+                appAuction.Buyer = await _userRepo.GetOneUser(appAuction.BuyerId);
+            appAuction.Seller = await _userRepo.GetOneUser(appAuction.SellerId);
+            appAuction.Card = await _cardRepo.GetOneCard(appAuction.CardId);
 
-            var appAuction = DomainDataMapper.GetAuction(dbAuctions);
+            //updates appAuction if UtcNow > ExpDate
+            if (appAuction.Expired())
+            {
+                await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
+                await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
+            }
+
             return appAuction;
-        }
-
-        //get auction details by id
-        public async Task<AppAuction> GetAuctionDetailById(string id)
-        {
- 
-            var dbDetail = await _context.AuctionDetails.FirstOrDefaultAsync(x => x.AuctionId == id);
-            if (dbDetail == null)
-                return null;
-
-            var appAuctionDetail = DomainDataMapper.GetAuctionDetail(dbDetail);
-            return appAuctionDetail;
         }
 
         //Create an auction
@@ -106,8 +158,8 @@ namespace Project2.DataAccess.Entities.Repo
         //Update auction by id
         public async Task<bool> UpdateAuction(string id, AppAuction auction)
         {
- 
-            var updateAuction = await _context.Auctions.Where(x => x.AuctionId == id).FirstAsync();
+            
+            var updateAuction = await _context.Auctions.Include(x => x.AuctionDetail).Where(x => x.AuctionId == id).FirstAsync();
             if (auction == null)
             {
                 return false;
@@ -122,7 +174,12 @@ namespace Project2.DataAccess.Entities.Repo
                     updateAuction.CardId = auction.CardId;
                     updateAuction.PriceSold = auction.PriceSold;
                     updateAuction.SellDate = auction.SellDate;
-                    
+                    //update details
+                    updateAuction.AuctionDetail.PriceListed = auction.PriceListed;
+                    updateAuction.AuctionDetail.BuyoutPrice = auction.BuyoutPrice;
+                    updateAuction.AuctionDetail.NumberBids = auction.NumberBids;
+                    updateAuction.AuctionDetail.SellType = auction.SellType;
+                    updateAuction.AuctionDetail.ExpDate = auction.ExpDate;
                     //save updated record
                     await _context.SaveChangesAsync();
 
@@ -131,40 +188,6 @@ namespace Project2.DataAccess.Entities.Repo
                 catch (Exception e)
                 {
                     Debug.WriteLine("Error Updating Auction: " + e);
-                }
-            }
-
-            return false;
-        }
-
-        //Update auction detail by id
-        public async Task<bool> UpdateAuctionDetail(string id, AppAuction auction)
-        {
- 
-            var updateAuctionDetail = await _context.AuctionDetails.Where(x => x.AuctionId == id).FirstAsync();
-            if (auction == null)
-            {
-                return false;
-            }
-            else
-            {
-                try
-                {
-                    //update db record
-                    updateAuctionDetail.PriceListed = auction.PriceListed;
-                    updateAuctionDetail.BuyoutPrice = auction.BuyoutPrice;
-                    updateAuctionDetail.NumberBids = auction.NumberBids;
-                    updateAuctionDetail.SellType = auction.SellType;
-                    updateAuctionDetail.ExpDate = auction.ExpDate;
-
-                    //save updated record
-                    await _context.SaveChangesAsync();
-
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Error Updating Auction Detail: " + e);
                 }
             }
 
