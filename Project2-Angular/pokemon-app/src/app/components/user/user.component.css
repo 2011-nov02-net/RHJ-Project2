@@ -11,5 +11,5 @@
 }
 
 .profile.dashed {
-    border-top: 1px dashed #bbb;
+    border-top: 0.5px dashed #bbb;
   }

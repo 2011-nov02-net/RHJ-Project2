@@ -1,6 +1,3 @@
-
-
- 
 <div class = "form-group">
   <div class="row mt-2">
     <div class="col-md-6" >
@@ -19,37 +16,24 @@
 
   <div class="row mt-2">
     <div class="col-md-6">
-      
-      <!-- <label for="remember" class="font-weight-bold">Remember Me</label> -->
       <input type="checkbox" id="remember" [(ngModel)]="login.checked" > 
       <span> <strong> Remember Me</strong></span>
     </div>
   </div>
  
-
   <div class="row mt-2">
       <div class="col-md-6">
-        <button [routerLink]="['/user', user.userId]"  class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
-      
+        <button [routerLink]="['/user']"  class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
+  
       </div>
   </div>
 
-  
-  <div *ngFor= "let guest of guests">
-    <a [routerLink]="['user',guest.userId]">{{guest.first}}</a>
-
-
-
-
-  </div>   
-   
+   <!-- <div *ngFor= "let guest of guests">
+    <a [routerLink]="['user',guest.userId]"> <img src= "../../assets/guest_icon.png"></a>
+    <img src= "../../assets/gym_leader.png">
+  </div>   -->
 
 </div>
 
 
-
-<!-- this routerlink used to be in the button -->
-<!-- [routerLink]="['/user', user.userId"] -->
-
-<!-- "['/hero', hero.id]" -->
 

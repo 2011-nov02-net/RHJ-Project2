@@ -24,10 +24,8 @@ export class LoginComponent implements OnInit {
     first:'',
     last:'',
     email:'',
-    // extras can be removed
-    //userRole:string;
+    userRole:'',
     numPacksPurchased:0,
-    // use | currency in an html element
     currencyAmount:0,
   }
 
@@ -36,21 +34,23 @@ export class LoginComponent implements OnInit {
   constructor(private backendService:BackendService, private router:Router) { }
 
   ngOnInit(): void {
-    this.backendService.getUsers().subscribe((data) => { this.guests = data;});
+    // guests login
+    // this.backendService.getUsers().subscribe((data) => { this.guests = data;});
   }
 
 
   SubmitLogin()
   {
     // send login info to backend and fectch customer id
-    console.log(this.login); 
-    console.log(this.user);
     this.backendService.getUserByEmail(this.login.email).subscribe(data =>  console.log(data));
     this.backendService.getUserByEmail(this.login.email).subscribe((data) => { 
       this.user = data;
+      localStorage.setItem('id', JSON.stringify({ id: data.userId}));
+      localStorage.setItem('first', JSON.stringify({ first: data.first}));
+      localStorage.setItem('last', JSON.stringify({ last: data.last}));
       localStorage.setItem('email', JSON.stringify({ email: data.email}));
       localStorage.setItem('role', JSON.stringify({ role: '1'}));
-      localStorage.setItem('id', JSON.stringify({ id: data.userId}));
+      localStorage.setItem('numPacksPurchased', JSON.stringify({ numPacksPurchased: data.numPacksPurchased}));     
       localStorage.setItem('currency', JSON.stringify({ currency: data.currencyAmount}));
      });
     // this is another way to route, if routerlink works, comment this line 
