@@ -10,9 +10,9 @@ namespace Project2.DataAccess.Entities.Repo.Interfaces
     {
         Task<IEnumerable<AppAuction>> GetAllAuctions();
         Task<AppAuction> GetAuctionById(string id);
-        Task<AppAuction> GetAuctionDetailById(string id);
+        //Task<AppAuction> GetAuctionDetailById(string id);
         Task<bool> CreateAuction(AppAuction auction);
         Task<bool> UpdateAuction(string id, AppAuction auction);
-        Task<bool> UpdateAuctionDetail(string id, AppAuction auction);
+        //Task<bool> UpdateAuctionDetail(string id, AppAuction auction);
     }
 }
