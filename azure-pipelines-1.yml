@@ -9,10 +9,10 @@ trigger:
      - master
   paths:
     include:
-      - sharkFin/*
+      - Project2-Angular/pokemon-app/*
       - azure-pipelines-1.yml
     exclude:
-      - sharkFinApi/*
+      - Project2/*
       - azure-pipelines.yml
 
 pool:
@@ -42,5 +42,5 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: ''
     appType: 'webApp'
-    WebAppName: 'PokemonAuctionfront'
+    WebAppName: 'PokemonAuctionFront'
     packageForLinux: '$(appDir)/dist/$(appDir)'
