@@ -144,7 +144,14 @@ namespace Project2.Api.Controllers
                     appTrade.Offerer = await _userRepo.GetOneUser(appTrade.OffererId);
                     appTrade.BuyerCard = await _cardRepo.GetOneCard(appTrade.BuyerCardId);
                     appTrade.OfferCard = await _cardRepo.GetOneCard(appTrade.OfferCardId);
-                    appTrade.MakeTrade();
+                    //appTrade.MakeTrade();
+
+                    await _userRepo.AddOneCardToOneUser(appTrade.BuyerId, appTrade.OfferCard);
+                    await _userRepo.AddOneCardToOneUser(appTrade.OffererId, appTrade.BuyerCard);
+                    await _userRepo.DeleteOneCardOfOneUser(appTrade.BuyerId, appTrade.BuyerCardId);
+                    await _userRepo.DeleteOneCardOfOneUser(appTrade.OffererId, appTrade.OfferCardId);
+                    await _userRepo.UpdateUserById(appTrade.BuyerId, appTrade.Buyer);
+                    await _userRepo.UpdateUserById(appTrade.OffererId, appTrade.Offerer);
                 }
                 
                 bool result = await _tradeRepo.UpdateTradeById(id,  appTrade);
