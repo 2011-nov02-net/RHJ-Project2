@@ -105,7 +105,7 @@ stages:
               condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
               inputs:
                 ConnectionType: 'AzureRM'
-                azureSubscription: 'Azure subscription 1 (0feb1fc7-c26d-42fa-a93a-5728459c2309)'
+                azureSubscription: 'Azure subscription 1(0feb1fc7-c26d-42fa-a93a-5728459c2309)'
                 appType: 'webApp'
                 WebAppName: 'pokemon-auct-api'
                 packageForLinux: '$(Pipeline.Workspace)/app/*.zip'
