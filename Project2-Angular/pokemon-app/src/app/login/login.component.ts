@@ -46,8 +46,13 @@ export class LoginComponent implements OnInit {
     console.log(this.login); 
     console.log(this.user);
     this.backendService.getUserByEmail(this.login.email).subscribe(data =>  console.log(data));
-    this.backendService.getUserByEmail(this.login.email).subscribe((data) => { this.user = data; });
-
+    this.backendService.getUserByEmail(this.login.email).subscribe((data) => { 
+      this.user = data;
+      localStorage.setItem('email', JSON.stringify({ email: data.email}));
+      localStorage.setItem('role', JSON.stringify({ role: '1'}));
+      localStorage.setItem('id', JSON.stringify({ id: data.userId}));
+      localStorage.setItem('currency', JSON.stringify({ currency: data.currencyAmount}));
+     });
     // this is another way to route, if routerlink works, comment this line 
     // this.router.navigate(['/user/' + this.user.userId]);
   }
