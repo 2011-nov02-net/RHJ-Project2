@@ -11,15 +11,15 @@ import { BackendService } from '../../services/backend.service';
   styleUrls: ['./collection.component.css']
 })
 export class CollectionComponent implements OnInit {
-  userId!:string;
 
+  userId!:string;
   cards: Card[] | any;
   selectedCard: Card | any;
 
   constructor( private backendService:BackendService) { }
 
   ngOnInit(): void {
-    //this.backendService.getUserCards().then(x => {this.cards = x;}); 
+     
     this.userId = JSON.parse(localStorage.getItem('id') || '{}');
     this.backendService.getUserCards(this.userId).subscribe((data) => { this.cards = data; });
 
