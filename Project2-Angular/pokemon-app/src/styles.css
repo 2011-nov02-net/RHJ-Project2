@@ -1,12 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-body{
-    /* cursor: url('./assets/auto.png'),pointer; */
-    cursor: url('./assets/auto.png'),auto;   
+body{  
+    cursor: url('./assets/auto.png') 38 45,auto;   
     /* cursor: url('./assets/auto.png'),auto; */
-    
-    
+}
 
-     
+a:hover{
+    cursor: url('./assets/pointer.png') 30 38,pointer; 
 }
