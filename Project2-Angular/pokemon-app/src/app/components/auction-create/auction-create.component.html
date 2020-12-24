@@ -1,1 +1,42 @@
-<p>auction-create works!</p>
+<h3>Create Auction</h3>
+<div class="auction-container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="auction-buttons">
+                <label>Select a Card to Trade:</label>
+                <select class="custom-select" #cardSelect (change)='onSelectedCard(cardSelect.value)'>
+                    <option selected>Choose Card...</option>
+                    <option *ngFor="let c of userCards" [value]="c.cardId">{{c.name}}</option>
+                </select>
+                <br><br>
+                <label for="listInput" class="form-label">List Price:</label>
+                <input type="number" class="form-control" id="listInput" placeholder="50" min="0">
+                <br>
+                <label for="buyoutInput" class="form-label">Buyout Price:</label>
+                <input type="number" class="form-control" id="buyoutInput" placeholder="50" min="0" disabled>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="buyoutCheck">
+                    <label class="form-check-label" for="buyoutCheck">Enable Buyout</label>
+                </div>
+                <br>
+                <label for="expInput" class="form-label">Expiration Date:</label>
+                <input type="date" class="form-control" id="expInput" placeholder="50" min="0">
+
+                <button class="btn btn-success mr-1 mt-4">Submit Auction</button>
+                <a class="btn btn-danger mt-4" routerLink="/auctions">Back to Auction House</a>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" *ngIf="card" style="width: 350px">
+                <img src="{{card?.image}}" class="card-img-top" alt="Card Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{card?.name}}</h5>
+                    <span class="card-text">Type: {{card?.type}}</span><br>
+                    <span class="card-text">Rarity: {{card?.rarity}}</span><br>
+                    <span class="card-text">Value: {{card?.value}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
