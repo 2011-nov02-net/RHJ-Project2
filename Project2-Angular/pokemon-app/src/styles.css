@@ -3,10 +3,12 @@
 
 body{
     /* cursor: url('./assets/auto.png'),pointer; */
-    cursor: url('./assets/auto.png'),auto;   
-    /* cursor: url('./assets/auto.png'),auto; */
-    
-    
-
-     
+    cursor: url('./assets/auto.png') 35 45, auto;         
 }
+
+a:hover{
+    cursor: url('./assets/pointer.png') 30 25, auto; 
+ }
+
+
+
