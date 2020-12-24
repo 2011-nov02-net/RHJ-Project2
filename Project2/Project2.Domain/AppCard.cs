@@ -30,13 +30,6 @@ namespace Project2.Domain
             UpdateValue();
         }
 
-/*        public AppCard(string id, AppPack pack)
-        {
-            CardId = id;
-            Pack = pack;
-            UpdateValue();
-        }*/
-
         /// <summary>
         /// adds a rating for the card and calculates a new average rating
         /// </summary>
