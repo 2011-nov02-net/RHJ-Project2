@@ -5,14 +5,14 @@ import { Card } from 'src/app/interfaces/card';
 import { BackendService } from '../../services/backend.service';
 
 
-
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.css']
 })
 export class CollectionComponent implements OnInit {
-  // null = null
+  userId!:string;
+
   cards: Card[] | any;
   selectedCard: Card | any;
 
@@ -20,8 +20,8 @@ export class CollectionComponent implements OnInit {
 
   ngOnInit(): void {
     //this.backendService.getUserCards().then(x => {this.cards = x;}); 
-    
-    this.backendService.getUserCards().subscribe((data) => { this.cards = data; });
+    this.userId = JSON.parse(localStorage.getItem('id') || '{}');
+    this.backendService.getUserCards(this.userId).subscribe((data) => { this.cards = data; });
 
 }
   onSelect(card:Card):void{
