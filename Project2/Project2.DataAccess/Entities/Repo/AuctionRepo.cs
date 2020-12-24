@@ -105,6 +105,8 @@ namespace Project2.DataAccess.Entities.Repo
                 await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
                 await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
                 await UpdateAuction(appAuction.AuctionId, appAuction);
+                await _userRepo.AddOneCardToOneUser(auction.BuyerId,auction.CardId);
+                await _userRepo.DeleteOneCardOfOneUser(auction.SellerId, auction.CardId);
                 await _context.SaveChangesAsync();
             }*/
 
@@ -173,10 +175,12 @@ namespace Project2.DataAccess.Entities.Repo
             auction.Seller = await _userRepo.GetOneUser(auction.SellerId);
             auction.Card = await _cardRepo.GetOneCard(auction.CardId);
 
-            //if there is a Price sold, the auction was bought out
-            if (/*auction.SellType != "Buyout" &&*/ auction.PriceSold > 0 && updateAuction.PriceSold != auction.PriceSold)
+            //if there is a Price sold, and PriceSold == BuyoutPrice
+            if (auction.SellType != "Buyout" && auction.PriceSold == auction.BuyoutPrice && updateAuction.PriceSold != auction.PriceSold)
             {
                 auction.BuyOut();
+                await _userRepo.AddOneCardToOneUser(auction.BuyerId,auction.CardId);
+                await _userRepo.DeleteOneCardOfOneUser(auction.SellerId, auction.CardId);
             }
             //if the auction had a new priceListed it has been bid on
             else if (auction.PriceListed != updateAuction.AuctionDetail.PriceListed)
@@ -217,9 +221,10 @@ namespace Project2.DataAccess.Entities.Repo
         }
 
         //requires auction Ids to be int convertable
-        public string IdGen()
+        public async Task<string> IdGen()
         {
-            var lastAuctionId = _context.Auctions.Select(x=>Convert.ToInt32(x.AuctionId)).ToList().Max();
+            var dbAuctions = await _context.Auctions.ToListAsync();
+            var lastAuctionId =  dbAuctions.Select(x=>Convert.ToInt32(x.AuctionId)).Max();
             string newId = Convert.ToString(lastAuctionId + 1);
             return newId;
         }

@@ -122,5 +122,14 @@ namespace Project2.DataAccess.Entities.Repo
                 return true;
             }
         }
+
+        //requires auction Ids to be int convertable
+        public async Task<string> IdGen()
+        {
+            var dbTrades = await _context.Trades.ToListAsync();
+            var lastTradeId = dbTrades.Select(x => Convert.ToInt32(x.TradeId)).Max();
+            string newId = Convert.ToString(lastTradeId + 1);
+            return newId;
+        }
     }
 }
