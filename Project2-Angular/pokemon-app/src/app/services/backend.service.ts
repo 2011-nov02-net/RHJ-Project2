@@ -52,10 +52,10 @@ export class BackendService {
 
   }
 
-  getUserCards():Observable<Card[]> 
+  getUserCards(userId:string):Observable<Card[]> 
   {
     // userId hard coded, replce with login
-    return this.http.get<Card[]>(`${this.baseUrl}/users/cus2/cards`);
+    return this.http.get<Card[]>(this.baseUrl + '/users/' + userId );
   }
 
   getUserCardsById(userId:string):Observable<Card[]> 
