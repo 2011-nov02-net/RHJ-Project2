@@ -1,7 +1,12 @@
 <div class = "form-group">
   <div class="row mt-2">
     <div class="col-md-6" >
+      <div class="host">
       <h4> Welcome Back, Trainer!</h4>
+        <div>  
+        <img src= "../../assets/guest_icon.png" class="img-circle" alt="host">
+        </div>
+      </div>
       <label for="email" class="font-weight-bold">Trainer Email:</label>
       <input type="text" id="email" class="form-control" required [(ngModel)] = "login.email" placeholder="->">
     </div>
@@ -27,11 +32,8 @@
   
       </div>
   </div>
-
-   <!-- <div *ngFor= "let guest of guests">
-    <a [routerLink]="['user',guest.userId]"> <img src= "../../assets/guest_icon.png"></a>
-    <img src= "../../assets/gym_leader.png">
-  </div>   -->
+   
+  
 
 </div>
 
