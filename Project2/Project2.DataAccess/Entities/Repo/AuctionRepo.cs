@@ -56,11 +56,11 @@ namespace Project2.DataAccess.Entities.Repo
                 appAuction.Card = await _cardRepo.GetOneCard(appAuction.CardId);
 
                 //updates appAuction if UtcNow > ExpDate
-                if(appAuction.Expired())
+                /*if(appAuction.Expired())
                 {
                     await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
                     await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
-                }
+                }*/
                 appAuctions.Add(appAuction);
             }
 
