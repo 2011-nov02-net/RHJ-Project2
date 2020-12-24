@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Trade } from 'src/app/interfaces/trade';
+import { Router } from '@angular/router';
 import { Card } from 'src/app/interfaces/card';
 import { BackendService } from 'src/app/services/backend.service';
 
@@ -14,7 +15,7 @@ export class TradeCreateComponent implements OnInit {
   card: Card | any;
   userId: any;
 
-  constructor(private backend: BackendService) { }
+  constructor(private backend: BackendService, private router:Router) { }
 
   ngOnInit(): void {
     this.userId = JSON.parse(localStorage.getItem('id') || '{}');
@@ -44,7 +45,8 @@ export class TradeCreateComponent implements OnInit {
       };
 
       this.backend.postTrade(trade).subscribe();
-      console.log("Clicked Create Trade");
+      this.router.navigate(['auctions']);
+      alert("Trade Created Successfully!");
     }
 
 }

@@ -20,7 +20,7 @@ export class AuctionCreateComponent implements OnInit {
   sellType: string = "Bid";
   expDate: Date | any;
 
-  constructor(private backend: BackendService) { }
+  constructor(private backend: BackendService, private router:Router) { }
 
   ngOnInit(): void {
     this.userId = JSON.parse(localStorage.getItem('id') || '{}');
@@ -54,7 +54,7 @@ export class AuctionCreateComponent implements OnInit {
 
   postAuction(): void {
     let auction: Auction = {
-      auctionId: '2',
+      auctionId: '9909999',
       sellerId: this.userId.id,
       buyerId: '',
       cardId: this.card.cardId,
@@ -68,5 +68,7 @@ export class AuctionCreateComponent implements OnInit {
     }
 
     this.backend.postAuction(auction).subscribe();
+    this.router.navigate(['auctions']);
+    alert("Auction Created Successfully!");
   }
 }
