@@ -1,9 +1,11 @@
 export interface Order
 {
-    OrderId:string;
-    UserId:string;
+    orderId:string;
+    userId:string;
     // use | date in an html element
-    Date:Date;
+    date:Date;
     // use | currency in an html element
-    Total:number;
+    total:number;
+    packId:string;
+    packQty: number;
 }
