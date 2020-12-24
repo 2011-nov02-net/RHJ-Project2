@@ -25,9 +25,9 @@
             <div class="auction-buttons">
                 <h4>You Have {{buyer?.currencyAmount}} coins</h4><br>
                 <label for="coinInput" class="form-label">Bid:</label>
-                <input type="number" class="form-control" id="coinInput" placeholder="50" min="0">
-                <button class="btn btn-primary mr-1 mt-2">Place Bid</button>
-                <button class="btn btn-success mr-1 mt-2">Buy It Now</button>
+                <input type="number" class="form-control" id="coinInput" placeholder="50" min="0" (change)="bidChange($event)">
+                <button class="btn btn-primary mr-1 mt-2" (click)="placeBid()">Place Bid</button>
+                <button class="btn btn-success mr-1 mt-2" (click)="buyNow()" routerLink="/auctions">Buy It Now</button>
                 <a class="btn btn-danger mt-1" routerLink="/auctions">Back to Auction House</a>
             </div>
         </div>
