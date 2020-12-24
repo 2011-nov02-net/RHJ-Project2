@@ -21,7 +21,7 @@ export class TradeDetailComponent implements OnInit {
   offerer: string | any;
 
 
-  constructor(private backend: BackendService, private route: ActivatedRoute,) { }
+  constructor(private backend: BackendService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.userId = JSON.parse(localStorage.getItem('id') || '{}');

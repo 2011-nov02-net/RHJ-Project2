@@ -55,23 +55,15 @@ namespace Project2.DataAccess.Entities.Repo
                 appAuction.Seller = await _userRepo.GetOneUser(appAuction.SellerId);
                 appAuction.Card = await _cardRepo.GetOneCard(appAuction.CardId);
 
-<<<<<<< HEAD
-                //updates appAuction if UtcNow > ExpDate
-                /*if(appAuction.Expired())
-                {
-                    await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
-                    await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
-                }*/
-=======
                 //updates appAuction and users if UtcNow > ExpDate
-                if(appAuction.Expired())
+               /* if(appAuction.Expired())
                 {
                     await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
                     await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
                     await UpdateAuction(appAuction.AuctionId,appAuction);
                     await _context.SaveChangesAsync();
-                }
->>>>>>> 4ba751c9a7afb1e1d100ca4381eb9a386c6df918
+                }*/
+
                 appAuctions.Add(appAuction);
             }
 
