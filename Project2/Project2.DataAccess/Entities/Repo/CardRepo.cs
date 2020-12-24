@@ -35,10 +35,15 @@ namespace Project2.DataAccess.Entities.Repo
 
         // need to handle duplicate outside
         public async Task AddOneCard(AppCard card)
-        {                         
-            var newCard = DomainDataMapper.AddOneCard(card);
-            await _context.Cards.AddAsync(newCard);
-            await _context.SaveChangesAsync();            
+        {
+            var dbCard = await _context.Cards.FirstOrDefaultAsync(x => x.CardId == card.CardId);
+            //only add to Cards if it does not yet exist
+            if (dbCard == null)
+            {
+                var newCard = DomainDataMapper.AddOneCard(card);
+                await _context.Cards.AddAsync(newCard);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
