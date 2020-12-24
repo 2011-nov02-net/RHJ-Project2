@@ -48,8 +48,8 @@ namespace Project2.Domain
             //update bid if auction has not expired and bid is at least 50 cents higher than current price
             if(bidAmount > .50 && DateTime.Compare(ExpDate, bidTime) > 0)
             {
-                PriceListed += bidAmount;
-                //Buyer = bidder;
+
+                //PriceListed += bidAmount; //this is handled on the front end
                 NumberBids = ++NumberBids ?? 1;
             }
             else if (bidAmount <= .50)
