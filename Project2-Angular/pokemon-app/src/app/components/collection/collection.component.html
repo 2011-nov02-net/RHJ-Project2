@@ -1,26 +1,32 @@
 <!-- list version -->
 <h2>Collection</h2>
-<ul class="cards">
-  <li *ngFor="let card of cards"
-    [class.selected]="card === selectedCard"
-    (click)="onSelect(card)">
-    <span class="badge">{{card.cardId}}</span> {{card.name}}
-  </li>
-</ul>
-
-  <div *ngIf="selectedCard">
-    <h2>{{selectedCard.name | uppercase}} Details:</h2>
-    <img [src] = "selectedCard.image">   
-    <!-- <img src= "https://images.pokemontcg.io/xy10/29.png"> -->
-    <div id = "details"> 
-      <a>Card ID: {{selectedCard.cardId}}</a><br>
-      <a>Type: {{selectedCard.type}}</a><br>
-      <!-- pipe not needed here -->
-      <a>Rarity: {{selectedCard.rarity}}</a><br>
-      <!-- to be added -->
-      <a>Value: {{selectedCard.value}}</a><br>
+<div class="row">
+  <div class="col-md-4">
+    <ul class="cards">
+      <li *ngFor="let card of cards"
+        [class.selected]="card === selectedCard"
+        (click)="onSelect(card)">
+        <span class="badge">{{card.cardId}}</span> {{card.name}}
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-2"></div>
+  <div class="col-md-4">
+    <div *ngIf="selectedCard">
+      <h2>{{selectedCard.name | uppercase}} Details:</h2>
+      <img [src] = "selectedCard.image">   
+      <!-- <img src= "https://images.pokemontcg.io/xy10/29.png"> -->
+      <div id = "details"> 
+        <a>Card ID: {{selectedCard.cardId}}</a><br>
+        <a>Type: {{selectedCard.type}}</a><br>
+        <!-- pipe not needed here -->
+        <a>Rarity: {{selectedCard.rarity}}</a><br>
+        <!-- to be added -->
+        <a>Value: {{selectedCard.value}}</a><br>
+      </div>
     </div>
   </div>
+</div>
   
 
 
