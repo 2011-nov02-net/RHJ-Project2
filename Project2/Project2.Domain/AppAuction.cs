@@ -96,8 +96,8 @@ namespace Project2.Domain
         {
             if (NumberBids != null && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)
             {
-                Buyer.AddCardToInventory(Card);
-                Seller.RemoveCardFromInventory(Card);
+                //Buyer.AddCardToInventory(Card);
+                //Seller.RemoveCardFromInventory(Card);
                 Buyer.CurrencyAmount -= this.PriceListed;
                 Seller.CurrencyAmount += PriceListed;
                 this.PriceSold = this.PriceListed;
