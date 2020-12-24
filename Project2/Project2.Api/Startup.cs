@@ -73,7 +73,7 @@ namespace Project2.Api
                     builder =>
                     {
                         builder.WithOrigins("http://localhost:4200",
-                            "https://pokemon-auct-api.azurewebsites.net")
+                            "https://pokemon-auct-api.azurewebsites.net", "https://pokemon-auct-app.azurewebsites.net")
                             .AllowAnyMethod() // allow PUT & DELETE not just GET & POST
                             .AllowAnyHeader()
                             .AllowCredentials();
