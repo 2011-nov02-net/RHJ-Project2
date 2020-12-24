@@ -67,6 +67,7 @@ export class TradeDetailComponent implements OnInit {
     }
 
     this.backend.updateTradeById(this.trade.tradeId, upTrade).subscribe();
+    alert("Trade Offer Placed");
   }
 
   approveTrade(): void {
@@ -82,5 +83,6 @@ export class TradeDetailComponent implements OnInit {
     }
 
     this.backend.updateTradeById(this.trade.tradeId, upTrade).subscribe();
+    alert("Trade Approved");
   }
 }
