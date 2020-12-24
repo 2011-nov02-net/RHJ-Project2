@@ -1,5 +1,7 @@
-export const environmentProd = {
+export const environment = {
   production: true,
   // to be added
-  baseUrl:''
+
+  baseUrl:'https://pokemon-auct-api.azurewebsites.net/api',
+
 };

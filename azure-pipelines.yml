@@ -9,7 +9,10 @@ trigger:
     - master
   paths:
     include:
-    - Project2
+    - Project2/*
+    exclude:
+      - Project2-Angular/pokemon-app/*
+      - azure-pipelines-1.yml
 
 stages:
 - stage: build
@@ -87,3 +90,25 @@ stages:
       
     - publish: $(build.artifactstagingdirectory)
       artifact: app
+
+- stage: release
+  jobs:
+  - deployment: app_service
+    environment: prod
+    displayName: 'deployment'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - download: current
+              artifact: app
+              displayName: download app
+            - task: AzureRmWebAppDeployment@4
+              displayName: deploy web app
+              condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'Azure subscription 1(0feb1fc7-c26d-42fa-a93a-5728459c2309)'
+                appType: 'webApp'
+                WebAppName: 'pokemon-auct-api'
+                packageForLinux: '$(Pipeline.Workspace)/app/*.zip'

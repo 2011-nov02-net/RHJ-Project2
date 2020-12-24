@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import dev environment
 import { environment} from '../../environments/environment';
 // need to be added
-import { environmentProd} from '../../environments/environment.prod';
 import { fromEventPattern, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../interfaces//user';
@@ -21,7 +20,7 @@ import { OrderItem } from '../interfaces/orderItem'
 export class BackendService {
   // to be replaced by app service url
   //private baseUrl =  'https://localhost:44301/api';
-  private baseUrl = `${environment.baseUrl}`;
+  private baseUrl = `${environment.baseUrl}/api`;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -57,6 +56,12 @@ export class BackendService {
   {
     // userId hard coded, replce with login
     return this.http.get<Card[]>(`${this.baseUrl}/users/cus2/cards`);
+  }
+
+  getUserCardsById(userId:string):Observable<Card[]> 
+  {
+    // userId hard coded, replce with login
+    return this.http.get<Card[]>(this.baseUrl + '/users/' + userId + '/cards');
   }
 
   postUserCard(id:string, card: Card): Observable<Card> {

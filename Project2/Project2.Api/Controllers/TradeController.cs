@@ -138,23 +138,24 @@ namespace Project2.Api.Controllers
                     BuyerCardId = tradeDTO.BuyerCardId
                 };
 
+                AppCard offercard = await _cardRepo.GetOneCard(tradeDTO.OfferCardId);
+                AppCard buyercard = await _cardRepo.GetOneCard(tradeDTO.BuyerCardId);
                 //perform business logic after updating the AppTrade
                 if (appTrade.IsClosed && appTrade.BuyerId != null) {
                     appTrade.Buyer = await _userRepo.GetOneUser(appTrade.BuyerId);
                     appTrade.Offerer = await _userRepo.GetOneUser(appTrade.OffererId);
-                    appTrade.BuyerCard = await _cardRepo.GetOneCard(appTrade.BuyerCardId);
-                    appTrade.OfferCard = await _cardRepo.GetOneCard(appTrade.OfferCardId);
+                    appTrade.BuyerCardId = buyercard.CardId;
+                    appTrade.OfferCardId = offercard.CardId;
                     //appTrade.MakeTrade();
 
-                    await _userRepo.AddOneCardToOneUser(appTrade.BuyerId, appTrade.OfferCard);
-                    await _userRepo.AddOneCardToOneUser(appTrade.OffererId, appTrade.BuyerCard);
-                    await _userRepo.DeleteOneCardOfOneUser(appTrade.BuyerId, appTrade.BuyerCardId);
-                    await _userRepo.DeleteOneCardOfOneUser(appTrade.OffererId, appTrade.OfferCardId);
-                    await _userRepo.UpdateUserById(appTrade.BuyerId, appTrade.Buyer);
-                    await _userRepo.UpdateUserById(appTrade.OffererId, appTrade.Offerer);
+                    
+                    await _userRepo.AddOneCardToOneUser(appTrade.BuyerId, offercard.CardId);
+                    await _userRepo.AddOneCardToOneUser(appTrade.OffererId, buyercard.CardId);
+                    await _userRepo.DeleteOneCardOfOneUser(appTrade.BuyerId, buyercard.CardId);
+                    await _userRepo.DeleteOneCardOfOneUser(appTrade.OffererId, offercard.CardId);
                 }
                 
-                bool result = await _tradeRepo.UpdateTradeById(id,  appTrade);
+                bool result = await _tradeRepo.UpdateTradeById(id, appTrade);
                 if (result)
                 {
                     return NoContent(); //update successfull

@@ -85,10 +85,10 @@ namespace Project2.DataAccess.Entities.Repo
             return appCard;
         }
 
-        public async Task AddOneCardToOneUser(string id, AppCard card)
+        public async Task AddOneCardToOneUser(string id, string cardId)
         {           
                                    
-            var dbInv = await _context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == card.CardId);
+            var dbInv = await _context.UserCardInventories.FirstOrDefaultAsync(x => x.UserId == id && x.CardId == cardId);
             if (dbInv != null)
             {
                 // if already has the card
@@ -101,7 +101,7 @@ namespace Project2.DataAccess.Entities.Repo
                 var newRecord = new UserCardInventory
                 {
                     UserId = id,
-                    CardId = card.CardId,
+                    CardId = cardId,
                     Quantity = 1,
                 };
                 await _context.UserCardInventories.AddAsync(newRecord);

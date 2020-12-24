@@ -121,14 +121,14 @@ namespace Project2.UnitTest
             _mockRepo.Invocations.Clear();
             _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).Verifiable();
             _mockRepo.Setup(x => x.GetOneUser(It.IsAny<string>())).ReturnsAsync(Test.Users()[0]);         
-            _mockRepo.Setup(x => x.AddOneCardToOneUser(It.IsAny<string>(), It.IsAny<AppCard>())).Verifiable();
+            _mockRepo.Setup(x => x.AddOneCardToOneUser(It.IsAny<string>(), It.IsAny<string>())).Verifiable();
 
             // act
             var actionResult = await userController.AddCardToUserInventory(fake,Test.CardsDTO()[0]);
 
             // assert
             _mockRepo.Verify(x => x.GetOneUser(It.IsAny<string>()), Times.Once);
-            _mockRepo.Verify(x => x.AddOneCardToOneUser(It.IsAny<string>(), It.IsAny<AppCard>()),Times.Once);
+            _mockRepo.Verify(x => x.AddOneCardToOneUser(It.IsAny<string>(), It.IsAny<string>()),Times.Once);
             var DTOs = Assert.IsAssignableFrom<ActionResult<CardReadDTO>>(actionResult);
             var createObjects = Assert.IsAssignableFrom<CreatedAtActionResult>(actionResult.Result);
             Assert.Equal(201, createObjects.StatusCode);

@@ -72,7 +72,8 @@ namespace Project2.Api
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200")
+                        builder.WithOrigins("http://localhost:4200",
+                            "https://pokemon-auct-api.azurewebsites.net")
                             .AllowAnyMethod() // allow PUT & DELETE not just GET & POST
                             .AllowAnyHeader()
                             .AllowCredentials();
@@ -90,9 +91,14 @@ namespace Project2.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project2.Api v1"));
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project2.Api v1"));
             }
+
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project2.Api v1"));
+
 
             app.UseHttpsRedirection();
 

@@ -12,16 +12,18 @@ export class TradeCreateComponent implements OnInit {
 
   userCards: Card[] | any;
   card: Card | any;
+  userId: any;
 
   constructor(private backend: BackendService) { }
 
   ngOnInit(): void {
-    this.getUserInventory();
+    this.userId = JSON.parse(localStorage.getItem('id') || '{}');
+    this.getUserInventory(this.userId.id);
   }
 
     //get users specific inventory
-    getUserInventory(): void {
-      this.backend.getUserCards().subscribe(cards => this.userCards = cards);
+    getUserInventory(userId:string): void {
+      this.backend.getUserCardsById(userId).subscribe(cards => this.userCards = cards);
     }
   
     onSelectedCard(cardId:string): void{
@@ -32,9 +34,9 @@ export class TradeCreateComponent implements OnInit {
     //get last trade id + 1
     createTrade(cardId:string): void {
       let trade: Trade = {
-        tradeId: "trade1003",
-        OffererId: "cus1",
-        BuyerId: "",
+        tradeId: "trade1007",
+        offererId: "cus1",
+        buyerId: "",
         isClosed: false,
         TradeDate: new Date(),
         offerCardId: cardId,

@@ -1,0 +1,46 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  branches:
+   include:
+     - master
+  paths:
+    include:
+      - Project2-Angular/*
+      - azure-pipelines-1.yml
+    exclude:
+      - Project2/*
+      - azure-pipelines.yml
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  appDir: Project2-Angular/pokemon-app
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+
+- script: npm ci
+  displayName: npm install
+  workingDirectory: $(appDir)
+
+- script: npx ng build --prod
+  displayName: ng build
+  workingDirectory: $(appDir)
+
+- task: AzureRmWebAppDeployment@4
+  displayName: azure app service deploy
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(0feb1fc7-c26d-42fa-a93a-5728459c2309)'
+    appType: 'webApp'
+    WebAppName: 'pokemon-auct-app'
+    packageForLinux: '$(appDir)/dist/pokemon-app'

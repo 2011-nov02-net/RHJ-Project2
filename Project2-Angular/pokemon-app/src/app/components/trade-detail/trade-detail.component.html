@@ -14,14 +14,19 @@
         </div>
         <div class="col-md-4">
             <div class="trading-buttons">
-                <button class="btn btn-sm btn-success mr-1">Submit Trade</button>
+                <button class="btn btn-sm btn-primary mr-1" (click)='updateTrade()' routerLink="/trades">Offer Trade</button>
                 <a class="btn btn-sm btn-danger" routerLink="/trades">Back to Trading Center</a>
+                <div *ngIf="trade?.buyerId || trade?.offerId === userId.id">
+                    <button class="btn btn-sm btn-success mr-1 mt-1" (click)='approveTrade()' routerLink="/trades">Approve Trade</button>
+                </div>
                 <p></p>
-                <label>Select a Card to Trade:</label>
-                <select class="custom-select" #cardSelect (change)='onSelectedCard(cardSelect.value)'>
-                    <option selected>Choose Card...</option>
-                    <option *ngFor="let c of userCards" [value]="c.cardId">{{c.name}}</option>
-                </select>
+                <div *ngIf="!buyer">
+                    <label>Select a Card to Trade:</label>
+                    <select class="custom-select" #cardSelect (change)='onSelectedCard(cardSelect.value)'>
+                        <option selected>Choose Card...</option>
+                        <option *ngFor="let c of userCards" [value]="c.cardId">{{c.name}}</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="col-md-4">
