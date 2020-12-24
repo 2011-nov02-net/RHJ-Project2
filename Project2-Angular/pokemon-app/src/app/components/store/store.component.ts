@@ -51,5 +51,6 @@ export class StoreComponent implements OnInit {
     }
 
     this.backEndService.postOrder(order).subscribe();
+    alert("Bought and Opened Pack Successfully");
   }
 }
