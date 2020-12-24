@@ -70,7 +70,7 @@ namespace Project2.Api.Controllers
                 var createdAuction = new AppAuction()
                 {
                     // auction
-                    AuctionId = newAuction.AuctionId, //= _auctRepo.IdGen(),
+                    AuctionId = await _auctRepo.IdGen(),
                     SellerId = newAuction.SellerId,
                     BuyerId = null,
                     CardId = newAuction.CardId,

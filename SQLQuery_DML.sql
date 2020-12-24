@@ -45,15 +45,15 @@ insert into TEAM.StoreInventory(PackId,PackQty) values('2',50);
 insert into TEAM.StoreInventory(PackId,PackQty) values('3',300);
 
 -- insert auction
-insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('Auc1001','2','1','card101',20);
-insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('Auc1002','3','2','card102',15);
-insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('Auc1003','1','3','card103',10);
+insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('1','2','1','card101',20);
+insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('2','3','2','card102',15);
+insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('3','1','3','card103',10);
 
 
 -- insert auction detail
-insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType,expDate) values('Auc1001', 5, 50, 10, 'Bid','2021-2-1');
-insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType,expDate) values('Auc1002', 6, 60, 10, 'Bid','2021-2-1');
-insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType,expDate) values('Auc1003', 1, 10, 4, 'Buyout','2021-2-1');
+insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType,expDate) values('1', 5, 50, 10, 'Bid','2021-2-1');
+insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType,expDate) values('2', 6, 60, 10, 'Bid','2021-2-1');
+insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType,expDate) values('3', 1, 10, 4, 'Buyout','2021-2-1');
 
 -- insert order
 -- insert orderitem
@@ -72,8 +72,12 @@ insert into TEAM.TradeDetail(TradeId, OfferCardId, BuyerCardId) values('trade100
 insert into TEAM.TradeDetail(TradeId, OfferCardId, BuyerCardId) values('trade1002', 'base1-28', 'base1-29');
 -- no trades made yet, not enough cards atm
 
-DELETE FROM TEAM.Auction WHERE AuctionId = '1';
-DELETE FROM TEAM.AuctionDetail WHERE AuctionId = '1';
+DELETE FROM TEAM.Auction WHERE AuctionId = 'Auc1001';
+DELETE FROM TEAM.AuctionDetail WHERE AuctionId = 'Auc1001';
+DELETE FROM TEAM.Auction WHERE AuctionId = 'Auc1002';
+DELETE FROM TEAM.AuctionDetail WHERE AuctionId = 'Auc1002';
+DELETE FROM TEAM.Auction WHERE AuctionId = 'Auc1003';
+DELETE FROM TEAM.AuctionDetail WHERE AuctionId = 'Auc1003';
 
 select * from TEAM.Customer;
 select * from TEAM.UserCardInventory;
