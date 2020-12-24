@@ -16,9 +16,19 @@ export class AuctionCardComponent implements OnInit {
   card: Card | any;
   auction: Auction | any;
 
-  constructor() { }
+  constructor(private backend: BackendService) { }
 
   ngOnInit(): void {
+    this.getCard(this.cardId);
+    this.getAuction(this.auctionId);
+  }
+
+  getCard(cardId:string): void {
+    this.backend.getCardById(cardId).subscribe(card => this.card = card)
+  }
+
+  getAuction(auctionId:string) {
+    this.backend.getAuctionById(auctionId).subscribe(auction => this.auction = auction)
   }
 
 }
