@@ -1,4 +1,11 @@
-@import url(https://db.onlinewebfonts.com/c/f4d1593471d222ddebd973210265762a?family=Pokemon);
+/*@import url(https://db.onlinewebfonts.com/c/f4d1593471d222ddebd973210265762a?family=Pokemon);*/
+@font-face {
+    font-family: "Pokemon";
+    src: url("https://db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.eot");
+    src: url("https://db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.eot?#iefix") format("embedded-opentype"),
+     url("https://db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.woff2") format("woff2"),
+     url("https://db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.woff") format("woff"),
+     url("https://db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.svg#Pokemon") format("svg"); }
 
 .bg-red {
     background-color: #ff2e2e;

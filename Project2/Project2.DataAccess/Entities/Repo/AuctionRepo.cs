@@ -25,8 +25,7 @@ namespace Project2.DataAccess.Entities.Repo
         //Get all auctions
         public async Task<IEnumerable<AppAuction>> GetAllAuctions()
         {       
-            var dbAuctions = await _context.Auctions
-                .Include(x=>x.AuctionDetail).ToListAsync();
+            var dbAuctions = await _context.Auctions.Include(x=>x.AuctionDetail).ToListAsync();
             
             if (dbAuctions == null)
                 return null;

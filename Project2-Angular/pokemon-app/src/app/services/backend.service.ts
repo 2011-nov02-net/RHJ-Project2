@@ -20,7 +20,7 @@ import { OrderItem } from '../interfaces/orderItem'
 export class BackendService {
   // to be replaced by app service url
   //private baseUrl =  'https://localhost:44301/api';
-  private baseUrl = `${environment.baseUrl}/api`;
+  private baseUrl = `${environment.baseUrl}`;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
