@@ -13,13 +13,13 @@ A web application that allows users to purchase card packs, trade individual car
 ## Features
 
 * Open Pokemon card packs to populate your user inventory.
-* Can auction cards off to other users
-* Can trade cards with other users
+* Can auction cards off to other users.
+* Can trade cards with other users.
 
 To-do list:
 * More testing with xUnit and Jasmine
-* Rating cards to have dynamic values
-* Authentication with Okta
+* Dynamic card values calculated using user ratings.
+* Authentication with Okta.
 
 ## Getting Started
    
@@ -32,6 +32,7 @@ To-do list:
 
 * Run the Getting Started commands
 * View web application in your browser
+
 
 ## Contributors
 
