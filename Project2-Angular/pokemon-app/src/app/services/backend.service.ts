@@ -45,22 +45,20 @@ export class BackendService {
 
   }
 
-  //not in Usercontroller
+  //in Usercontroller
   getUserByEmail(email:string): Observable<User>
   {
     return this.http.get<User>(this.baseUrl + "/users/emails/" + email);
-
   }
 
   getUserCards(userId:string):Observable<Card[]> 
   {
-    // userId hard coded, replce with login
-    return this.http.get<Card[]>(this.baseUrl + '/users/' + 'userId' );
+    return this.http.get<Card[]>(this.baseUrl + '/users/' + userId + 'cards');
   }
 
   getUserCardsById(userId:string):Observable<Card[]> 
   {
-    // userId hard coded, replce with login
+    
     return this.http.get<Card[]>(this.baseUrl + '/users/' + userId + '/cards');
   }
 

@@ -1,0 +1,8 @@
+.packs{
+    font-weight:bolder;
+}
+
+.divider{
+    border-style: double;
+    border-top: 1.5px dashed #bbb;
+}
