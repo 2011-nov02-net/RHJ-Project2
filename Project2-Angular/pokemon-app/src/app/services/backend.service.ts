@@ -53,7 +53,7 @@ export class BackendService {
 
   getUserCards(userId:string):Observable<Card[]> 
   {
-    return this.http.get<Card[]>(this.baseUrl + '/users/' + userId + 'cards');
+    return this.http.get<Card[]>(this.baseUrl + '/users/' + userId + '/cards');
   }
 
   getUserCardsById(userId:string):Observable<Card[]> 
