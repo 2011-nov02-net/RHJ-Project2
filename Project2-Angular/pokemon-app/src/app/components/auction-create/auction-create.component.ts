@@ -11,8 +11,13 @@ import { BackendService } from 'src/app/services/backend.service';
 export class AuctionCreateComponent implements OnInit {
 
   userCards: Card[] | any;
-  card: Card | any;
   userId: any;
+
+  card: Card | any;
+  listPrice: number = 0;
+  buyoutPrice: number = 0;
+  sellType: string = "Bid";
+  expDate: Date | any;
 
   constructor(private backend: BackendService) { }
 
@@ -28,6 +33,10 @@ export class AuctionCreateComponent implements OnInit {
 
   onSelectedCard(cardId:string): void{
     this.backend.getCardById(cardId).subscribe(card => this.card = card);
+  }
+
+  onSubmit() {
+    //this.listPrice = this.lp;
   }
 
 }
