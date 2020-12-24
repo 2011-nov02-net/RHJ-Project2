@@ -55,12 +55,23 @@ namespace Project2.DataAccess.Entities.Repo
                 appAuction.Seller = await _userRepo.GetOneUser(appAuction.SellerId);
                 appAuction.Card = await _cardRepo.GetOneCard(appAuction.CardId);
 
+<<<<<<< HEAD
                 //updates appAuction if UtcNow > ExpDate
                 /*if(appAuction.Expired())
                 {
                     await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
                     await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
                 }*/
+=======
+                //updates appAuction and users if UtcNow > ExpDate
+                if(appAuction.Expired())
+                {
+                    await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
+                    await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
+                    await UpdateAuction(appAuction.AuctionId,appAuction);
+                    await _context.SaveChangesAsync();
+                }
+>>>>>>> 4ba751c9a7afb1e1d100ca4381eb9a386c6df918
                 appAuctions.Add(appAuction);
             }
 
@@ -96,11 +107,13 @@ namespace Project2.DataAccess.Entities.Repo
             appAuction.Seller = await _userRepo.GetOneUser(appAuction.SellerId);
             appAuction.Card = await _cardRepo.GetOneCard(appAuction.CardId);
 
-            //updates appAuction if UtcNow > ExpDate
+            //updates appAuction and users if UtcNow > ExpDate
             if (appAuction.Expired())
             {
                 await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
                 await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
+                await UpdateAuction(appAuction.AuctionId, appAuction);
+                await _context.SaveChangesAsync();
             }
 
             return appAuction;
@@ -116,6 +129,7 @@ namespace Project2.DataAccess.Entities.Repo
             }
             else
             {
+
                 //create db objects
                 var dbAuction = new Auction
                 {
@@ -154,43 +168,68 @@ namespace Project2.DataAccess.Entities.Repo
             return false;
         }
 
-        //Update auction by id
+        //Perform any business logic on passed AppAuction, then enter into db TODO: move to controller/domain
         public async Task<bool> UpdateAuction(string id, AppAuction auction)
         {
             
             var updateAuction = await _context.Auctions.Include(x => x.AuctionDetail).Where(x => x.AuctionId == id).FirstAsync();
             if (auction == null)
-            {
                 return false;
-            }
-            else
-            {
-                try
-                {
-                    //update db record
-                    updateAuction.SellerId = auction.SellerId;
-                    updateAuction.BuyerId = auction.BuyerId;
-                    updateAuction.CardId = auction.CardId;
-                    updateAuction.PriceSold = auction.PriceSold;
-                    updateAuction.SellDate = auction.SellDate;
-                    //update details
-                    updateAuction.AuctionDetail.PriceListed = auction.PriceListed;
-                    updateAuction.AuctionDetail.BuyoutPrice = auction.BuyoutPrice;
-                    updateAuction.AuctionDetail.NumberBids = auction.NumberBids;
-                    updateAuction.AuctionDetail.SellType = auction.SellType;
-                    updateAuction.AuctionDetail.ExpDate = auction.ExpDate;
-                    //save updated record
-                    await _context.SaveChangesAsync();
 
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Error Updating Auction: " + e);
-                }
+            if (auction.BuyerId != "" && auction.BuyerId != null)
+                auction.Buyer = await _userRepo.GetOneUser(auction.BuyerId);
+            auction.Seller = await _userRepo.GetOneUser(auction.SellerId);
+            auction.Card = await _cardRepo.GetOneCard(auction.CardId);
+
+            //if there is a Price sold, the auction was bought out
+            if (/*auction.SellType != "Buyout" &&*/ auction.PriceSold > 0 && updateAuction.PriceSold != auction.PriceSold)
+            {
+                auction.BuyOut();
             }
+            //if the auction had a new priceListed it has been bid on
+            else if (auction.PriceListed != updateAuction.AuctionDetail.PriceListed)
+            {
+                double bid = auction.PriceListed - updateAuction.AuctionDetail.PriceListed;
+                auction.NewBid(DateTime.UtcNow, bid);
+            }
+            
+            try
+            {
+                //update db record
+                updateAuction.SellerId = auction.SellerId;
+                updateAuction.BuyerId = auction.BuyerId;
+                updateAuction.CardId = auction.CardId;
+                updateAuction.PriceSold = auction.PriceSold;
+                updateAuction.SellDate = auction.SellDate;
+                //update details
+                updateAuction.AuctionDetail.PriceListed = auction.PriceListed;
+                updateAuction.AuctionDetail.BuyoutPrice = auction.BuyoutPrice;
+                updateAuction.AuctionDetail.NumberBids = auction.NumberBids;
+                updateAuction.AuctionDetail.SellType = auction.SellType;
+                updateAuction.AuctionDetail.ExpDate = auction.ExpDate;
+                //save updated record
+                if (auction.BuyerId != "" && auction.BuyerId != null)
+                    await _userRepo.UpdateUserById(auction.BuyerId, auction.Buyer);
+                await _userRepo.UpdateUserById(auction.SellerId, auction.Seller);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error Updating Auction: " + e);
+            }
+            
 
             return false;
+        }
+
+        //requires auction Ids to be int convertable
+        public string IdGen()
+        {
+            var lastAuctionId = _context.Auctions.Select(x=>Convert.ToInt32(x.AuctionId)).ToList().Max();
+            string newId = Convert.ToString(lastAuctionId + 1);
+            return newId;
         }
     }
 }
