@@ -56,13 +56,19 @@ namespace Project2.DataAccess.Entities.Repo
                 appAuction.Card = await _cardRepo.GetOneCard(appAuction.CardId);
 
                 //updates appAuction and users if UtcNow > ExpDate
-               /* if(appAuction.Expired())
+                if(appAuction.Expired())
                 {
                     await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
                     await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
                     await UpdateAuction(appAuction.AuctionId,appAuction);
+                    //TODO:check in expired() and callback
+                    if (appAuction.NumberBids != null)
+                    {
+                        await _userRepo.AddOneCardToOneUser(appAuction.BuyerId, appAuction.CardId);
+                        await _userRepo.DeleteOneCardOfOneUser(appAuction.SellerId, appAuction.CardId);
+                    }
                     await _context.SaveChangesAsync();
-                }*/
+                }
 
                 appAuctions.Add(appAuction);
             }
@@ -100,15 +106,19 @@ namespace Project2.DataAccess.Entities.Repo
             appAuction.Card = await _cardRepo.GetOneCard(appAuction.CardId);
 
             //updates appAuction and users if UtcNow > ExpDate
-            /*if (appAuction.Expired())
+            if (appAuction.Expired())
             {
                 await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
                 await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
                 await UpdateAuction(appAuction.AuctionId, appAuction);
-                await _userRepo.AddOneCardToOneUser(auction.BuyerId,auction.CardId);
-                await _userRepo.DeleteOneCardOfOneUser(auction.SellerId, auction.CardId);
+                //TODO:check in expired() and callback
+                if (appAuction.NumberBids != null && appAuction.NumberBids != 0)
+                {
+                    await _userRepo.AddOneCardToOneUser(appAuction.BuyerId, appAuction.CardId);
+                    await _userRepo.DeleteOneCardOfOneUser(appAuction.SellerId, appAuction.CardId);
+                }
                 await _context.SaveChangesAsync();
-            }*/
+            }
 
             return appAuction;
         }
@@ -175,14 +185,14 @@ namespace Project2.DataAccess.Entities.Repo
             auction.Seller = await _userRepo.GetOneUser(auction.SellerId);
             auction.Card = await _cardRepo.GetOneCard(auction.CardId);
 
-            //if there is a Price sold, and PriceSold == BuyoutPrice
-            if (auction.SellType != "Buyout" && auction.PriceSold == auction.BuyoutPrice && updateAuction.PriceSold != auction.PriceSold)
+            //if there is a Price sold, and PriceSold == BuyoutPrice buyout the auction
+            if (auction.PriceSold == auction.BuyoutPrice && updateAuction.PriceSold != auction.PriceSold)
             {
                 auction.BuyOut();
                 await _userRepo.AddOneCardToOneUser(auction.BuyerId,auction.CardId);
                 await _userRepo.DeleteOneCardOfOneUser(auction.SellerId, auction.CardId);
             }
-            //if the auction had a new priceListed it has been bid on
+            //if the auction had a new priceListed then it has been bid on
             else if (auction.PriceListed != updateAuction.AuctionDetail.PriceListed)
             {
                 double bid = auction.PriceListed - updateAuction.AuctionDetail.PriceListed;

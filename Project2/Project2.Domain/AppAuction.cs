@@ -92,7 +92,7 @@ namespace Project2.Domain
         /// <returns>Called AppAuction object</returns>
         public bool Expired()
         {
-            if (NumberBids != null && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)
+            if (NumberBids != null && NumberBids != 0 && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)
             {
                 //Buyer.AddCardToInventory(Card);
                 //Seller.RemoveCardFromInventory(Card);
