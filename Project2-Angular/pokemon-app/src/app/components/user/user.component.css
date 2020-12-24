@@ -10,6 +10,8 @@
 
 }
 
-.profile.dashed {
+#divider {
+    border-style: double;
     border-top: 0.5px dashed #bbb;
+    
   }

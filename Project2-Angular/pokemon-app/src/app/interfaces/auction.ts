@@ -1,12 +1,17 @@
 export interface Auction
 {
     auctionId:string;
-    SellerId:string;
-    BuyerId:string;
+    sellerId:string;
+    buyerId:string | undefined;
     cardId:string;
     // use | currency in an html element
-    PriceSold:number;
+    priceSold:number;
+    priceListed: number;
+    buyoutPrice: number;
+    sellType: string;
+    numberBids: number;
     // use | date in an html element
-    SellDate:Date;
+    sellDate:Date;
+    expDate:Date;
 }
     
