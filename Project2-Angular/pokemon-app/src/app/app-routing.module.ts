@@ -10,6 +10,7 @@ import { StoreComponent } from './components/store/store.component';
 import { AuthGuard } from './auth/auth.guard';
 import { NavComponent } from './components/nav/nav.component';
 import { AuctionComponent } from './components/auction/auction.component';
+import { AuctionCreateComponent } from './components/auction-create/auction-create.component';
 import { AuctionDetailComponent } from './components/auction-detail/auction-detail.component';
 import { TradeComponent } from './components/trade/trade.component';
 import { TradeDetailComponent } from './components/trade-detail/trade-detail.component';
@@ -23,6 +24,7 @@ const routes: Routes = [{ path:'',component:LoginComponent},
 {path:'collection',component:CollectionComponent},
 {path:'store',component:StoreComponent},
 {path:'auctions',component:AuctionComponent},
+{path:'auctions/create',component:AuctionCreateComponent},
 {path:'auctions/:id/:cid',component:AuctionDetailComponent},
 {path:'trades',component:TradeComponent},
 {path:'trades/:id/:cid',component:TradeDetailComponent},

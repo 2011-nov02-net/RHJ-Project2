@@ -43,17 +43,16 @@ namespace Project2.Domain
         /// <param name="bidTime"></param>
         /// <param name="bidAmount"></param>
         /// <param name="bidder"></param>
-        public void NewBid(DateTime bidTime, double bidAmount/*, AppUser bidder*/)
+        public void NewBid(DateTime bidTime, double bidAmount)
         {
-            double bidDifference = bidAmount - PriceListed;
             //update bid if auction has not expired and bid is at least 50 cents higher than current price
-            if(bidDifference > .50 && DateTime.Compare(ExpDate, bidTime) > 0)
+            if(bidAmount > .50 && DateTime.Compare(ExpDate, bidTime) > 0)
             {
-                PriceListed = bidAmount;
+                PriceListed += bidAmount;
                 //Buyer = bidder;
                 NumberBids = ++NumberBids ?? 1;
             }
-            else if (bidDifference <= .50)
+            else if (bidAmount <= .50)
             {
                 throw new ArgumentException("invalid bid value", "bidAmount");
             }
