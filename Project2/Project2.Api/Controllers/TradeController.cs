@@ -61,12 +61,13 @@ namespace Project2.Api.Controllers
             TradeReadDTO trade = null;
             if (trade == null)
             {
+                string newTradeId = await _tradeRepo.IdGen();
                 AppUser buyer = await _userRepo.GetOneUser(newTrade.BuyerId);
                 AppUser offerer = await _userRepo.GetOneUser(newTrade.OffererId);
                 AppCard card = await _cardRepo.GetOneCard(newTrade.OfferCardId);
                  var appTrade = new AppTrade()
                  {
-                    TradeId = newTrade.TradeId,
+                    TradeId = newTradeId,
                     OffererId = offerer.UserId,
                     //BuyerId = buyer.UserId, dont need when creating a trade only updating
                     TradeDate = newTrade.TradeDate,
@@ -77,7 +78,7 @@ namespace Project2.Api.Controllers
                  };
                 var tradeDTO = new TradeReadDTO
                 {
-                    TradeId = newTrade.TradeId,
+                    TradeId = newTradeId,
                     OffererId = newTrade.OffererId,
                     //BuyerId = newTrade.BuyerId,
                     IsClosed = newTrade.IsClosed,
