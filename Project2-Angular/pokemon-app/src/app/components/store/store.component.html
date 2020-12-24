@@ -1,27 +1,24 @@
 <h2> Available Packs</h2>
+<div class="col-md-6" >
+  <div class = "packs" >
+     <!-- to be finished with 2-way binding -->
+    <img src = "../../../assets/Pikachu.png" class="set-image" alt="base1">
+    <label>Quantity: </label>
+    <input type= "text"  >
+    <hr class = "divider">
 
-<div class = "packs">
-    <h5 class="pack-name">Set 1</h5>
-            <img src = "https://images.pokemontcg.io/base1/logo.png" width="200" height="150" class="set-image" alt="base1">
-            <div class = "pack-quantity">
-                <label>Quantity:
-                    <input type= "text" (input)= "packs[1].packQty" placeholder={{packs[1].packQty}}/>
-                </label>
-            </div>
-    <ul class = "pack-list">
-        <li *ngFor = "let pack of packs" | async>
-            <h5 class="pack-name">Set {{pack.packId}}</h5>
-            <img src = "https://images.pokemontcg.io/base1/logo.png" width="100" height="100" class="set-image" alt="base1">
-            <div class = "Order-Info">
-                <label>Quantity:
-                    <input type= "text" (input)= "pack.packQty" placeholder={{pack.packQty}}/>
-                </label>
-                <!-- <div>
-                    <button (click)="sendOrder(input)">Order</button>
-                </div> -->
+    <img src = "../../../assets/HiddenFate.png" class="set-image" alt="base1">
+    <label>Quantity: </label>
+    <input type= "text"  >
+    <hr class = "divider">
 
-            </div>
-        </li>
-    </ul>
+    <img src = "../../../assets/swordshield.png" class="set-image" alt="base1">
+    <label>Quantity: </label>
+    <input type= "text"  >
+    <hr class = "divider">
+
+   </div>
+        
+   
 
 </div>
