@@ -56,7 +56,7 @@ namespace Project2.DataAccess.Entities.Repo
                 appAuction.Card = await _cardRepo.GetOneCard(appAuction.CardId);
 
                 //updates appAuction and users if UtcNow > ExpDate
-                if(appAuction.Expired())
+                /*if(appAuction.Expired())
                 {
                     await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
                     await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
@@ -68,7 +68,7 @@ namespace Project2.DataAccess.Entities.Repo
                         await _userRepo.DeleteOneCardOfOneUser(appAuction.SellerId, appAuction.CardId);
                     }
                     await _context.SaveChangesAsync();
-                }
+                }*/
 
                 appAuctions.Add(appAuction);
             }
@@ -106,7 +106,7 @@ namespace Project2.DataAccess.Entities.Repo
             appAuction.Card = await _cardRepo.GetOneCard(appAuction.CardId);
 
             //updates appAuction and users if UtcNow > ExpDate
-            if (appAuction.Expired())
+            /*if (appAuction.Expired())
             {
                 await _userRepo.UpdateUserById(appAuction.BuyerId, appAuction.Buyer);
                 await _userRepo.UpdateUserById(appAuction.SellerId, appAuction.Seller);
@@ -118,7 +118,7 @@ namespace Project2.DataAccess.Entities.Repo
                     await _userRepo.DeleteOneCardOfOneUser(appAuction.SellerId, appAuction.CardId);
                 }
                 await _context.SaveChangesAsync();
-            }
+            }*/
 
             return appAuction;
         }

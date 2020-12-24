@@ -15,7 +15,7 @@
   <div class="row mt-2">
     <div class="col-md-6">
       <label for="password" class="font-weight-bold">Trainer Password:</label>
-      <input type="text" id="password" class="form-control" required [(ngModel)]="login.password" placeholder="->" >
+      <input type="password" id="password" class="form-control" required [(ngModel)]="login.password" placeholder="->" >
     </div>
   </div>
 
@@ -28,8 +28,7 @@
  
   <div class="row mt-2">
       <div class="col-md-6">
-        <button [routerLink]="['/user']"  class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
-  
+        <button class="btn btn-outline-success btn-block" (click)="SubmitLogin()">Submit</button>       
       </div>
   </div>
    

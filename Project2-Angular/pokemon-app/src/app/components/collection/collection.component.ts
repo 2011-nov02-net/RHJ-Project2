@@ -12,7 +12,7 @@ import { BackendService } from '../../services/backend.service';
 })
 export class CollectionComponent implements OnInit {
 
-  userId!:string;
+  userId:any;
   cards: Card[] | any;
   selectedCard: Card | any;
 
@@ -21,7 +21,7 @@ export class CollectionComponent implements OnInit {
   ngOnInit(): void {
      
     this.userId = JSON.parse(localStorage.getItem('id') || '{}');
-    this.backendService.getUserCards(this.userId).subscribe((data) => { this.cards = data; });
+    this.backendService.getUserCards(this.userId.id).subscribe((data) => { this.cards = data; });
 
 }
   onSelect(card:Card):void{
