@@ -73,14 +73,13 @@ namespace Project2.Domain
         {
             if (Buyer.CurrencyAmount > this.BuyoutPrice)
             {
-                //Buyer = buyer;
-                Buyer.AddCardToInventory(Card);
-                Seller.RemoveCardFromInventory(Card);
+                //Buyer.AddCardToInventory(Card);
+                //Seller.RemoveCardFromInventory(Card);
                 Buyer.CurrencyAmount -= this.BuyoutPrice;
                 Seller.CurrencyAmount += BuyoutPrice;
                 this.PriceSold = this.BuyoutPrice;
                 this.SellDate = DateTime.UtcNow;
-                this.SellType = "Buyout"; //this seems odd
+                this.SellType = "Buyout"; 
             }
             else
             {
@@ -101,7 +100,7 @@ namespace Project2.Domain
                 Seller.CurrencyAmount += PriceListed;
                 this.PriceSold = this.PriceListed;
                 this.SellDate = ExpDate;
-                this.SellType = "Bid"; //this seems odd
+                this.SellType = "Bid"; 
                 return true;
             }
             else if ((NumberBids == null || NumberBids == 0) && DateTime.Compare(ExpDate, DateTime.UtcNow) <= 0)

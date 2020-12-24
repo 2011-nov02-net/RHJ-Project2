@@ -72,8 +72,8 @@ insert into TEAM.TradeDetail(TradeId, OfferCardId, BuyerCardId) values('trade100
 insert into TEAM.TradeDetail(TradeId, OfferCardId, BuyerCardId) values('trade1002', 'base1-28', 'base1-29');
 -- no trades made yet, not enough cards atm
 
-DELETE FROM TEAM.Auction WHERE AuctionId = '1';
-DELETE FROM TEAM.AuctionDetail WHERE AuctionId = '1';
+DELETE FROM TEAM.Auction WHERE AuctionId = '2';
+DELETE FROM TEAM.AuctionDetail WHERE AuctionId = '2';
 
 select * from TEAM.Customer;
 select * from TEAM.UserCardInventory;
