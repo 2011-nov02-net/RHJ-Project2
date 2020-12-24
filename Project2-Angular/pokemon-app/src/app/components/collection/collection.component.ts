@@ -11,22 +11,19 @@ import { BackendService } from '../../services/backend.service';
   styleUrls: ['./collection.component.css']
 })
 export class CollectionComponent implements OnInit {
-  userId:any = '';
 
+  userId!:string;
   cards: Card[] | any;
   selectedCard: Card | any;
 
   constructor( private backendService:BackendService) { }
 
   ngOnInit(): void {
-    //this.backendService.getUserCards().then(x => {this.cards = x;}); 
+     
     this.userId = JSON.parse(localStorage.getItem('id') || '{}');
-    console.log(this.userId);
-}
-  ngOnViewInit():void{
     this.backendService.getUserCards(this.userId).subscribe((data) => { this.cards = data; });
-  }
 
+}
   onSelect(card:Card):void{
     this.selectedCard = card;
     console.log("submitted")
