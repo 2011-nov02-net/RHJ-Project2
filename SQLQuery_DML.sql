@@ -42,9 +42,9 @@ insert into TEAM.StoreInventory(PackId,PackQty) values('2',50);
 insert into TEAM.StoreInventory(PackId,PackQty) values('3',300);
 
 -- insert auction
-insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('Auc1001','cus2','cus1','card101',20);
-insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('Auc1002','cus3','cus2','card102',15);
-insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('Auc1003','cus1','cus3','card103',10);
+insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('1','cus2','cus1','card101',20);
+insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('2','cus3','cus2','card102',15);
+insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('3','cus1','cus3','card103',10);
 
 -- insert auction detail
 insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType) values('Auc1001', 5, 50, 10, 'Bid');

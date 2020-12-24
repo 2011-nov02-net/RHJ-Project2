@@ -90,7 +90,7 @@ namespace Project2.Api.Controllers
                         AppCard card = await _orderRepo.GetCardFromApi(cardId, createdOrder.PackId);
                         createdOrder.Orderer.AddCardToInventory(card); //add to the AppUser
                         await _cardRepo.AddOneCard(card); //add to card table
-                        await _userRepo.AddOneCardToOneUser(createdOrder.OrdererId, card);
+                        await _userRepo.AddOneCardToOneUser(createdOrder.OrdererId, card.CardId);
                     }
                 }
                 else

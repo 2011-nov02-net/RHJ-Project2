@@ -160,7 +160,7 @@ namespace Project2.DataAccess.Entities.Repo
             return false;
         }
 
-        //Perform any business logic on passed AppAuction, then enter into db
+        //Perform any business logic on passed AppAuction, then enter into db TODO: move to controller/domain
         public async Task<bool> UpdateAuction(string id, AppAuction auction)
         {
             
@@ -174,7 +174,7 @@ namespace Project2.DataAccess.Entities.Repo
             auction.Card = await _cardRepo.GetOneCard(auction.CardId);
 
             //if there is a Price sold, the auction was bought out
-            if (auction.SellType != "Buyout" && auction.PriceSold > 0 && updateAuction.PriceSold != auction.PriceSold)
+            if (/*auction.SellType != "Buyout" &&*/ auction.PriceSold > 0 && updateAuction.PriceSold != auction.PriceSold)
             {
                 auction.BuyOut();
             }
