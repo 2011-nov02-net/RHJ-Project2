@@ -63,7 +63,7 @@ CREATE TABLE TEAM.Auction(
   CardId nvarchar(40) not null,
   PriceSold float null,
   SellDate Datetime null default getdate(),
-  check(PriceSold > 0),
+  check(PriceSold >= 0),
   foreign key(SellerId) REFERENCES TEAM.Customer(UserId)
     on delete no action on update no action,
   foreign key(BuyerId) REFERENCES TEAM.Customer(UserId)
@@ -71,6 +71,10 @@ CREATE TABLE TEAM.Auction(
   foreign key(CardId) REFERENCES TEAM.Card(CardId)
     on delete cascade on update cascade  
 )
+--ALTER TABLE Team.Auction
+--ADD CONSTRAINT CK__Auction__PriceSo__25C68D63 CHECK (PriceSold >= 0);
+--ALTER TABLE Team.Auction
+--DROP CONSTRAINT CK__Auction__PriceSo__25C68D63;
 
 
 CREATE TABLE TEAM.AuctionDetail(
@@ -92,10 +96,15 @@ CREATE TABLE TEAM.[Order](
   UserId nvarchar(40) not null,
   Date Datetime not null default getdate(),
   Total float not null,
-  check(Total > 0),
+  check(Total >= 0),
   foreign key(UserId) REFERENCES TEAM.Customer(UserId)
     on delete cascade on update cascade
 )
+
+--ALTER TABLE Team.[Order]
+--ADD CONSTRAINT CK__Order__Total__33208881 CHECK (Total >= 0);
+--ALTER TABLE Team.[Order]
+--DROP CONSTRAINT CK__Order__Total__33208881;
 
 CREATE TABLE TEAM.OrderItem(
   OrderItemNum int not null PRIMARY KEY IDENTITY,

@@ -7,7 +7,9 @@ insert into TEAM.Customer(UserId,First,Last,Email,UserRole,NumPacksPurchased,Cur
 insert into TEAM.Customer(UserId,First,Last,Email,UserRole,NumPacksPurchased,CurrencyAmount) values('cus4','Test','Test','TTgmail.com','Regular',5,500);
 
 -- I am out of cash
-update TEAM.Customer set CurrencyAmount = 500 where UserId= 'cus1';
+update TEAM.Customer set CurrencyAmount = 500 where UserId= '1';
+update TEAM.Customer set CurrencyAmount = 500 where UserId= '2';
+update TEAM.Customer set CurrencyAmount = 500 where UserId= '3';
 
 -- insert pack
 -- dummies for testing
@@ -66,6 +68,9 @@ insert into TEAM.Trade(TradeId, OffererId, BuyerId) values('trade1002', 'cus1', 
 insert into TEAM.TradeDetail(TradeId, OfferCardId, BuyerCardId) values('trade1001', 'card101', 'card102');
 insert into TEAM.TradeDetail(TradeId, OfferCardId, BuyerCardId) values('trade1002', 'base1-28', 'base1-29');
 -- no trades made yet, not enough cards atm
+
+DELETE FROM TEAM.Auction WHERE AuctionId = '1';
+DELETE FROM TEAM.AuctionDetail WHERE AuctionId = '1';
 
 select * from TEAM.Customer;
 select * from TEAM.UserCardInventory;

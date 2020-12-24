@@ -72,16 +72,16 @@ namespace Project2.Api.Controllers
                     // auction
                     AuctionId = newAuction.AuctionId, //= _auctRepo.IdGen(),
                     SellerId = newAuction.SellerId,
-                    //BuyerId = newAuction.BuyerId,
+                    BuyerId = null,
                     CardId = newAuction.CardId,
-                    //PriceSold = (double)newAuction.PriceSold,
+                    PriceSold = 0,
                     //SellDate = (DateTime)newAuction.SellDate,
 
                     //auction details
                     PriceListed = newAuction.PriceListed,
                     BuyoutPrice = newAuction.BuyoutPrice,
-                    //NumberBids = newAuction.NumberBids,
-                    //SellType = newAuction.SellType,
+                    NumberBids = 0,
+                    SellType = "",
                     ExpDate = newAuction.ExpDate
 
                 };
