@@ -83,7 +83,7 @@ namespace Project2.Api.Controllers
                 if (createdOrder.Orderer.CurrencyAmount >= createdOrder.Total)
                 {
                     createdOrder.Orderer.CurrencyAmount -= createdOrder.Total;
-                    int cards = 8 * createdOrder.PackQty;
+                    int cards = 5 * createdOrder.PackQty;
                     for (int i = 0; i < cards; ++i)
                     {
                         string cardId = Convert.ToString(rand.Next(64)); //only grabs from the first 64 cards in the set, PackId = base set number
@@ -96,7 +96,7 @@ namespace Project2.Api.Controllers
                 else
                     throw new Exception("User funds insufficient.");
                 await _userRepo.UpdateUserById(createdOrder.OrdererId, createdOrder.Orderer);
-                await _orderRepo.AddOneOrder(newOrder.PackQty, createdOrder);
+                await _orderRepo.AddOneOrder(createdOrder.PackQty, createdOrder);
                 return CreatedAtAction(nameof(GetOrderById), new { id = createdOrder.OrderId }, createdOrder); //201 new order created
             }
 

@@ -1,10 +1,13 @@
 <div class="container">
-    
+    <div class="col-md-3" ></div>
     <div class="col-md-6" >
        <!-- <div *ngIf="user">  -->
-        <div><img src= "../../assets/trainer_icon.png"></div>
+        <img src= "../../assets/trainer_icon.png">
+         
+        
         <div class = "profile">
             <div><span><strong>Trainer Profile: </strong></span> </div>
+            
             <hr id="divider">
             <div><span>Trainer ID: #{{user?.userId}}</span> </div>
             <div><span>Trianer Name: {{user?.first}} {{user?.last}}</span> </div>
@@ -14,5 +17,6 @@
        </div>
 
     </div>
+    <div class="col-md-3" ></div>
 
 </div>
