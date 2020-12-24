@@ -1,9 +1,9 @@
 export interface Auction
 {
-    AuctionId:string;
+    auctionId:string;
     SellerId:string;
     BuyerId:string;
-    CardId:string;
+    cardId:string;
     // use | currency in an html element
     PriceSold:number;
     // use | date in an html element

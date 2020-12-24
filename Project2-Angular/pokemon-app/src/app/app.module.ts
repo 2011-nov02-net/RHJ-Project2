@@ -24,6 +24,9 @@ import { BackendService} from './services/backend.service';
 import { TradeDetailComponent } from './components/trade-detail/trade-detail.component';
 import { TradeCardComponent } from './components/trade-card/trade-card.component';
 import { TradeCreateComponent } from './components/trade-create/trade-create.component';
+import { AuctionCardComponent } from './components/auction-card/auction-card.component';
+import { AuctionDetailComponent } from './components/auction-detail/auction-detail.component';
+import { AuctionCreateComponent } from './components/auction-create/auction-create.component';
 
 
 
@@ -43,7 +46,10 @@ import { TradeCreateComponent } from './components/trade-create/trade-create.com
     HistoryComponent,
     TradeDetailComponent,
     TradeCardComponent,
-    TradeCreateComponent, 
+    TradeCreateComponent,
+    AuctionCardComponent,
+    AuctionDetailComponent,
+    AuctionCreateComponent, 
   ],
   imports: [
     FormsModule,

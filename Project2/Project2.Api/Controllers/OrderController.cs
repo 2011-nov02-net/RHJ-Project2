@@ -15,10 +15,16 @@ namespace Project2.Api.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderRepo _orderRepo;
+        private readonly IPackRepo _packRepo;
+        private readonly IUserRepo _userRepo;
+        private readonly ICardRepo _cardRepo;
 
-        public OrderController(IOrderRepo orderRepo)
+        public OrderController(IOrderRepo orderRepo,IPackRepo packRepo,IUserRepo userRepo, ICardRepo cardRepo)
         {
             _orderRepo = orderRepo;
+            _packRepo = packRepo;
+            _userRepo = userRepo;
+            _cardRepo = cardRepo;
         }
 
         //GET /api/order
@@ -50,7 +56,7 @@ namespace Project2.Api.Controllers
         public async Task<ActionResult<OrderCreateDTO>> Post(OrderCreateDTO newOrder, int qty)
         {
             //check if order exists
-            var check = _orderRepo.GetOneOrder(newOrder.OrderId);
+            var check = await _orderRepo.GetOneOrder(newOrder.OrderId);
             if (check == null)
             {
                 var createdOrder = new AppOrder()
@@ -66,9 +72,32 @@ namespace Project2.Api.Controllers
                     PackQty = qty // pack qty saved in order detail db table
                 };
 
-                await _orderRepo.AddOneOrder(qty, createdOrder);
+                //execute any business logic associated with the order
+                createdOrder.Pack = await _packRepo.GetOnePack(createdOrder.PackId);
+                createdOrder.Orderer = await _userRepo.GetOneUser(createdOrder.OrdererId);
+                createdOrder.CalculateTotal();
+                //createdOrder.FillOrder();
 
-                return CreatedAtAction("Create Order", new { createdOrder }); //201 new order created
+                //should just call fillOrder(), will modify later
+                Random rand = new Random();
+                if (createdOrder.Orderer.CurrencyAmount >= createdOrder.Total)
+                {
+                    createdOrder.Orderer.CurrencyAmount -= createdOrder.Total;
+                    int cards = 8 * createdOrder.PackQty;
+                    for (int i = 0; i < cards; ++i)
+                    {
+                        string cardId = Convert.ToString(rand.Next(64)); //only grabs from the first 64 cards in the set, PackId = base set number
+                        AppCard card = await _orderRepo.GetCardFromApi(cardId, createdOrder.PackId);
+                        createdOrder.Orderer.AddCardToInventory(card); //add to the AppUser
+                        await _cardRepo.AddOneCard(card); //add to card table
+                        await _userRepo.AddOneCardToOneUser(createdOrder.OrdererId, card.CardId);
+                    }
+                }
+                else
+                    throw new Exception("User funds insufficient.");
+                await _userRepo.UpdateUserById(createdOrder.OrdererId, createdOrder.Orderer);
+                await _orderRepo.AddOneOrder(qty, createdOrder);
+                return CreatedAtAction(nameof(GetOrderById), new { id = createdOrder.OrderId }, createdOrder); //201 new order created
             }
 
             return Conflict(); //order already exists and cant be created

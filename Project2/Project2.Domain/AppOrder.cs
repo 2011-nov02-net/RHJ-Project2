@@ -23,7 +23,7 @@ namespace Project2.Domain
             this.OrderId = id;
             this.Orderer = orderer;
             this.Pack = pack;
-            this.Total = Pack.PackQty * Pack.Price;
+            this.Total = PackQty * Pack.Price;
         }
         public AppOrder()
         {
@@ -34,7 +34,7 @@ namespace Project2.Domain
         /// <returns>total cost of the Order</returns>
         public double CalculateTotal()
         {
-            Total = Pack.PackQty * Pack.Price;
+            Total = PackQty * Pack.Price;
             return Total;
         }
 
