@@ -53,7 +53,7 @@ namespace Project2.Api.Controllers
         //POST /api/order
         //Creates an order
         [HttpPost]
-        public async Task<ActionResult<OrderCreateDTO>> Post(OrderCreateDTO newOrder, int qty)
+        public async Task<ActionResult<OrderCreateDTO>> Post(OrderCreateDTO newOrder)
         {
             //check if order exists
             var check = await _orderRepo.GetOneOrder(newOrder.OrderId);
@@ -69,7 +69,7 @@ namespace Project2.Api.Controllers
 
                     //order details
                     PackId = newOrder.PackId,
-                    PackQty = qty // pack qty saved in order detail db table
+                    PackQty = newOrder.PackQty // pack qty saved in order detail db table
                 };
 
                 //execute any business logic associated with the order
@@ -96,7 +96,7 @@ namespace Project2.Api.Controllers
                 else
                     throw new Exception("User funds insufficient.");
                 await _userRepo.UpdateUserById(createdOrder.OrdererId, createdOrder.Orderer);
-                await _orderRepo.AddOneOrder(qty, createdOrder);
+                await _orderRepo.AddOneOrder(newOrder.PackQty, createdOrder);
                 return CreatedAtAction(nameof(GetOrderById), new { id = createdOrder.OrderId }, createdOrder); //201 new order created
             }
 
