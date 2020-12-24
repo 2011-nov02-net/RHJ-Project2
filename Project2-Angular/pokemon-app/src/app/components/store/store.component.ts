@@ -42,7 +42,7 @@ export class StoreComponent implements OnInit {
   //should get Order object from current user and Pack
   sendOrder(pack:string): void{
     let order: Order = {
-      orderId: "999",
+      orderId: "123",
       userId: this.user.id,
       date: new Date(),
       total: this.qty * 2,
@@ -50,6 +50,6 @@ export class StoreComponent implements OnInit {
       packQty: this.qty
     }
 
-    this.backEndService.postOrder(order);
+    this.backEndService.postOrder(order).subscribe();
   }
 }
