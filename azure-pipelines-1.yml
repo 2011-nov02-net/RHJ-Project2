@@ -9,7 +9,7 @@ trigger:
      - master
   paths:
     include:
-      - Project2-Angular/pokemon-app/*
+      - Project2-Angular/*
       - azure-pipelines-1.yml
     exclude:
       - Project2/*
@@ -43,4 +43,4 @@ steps:
     azureSubscription: 'Azure subscription 1(0feb1fc7-c26d-42fa-a93a-5728459c2309)'
     appType: 'webApp'
     WebAppName: 'pokemon-auct-app'
-    packageForLinux: '$(appDir)/dist/$(appDir)'
+    packageForLinux: '$(appDir)/dist/pokemon-app'
