@@ -16,5 +16,6 @@ namespace Project2.DataAccess.Entities.Repo.Interfaces
 
         Task<AppCard> GetCardFromApi(string cardId, string baseset);
         int GetRarity(string apiRarity);
+        Task<string> IdGen();
     }
 }

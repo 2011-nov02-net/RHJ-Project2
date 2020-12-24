@@ -62,7 +62,7 @@ namespace Project2.Api.Controllers
                 var createdOrder = new AppOrder()
                 {
                     //order
-                    OrderId = newOrder.OrderId,
+                    OrderId = await _orderRepo.IdGen(),
                     OrdererId = newOrder.UserId,
                     Date = newOrder.Date,
                     Total = newOrder.Total,

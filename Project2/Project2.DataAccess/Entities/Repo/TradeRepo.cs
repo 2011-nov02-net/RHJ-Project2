@@ -123,7 +123,7 @@ namespace Project2.DataAccess.Entities.Repo
             }
         }
 
-        //requires auction Ids to be int convertable
+        //requires Ids to be int convertable
         public async Task<string> IdGen()
         {
             var dbTrades = await _context.Trades.ToListAsync();
