@@ -44,13 +44,13 @@ insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('Au
 insert into TEAM.Auction(AuctionId,SellerId,BuyerId,CardId,PriceSold) values('Auc1003','1','3','card103',10);
 
 -- insert auction detail
-insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType) values('Auc1001', 5, 50, 10, 'Bid');
-insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType) values('Auc1002', 6, 60, 10, 'Bid');
-insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType) values('Auc1003', 1, 10, 4, 'Buyout');
+insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType,expDate) values('Auc1001', 5, 50, 10, 'Bid','2021-2-1');
+insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType,expDate) values('Auc1002', 6, 60, 10, 'Bid','2021-2-1');
+insert into TEAM.AuctionDetail(AuctionId,PriceListed,BuyoutPrice,NumberBids,SellType,expDate) values('Auc1003', 1, 10, 4, 'Buyout','2021-2-1');
 
 -- insert order
 -- insert orderitem
-insert into TEAM.[Order](OrderId,UserId,Total) values('order777','cus3',12);
+insert into TEAM.[Order](OrderId,UserId,Total) values('order777','3',12);
 insert into TEAM.OrderItem(OrderId,PackId,PackQty) values('order777','PackC',1);
 
 -- update store inventory
