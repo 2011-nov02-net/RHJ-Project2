@@ -36,7 +36,7 @@ export class TradeCreateComponent implements OnInit {
     createTrade(cardId:string): void {
       let trade: Trade = {
         tradeId: "trade1007",
-        offererId: "cus1",
+        offererId: this.userId.id,
         buyerId: "",
         isClosed: false,
         TradeDate: new Date(),
@@ -45,7 +45,7 @@ export class TradeCreateComponent implements OnInit {
       };
 
       this.backend.postTrade(trade).subscribe();
-      this.router.navigate(['auctions']);
+      this.router.navigate(['trades']);
       alert("Trade Created Successfully!");
     }
 
