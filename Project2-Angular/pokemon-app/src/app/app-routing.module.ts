@@ -16,6 +16,7 @@ import { TradeComponent } from './components/trade/trade.component';
 import { TradeDetailComponent } from './components/trade-detail/trade-detail.component';
 import { TradeCreateComponent } from './components/trade-create/trade-create.component';
 import { HistoryComponent } from './components/history/history.component';
+import { AboutComponent } from './components/about/about.component';
 
 // all routes handled here
 const routes: Routes = [{ path:'',component:LoginComponent},
@@ -31,9 +32,7 @@ const routes: Routes = [{ path:'',component:LoginComponent},
 {path:'trades/create',component:TradeCreateComponent},
 {path:'history/auctions',component:HistoryComponent},
 {path:'history/trades',component:HistoryComponent},
-
-// guarded
-{path:'store',component:StoreComponent/*,canActivate:[AuthGuard]*/},
+{path:'about',component:AboutComponent},
 
 ];
 
