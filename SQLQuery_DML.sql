@@ -76,7 +76,7 @@ DELETE FROM TEAM.Auction WHERE AuctionId = '9909999';
 DELETE FROM TEAM.AuctionDetail WHERE AuctionId = '9909999';
 DELETE FROM TEAM.Trade WHERE TradeId = 'trade1002';
 DELETE FROM TEAM.TradeDetail WHERE TradeId = 'trade1002';
-DELETE FROM TEAM.Auction WHERE AuctionId = 'Auc1003';
+DELETE FROM TEAM.[Order] WHERE OrderId = 'order777';
 DELETE FROM TEAM.AuctionDetail WHERE AuctionId = 'Auc1003';
 
 select * from TEAM.Customer;

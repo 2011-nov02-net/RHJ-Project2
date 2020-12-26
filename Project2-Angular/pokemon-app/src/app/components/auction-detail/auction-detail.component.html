@@ -8,7 +8,7 @@
                     <h5 class="card-title">{{card?.name}}</h5>
                     <span class="card-text">Type: {{card?.type}}</span><br>
                     <span class="card-text">Rarity: {{card?.rarity}}</span><br>
-                    <span class="card-text">Value: {{card?.value}}</span>
+                    <span class="card-text">Value: {{card?.value}} coins</span>
                 </div>
             </div>
         </div>
@@ -17,17 +17,17 @@
             <div class="auction-info">
                 <h4>{{card?.name}}</h4><br>
                 <span class="card-text">Sell Type: {{auction?.sellType}}</span><br>
-                <span class="card-text">Price Listed: {{auction?.priceListed}}</span><br>
-                <span class="card-text">Buyout Price: {{auction?.buyoutPrice}}</span><br>
+                <span class="card-text">Current Price: {{auction?.priceListed}} coins</span><br>
+                <span class="card-text">Buyout Price: {{auction?.buyoutPrice}} coins</span><br>
                 <span class="card-text">Number of Bids: {{auction?.numberBids}}</span><br>
                 <span class="card-text">Expiration Date: {{auction?.expDate | date:'medium'}}</span><br><br>
             </div>
             <div class="auction-buttons">
                 <h4>You Have {{buyer?.currencyAmount}} coins</h4><br>
                 <label for="coinInput" class="form-label">Bid:</label>
-                <input type="number" class="form-control" id="coinInput" placeholder="50" min="0">
-                <button class="btn btn-primary mr-1 mt-2">Place Bid</button>
-                <button class="btn btn-success mr-1 mt-2">Buy It Now</button>
+                <input type="number" class="form-control" id="coinInput" placeholder="50" min="0" (change)="bidChange($event)">
+                <button class="btn btn-primary mr-1 mt-2" (click)="placeBid()">Place Bid</button>
+                <button class="btn btn-success mr-1 mt-2" (click)="buyNow()" routerLink="/auctions">Buy It Now</button>
                 <a class="btn btn-danger mt-1" routerLink="/auctions">Back to Auction House</a>
             </div>
         </div>

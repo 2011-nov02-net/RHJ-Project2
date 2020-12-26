@@ -4,11 +4,11 @@
         <h5 class="card-title">{{card?.name}}</h5>
         <span class="card-text">Type: {{card?.type}}</span><br>
         <span class="card-text">Rarity: {{card?.rarity}}</span><br>
-        <span class="card-text">Value: {{card?.value}}</span><br>
+        <span class="card-text">Value: {{card?.value}} coins</span><br>
         <span class="card-text">-------------</span><br>
         <span class="card-text">Sell Type: {{auction?.sellType}}</span><br>
-        <span class="card-text">Price Listed: {{auction?.priceListed}}</span><br>
-        <span class="card-text">Buyout Price: {{auction?.buyoutPrice}}</span><br>
+        <span class="card-text">Current Price: {{auction?.priceListed}} coins</span><br>
+        <span class="card-text">Buyout Price: {{auction?.buyoutPrice}} coins</span><br>
         <span class="card-text">Number of Bids: {{auction?.numberBids}}</span><br>
         <span class="card-text">Expiration Date: {{auction?.expDate | date:'medium'}}</span><br><br>
         <a class="btn btn-primary" routerLink="/auctions/{{auction?.auctionId}}/{{card?.cardId}}">View Card Auction</a>

@@ -22,29 +22,38 @@ export class UserComponent implements OnInit {
   id: any ='';
   first: any = '';
   last: any = '';
-  email: any = '';
+  email: any;
   role: any = '';
   numPacksPurchased: any = 0;
   currency: any = 0;
   loggedIn: boolean = false;
 
+  user: User | any;
+
   constructor( private route:ActivatedRoute, private backendService:BackendService, private location:Location) {    
   }
 
   ngOnInit(): void {
+    this.email = this.route.snapshot.params.id;
     this.id = JSON.parse(localStorage.getItem('id') || '{}');
     this.first = JSON.parse(localStorage.getItem('first') || '{}');
     this.last = JSON.parse(localStorage.getItem('last') || '{}');
-    this.email = JSON.parse(localStorage.getItem('email') || '{}');
+    //this.email = JSON.parse(localStorage.getItem('email') || '{}');
     this.role = JSON.parse(localStorage.getItem('role') || '{}');
     this.numPacksPurchased = JSON.parse(localStorage.getItem('numPacksPurchased') || '{}');
     this.currency = JSON.parse(localStorage.getItem('currency') || '{}');
+
+    this.getUser();
   }
 
   // getOneUser():void{
   //   const id = this.route.snapshot.paramMap.get('id')!;
   //   this.backendService.getUserById(id).subscribe( user => this.user = user)
   // }
+
+  getUser(): void {
+    this.backendService.getUserByEmail(this.email).subscribe(data => this.user = data);
+  }
 
   goBack(): void{
     this.location.back();

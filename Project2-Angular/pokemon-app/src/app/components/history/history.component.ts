@@ -27,6 +27,7 @@ export class HistoryComponent implements OnInit {
 
   //change to get users trades
   getTrades(): void {
+    //this.backend.getTrades().subscribe(trades => this.trades = trades);
     this.backend.getTrades().subscribe(trades => this.trades = trades);
   }
 

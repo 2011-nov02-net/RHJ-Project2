@@ -140,5 +140,16 @@ namespace Project2.DataAccess.Entities.Repo
                     return 1;
             }
         }
+        public async Task<string> IdGen()
+        {
+            int lastOrderId = 0;
+            var dbOrders = await _context.Orders.ToListAsync();
+            if (dbOrders != null)
+            {
+                lastOrderId = dbOrders.Select(x => Convert.ToInt32(x.OrderId)).Max();
+            }
+            string newId = Convert.ToString(lastOrderId + 1);
+            return newId;
+        }
     }
 }

@@ -1,8 +1,10 @@
 <h2> Available Packs</h2>
 <div class="col-md-6" >
   <div class = "packs" >
+   <hr class = "divider">
      <!-- to be finished with 2-way binding -->
     <img src = "../../../assets/Pikachu.png" class="set-image" alt="base1"><br>
+<<<<<<< HEAD
     <label>Quantity: </label>
     <input type= "text"  >
     <hr class = "divider">
@@ -15,10 +17,29 @@
     <img src = "../../../assets/swordshield.png" class="set-image" alt="base1"><br>
     <label>Quantity: </label>
     <input type= "text"  >
+=======
+    <div class="mt-4 form-inline">
+      <label for="pack1" class="mr-2">Quantity: </label>
+      <input id="pack3" type="number" class="form-control mr-2" min="1" max="10" style="width: 5em" (change)="qtyChange($event)">
+      <button class="btn btn-primary" (click)="sendOrder('1')">Buy</button>
+    </div>
     <hr class = "divider">
 
-   </div>
-        
-   
+    <img src = "../../../assets/HiddenFate.png" class="set-image" alt="base1"><br>
+    <div class="mt-4 form-inline">
+      <label for="pack2" class="mr-2">Quantity: </label>
+      <input id="pack3" type="number" class="form-control mr-2" min="1" max="10" style="width: 5em" (change)="qtyChange($event)">
+      <button class="btn btn-primary" (click)="sendOrder('2')">Buy</button>
+    </div>
+    <hr class = "divider">
 
+    <img src = "../../../assets/swordshield.png" class="set-image" alt="base1"><br>
+    <div class="mt-4 form-inline">
+      <label for="pack3" class="mr-2">Quantity: </label>
+      <input id="pack3" type="number" class="form-control mr-2" min="1" max="10" style="width: 5em" (change)="qtyChange($event)">
+      <button class="btn btn-primary" (click)="sendOrder('3')">Buy</button>
+   </div>
+>>>>>>> bb4dd0b183899201307f0a8ac6ecc7a2135b689a
+    <hr class = "divider">
+   </div>
 </div>
