@@ -1,22 +1,23 @@
 <div class="container">
-    <div class="col-md-3" ></div>
-    <div class="col-md-6" >
-       <!-- <div *ngIf="user">  -->
-        <img src= "../../assets/trainer_icon.png">
-         
-        
-        <div class = "profile">
-            <div><span><strong>Trainer Profile: </strong></span> </div>
+    <div class="row mt-2">
+        <div class="col-md-4" ></div>
+        <div class="col-md-6" >
+        <!-- <div *ngIf="user">  -->
+            <img src= "../../assets/trainer_icon.png">
             
-            <hr id="divider">
-            <div><span>Trainer ID: #{{user?.userId}}</span> </div>
-            <div><span>Trianer Name: {{user?.first}} {{user?.last}}</span> </div>
-            <div><span>Trainer Email: {{user?.email}}</span> </div>
-            <div><span>Packs Owned: {{ user?.numPacksPurchased}}</span> </div>
-            <div><span>Pokecoins: {{user?.currencyAmount}} </span> </div> 
-       </div>
+            
+            <div class = "profile">
+                <div><span><strong>Trainer Profile: </strong></span> </div>
+                
+                <hr id="divider">
+                <div><span>Trainer ID: #{{user?.userId}}</span> </div>
+                <div><span>Trianer Name: {{user?.first}} {{user?.last}}</span> </div>
+                <div><span>Trainer Email: {{user?.email}}</span> </div>
+                <div><span>Packs Owned: {{ user?.numPacksPurchased}}</span> </div>
+                <div><span>Pokecoins: {{user?.currencyAmount}} </span> </div> 
+        </div>
 
-    </div>
-    <div class="col-md-3" ></div>
+        </div>
+   
 
 </div>

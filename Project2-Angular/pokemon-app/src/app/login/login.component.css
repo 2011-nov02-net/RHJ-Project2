@@ -1,2 +1,17 @@
 
- 
+ .carousel-control-prev-icon, .carousel-control-next-icon
+ {
+    width:150px;
+    height:150px;
+    filter:invert(100%);
+
+ }
+
+ .carousel-indicators li
+ {
+    width: 15px;
+    height: 15px;
+    border: 5px dashed white;
+    background-color: red;
+
+ }
