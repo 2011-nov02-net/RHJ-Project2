@@ -13,5 +13,14 @@
     height: 15px;
     border: 5px dashed white;
     background-color: red;
-
  }
+
+ .connect{
+    font-size: bold; 
+ }
+
+ .fa-github-square{
+    font-size:35px;
+    color:black;
+ }
+

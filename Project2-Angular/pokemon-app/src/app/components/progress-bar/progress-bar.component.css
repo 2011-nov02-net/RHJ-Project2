@@ -1,0 +1,45 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+.progress-bar{
+    position: relative;
+    top: 1em;
+    width: 530px;
+    height: 3em;
+    background-color: black;
+    border-radius: 15px;
+    color:white;
+
+}
+
+.progress-bar::before{
+    content: attr(data-label);
+    display:flex;
+    align-items:center;
+    position: absolute;
+    padding: 1em;
+    top:0.1em;
+    bottom:0.1em;
+    left: 0.5em;
+    right: 0.5em;
+    /* width: calc(var(--width,0)* 1%); */
+    min-width: 2rem;
+    /* max-width: calc(100%-1em); */
+    background-color:red;  
+    border-radius:1em;
+}
+
+/* not implemented */
+.progress-bar .red{
+    background-color: red;
+}
+
+.progress-bar .yellow{
+    background-color: yellow;
+}
+
+.progress-bar .green{
+    background-color: green;
+}
+

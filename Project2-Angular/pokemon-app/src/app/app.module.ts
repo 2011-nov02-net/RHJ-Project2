@@ -27,6 +27,7 @@ import { TradeCreateComponent } from './components/trade-create/trade-create.com
 import { AuctionCardComponent } from './components/auction-card/auction-card.component';
 import { AuctionDetailComponent } from './components/auction-detail/auction-detail.component';
 import { AuctionCreateComponent } from './components/auction-create/auction-create.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 
 
@@ -49,7 +50,8 @@ import { AuctionCreateComponent } from './components/auction-create/auction-crea
     TradeCreateComponent,
     AuctionCardComponent,
     AuctionDetailComponent,
-    AuctionCreateComponent, 
+    AuctionCreateComponent,
+    ProgressBarComponent, 
   ],
   imports: [
     FormsModule,
