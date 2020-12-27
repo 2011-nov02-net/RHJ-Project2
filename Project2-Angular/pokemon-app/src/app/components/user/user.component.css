@@ -1,7 +1,3 @@
-.container{
-    background-image: image(url"../");
-}
-
 .profile{
     width: 345px;
     height: 200px;
@@ -10,8 +6,6 @@
     box-sizing: border-box;
     font-weight: bolder;
     text-align: center;
-    
-
 }
 
 #divider {

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container"> 
     <div class="row mt-2">
         <div class="col-md-4" ></div>
         <div class="col-md-6" >
@@ -14,13 +14,16 @@
                 <div><span>Pokecoins: {{user?.currencyAmount}} </span> </div> 
                 <button class="folded" data-toggle="collapse" data-target="#badges">Show off my badges!</button>
             </div>
-
+          
         </div>
+
+        
+
         <!-- fixed image -->
         <figure>
             <div class="fixed-wrap">
                 <div id="fixed">
-                    <img scr="../../assets/mewbg.gif">
+                    
                 </div>
 
             </div>
@@ -30,11 +33,13 @@
         <div class="col-md-12 text-center" >         
             <div id="badges" class="collapse">
                 <div class="row mt-2">
-                    <div class="col-md-2"></div>
+                    <div class="col-md-3"></div>
                     <div class="col-md-8 text-center">
                         <img src="../../assets/badges.gif" class="iamge-fluid">
                     </div>
                 </div>         
             </div>
-        </div>
+        </div>      
 </div>
+
+<app-progress-bar [progress]="loadProgress" [total]="loadTotal"></app-progress-bar>

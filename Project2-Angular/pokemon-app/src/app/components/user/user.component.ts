@@ -4,10 +4,12 @@ import { Location} from '@angular/common';
 
 import { User} from '../../interfaces/user';
 import { Login} from '../../interfaces/login';
+import { ProgressBarComponent} from '../progress-bar/progress-bar.component';
 
 // need backend services
 import { BackendService} from '../../services/backend.service';
 import { Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 
 @Component({
@@ -17,8 +19,7 @@ import { Observable } from 'rxjs';
 })
 export class UserComponent implements OnInit {
 
-  //user!:User;
-
+ 
   id: any ='';
   first: any = '';
   last: any = '';
@@ -29,6 +30,9 @@ export class UserComponent implements OnInit {
   loggedIn: boolean = false;
 
   user: User | any;
+  loadProgress =0;
+  loadTotal = 100;
+
 
   constructor( private route:ActivatedRoute, private backendService:BackendService, private location:Location) {    
   }
@@ -41,16 +45,32 @@ export class UserComponent implements OnInit {
     this.role = JSON.parse(localStorage.getItem('role') || '{}');
     this.numPacksPurchased = JSON.parse(localStorage.getItem('numPacksPurchased') || '{}');
     this.currency = JSON.parse(localStorage.getItem('currency') || '{}');
-
     this.getUser();
+    this.LoadProgress();
   }
 
   getUser(): void {
     this.backendService.getUserByEmail(this.email).subscribe(data => this.user = data);
   }
 
-  goBack(): void{
-    this.location.back();
+  async LoadProgress()
+  {
+    while(this.loadProgress!= 100)
+    {
+      await this.delay(300); 
+      this.loadProgress += 2;
+      console.log(this.loadProgress);
+    }
+     
   }
+
+  delay(ms:number)
+  {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
+
+  
+
+  
 
 }
