@@ -1,8 +1,65 @@
 .divider {
     border-style: double;
-    border-top: 0.5px dashed #bbb;
-    
+    border-top: 0.5px dashed #bbb;    
   }
+
+.fa-html5, .fa-bootstrap, .fa-css3-alt, .fa-angular, .fa-bug, .fa-windows, .fa-microsoft, .fa-database, .fa-dev, .fa-github-square, .fa-spider
+{
+  font-size:20px;
+  margin: 5px;
+}
+
+.fa-html5
+{
+  color:orange;
+}
+
+.fa-bootstrap
+{
+  color:purple;
+}
+
+.fa-css3-alt{
+  color:teal;
+}
+
+.fa-angular
+{
+  color:red;
+}
+
+.fa-bug
+{
+  color:purple;
+}
+
+.fa-windows, .fa-microsoft, .fa-database, .fa-dev
+{
+  color:royalblue
+}
+
+.fa-spider
+{
+  color:orange;
+}
+
+
+#water, #grass, #fire{
+  font-weight: bolder;
+  
+}
+
+#water{
+  color:royalblue
+}
+
+#grass{
+  color:rgb(0, 199, 123)
+}
+
+#fire{
+  color:rgb(250, 121, 0)
+}
 
 
 
