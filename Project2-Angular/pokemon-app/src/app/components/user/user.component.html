@@ -3,21 +3,38 @@
         <div class="col-md-4" ></div>
         <div class="col-md-6" >
         <!-- <div *ngIf="user">  -->
-            <img src= "../../assets/trainer_icon.png">
-            
-            
+            <img src= "../../assets/trainer_icon.png">       
             <div class = "profile">
-                <div><span><strong>Trainer Profile: </strong></span> </div>
-                
+                <div><span><strong>Trainer Profile: </strong></span> </div>             
                 <hr id="divider">
                 <div><span>Trainer ID: #{{user?.userId}}</span> </div>
                 <div><span>Trianer Name: {{user?.first}} {{user?.last}}</span> </div>
                 <div><span>Trainer Email: {{user?.email}}</span> </div>
                 <div><span>Packs Owned: {{ user?.numPacksPurchased}}</span> </div>
                 <div><span>Pokecoins: {{user?.currencyAmount}} </span> </div> 
-        </div>
+                <button class="folded" data-toggle="collapse" data-target="#badges">Show off my badges!</button>
+            </div>
 
         </div>
-   
+        <!-- fixed image -->
+        <figure>
+            <div class="fixed-wrap">
+                <div id="fixed">
+                    <img scr="../../assets/mewbg.gif">
+                </div>
 
+            </div>
+        </figure>
+
+        <!-- folded inside -->
+        <div class="col-md-12 text-center" >         
+            <div id="badges" class="collapse">
+                <div class="row mt-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 text-center">
+                        <img src="../../assets/badges.gif" class="iamge-fluid">
+                    </div>
+                </div>         
+            </div>
+        </div>
 </div>

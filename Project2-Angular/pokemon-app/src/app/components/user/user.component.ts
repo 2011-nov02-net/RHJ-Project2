@@ -38,18 +38,12 @@ export class UserComponent implements OnInit {
     this.id = JSON.parse(localStorage.getItem('id') || '{}');
     this.first = JSON.parse(localStorage.getItem('first') || '{}');
     this.last = JSON.parse(localStorage.getItem('last') || '{}');
-    //this.email = JSON.parse(localStorage.getItem('email') || '{}');
     this.role = JSON.parse(localStorage.getItem('role') || '{}');
     this.numPacksPurchased = JSON.parse(localStorage.getItem('numPacksPurchased') || '{}');
     this.currency = JSON.parse(localStorage.getItem('currency') || '{}');
 
     this.getUser();
   }
-
-  // getOneUser():void{
-  //   const id = this.route.snapshot.paramMap.get('id')!;
-  //   this.backendService.getUserById(id).subscribe( user => this.user = user)
-  // }
 
   getUser(): void {
     this.backendService.getUserByEmail(this.email).subscribe(data => this.user = data);
